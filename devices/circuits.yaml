@@ -171,19 +171,21 @@ circuits:
     room: Ložnice
     scope: loznice
     type: RGBW-PM
-    voltage: 24V
+    voltage: 220V  # 220V na vstupu Shelly; 24V jen interně za trafem těsně před LED
+    always_powered: true  # fáze proklemovaná, trvale pod proudem
     dimmable: true
     switched_by: SH-13 CH1
     controlled_from: [SW-LZ-ZRC]
     control_mode: event → HA → RGBW PM kanál 1 toggle
-    notes: LED pásek za zrcadlem A, jeden ze 4 kanálů SH-13 RGBW PM.
+    notes: LED pásek za zrcadlem A, jeden ze 4 kanálů SH-13 RGBW PM. 220V vše proklemováno, 24V jen interně za trafem.
 
   - id: L-21
     name: Zrcadlo B
     room: Ložnice
     scope: loznice
     type: RGBW-PM
-    voltage: 24V
+    voltage: 220V
+    always_powered: true
     dimmable: true
     switched_by: SH-13 CH2
     controlled_from: [SW-LZ-ZRC]
@@ -195,7 +197,8 @@ circuits:
     room: Ložnice
     scope: loznice
     type: RGBW-PM
-    voltage: 24V
+    voltage: 220V
+    always_powered: true
     dimmable: true
     switched_by: SH-13 CH3
     controlled_from: [SW-LZ-D1]
@@ -207,7 +210,8 @@ circuits:
     room: Ložnice
     scope: loznice
     type: RGBW-PM
-    voltage: 24V
+    voltage: 220V
+    always_powered: true
     dimmable: true
     switched_by: SH-13 CH4
     controlled_from: [SW-LZ-D1]

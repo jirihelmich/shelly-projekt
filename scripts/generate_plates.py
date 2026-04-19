@@ -91,9 +91,9 @@ CIRCUITS: dict[str, dict] = {}
 
 
 def shelly_mount_type(sh: dict) -> str:
-    """Heuristika: 'at_switch' pokud je Shelly za vypínačem, jinak 'at_device'."""
+    """Heuristika: 'at_switch' pokud je Shelly u vypínače, jinak 'at_device'."""
     loc = (sh.get("location") or "").lower()
-    if "za vypínač" in loc:
+    if "za vypínač" in loc or "pod vypínač" in loc or "pod dvojvypínač" in loc:
         return "at_switch"
     return "at_device"
 
