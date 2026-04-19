@@ -125,11 +125,13 @@ circuits:
   - id: L-12
     name: LED strop obývák
     room: Obývák
-    type: RGBW (stávající)
+    type: non-HUE
+    voltage: 24V
+    dimmable: true
     switched_by: SH-E1
     controlled_from: [SW-E]
     status: existing
-    notes: Stávající Shelly RGBW PM, beze změny.
+    notes: Stávající Shelly RGBW PM, beze změny. RGBW 24V LED.
 
   - id: L-13
     name: LED 24V jídelna
@@ -144,4 +146,4 @@ circuits:
     name: Kuchyň okruhy
     room: Kuchyně
     status: existing
-    notes: "Vyřešeno" dle nákresu, stávající instalace.
+    notes: Vyřešeno dle nákresu, stávající instalace.

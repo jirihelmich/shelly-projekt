@@ -3,116 +3,70 @@
 #
 # Každý plate = jeden rámeček (fyzická krytka na stěně).
 # components = seznam mechanismů v rámečku (zásuvka / jednovypínač / dvojvypínač).
-# Pro jednoduché rámečky je typicky jeden component. Kuchyň má 4.
+# Barva / tag (HUE vs non-HUE) a napětí se derivuje z circuits.yaml podle cell.circuit.
 #
-# orientation = jak jsou components v rámečku uspořádány (horizontal | vertical)
-# stack_position = pořadí rámečku ve svislé řadě na stejné stěně (1 = nejvýš)
+# orientation = jak jsou components v rámečku uspořádány:
+#   - horizontal: komponenty vedle sebe (zleva doprava)
+#   - vertical: komponenty pod sebou (shora dolů)
 # switch_ref = odkaz do switches.yaml (pro dohledání zapojení)
 
 plates:
-  # ============ OBÝVÁK (vstupní stěna, řada 5 rámečků pod sebou) ============
+  # ============ OBÝVÁK — 1 vertikální rámeček u vstupu, 5 modulů shora dolů ============
 
-  - id: P-OB-A
+  - id: P-OB
     room: Obývák
     location: Vstup
-    stack_position: 1
-    orientation: horizontal
-    tag: non-HUE
+    orientation: vertical
+    note: >
+      Jeden vertikální rámeček (5-násobný). Pořadí shora dolů:
+      jednovypínač → dvojvypínač → jednovypínač → dvojvypínač → dvojvypínač.
     components:
-      - type: double_switch
+      - type: single_switch
         switch_ref: SW-A
         cells:
           - { label: "Schodiště", circuit: L-01 }
-          - { label: "schody", circuit: null, blind: true, note: "v nákresu uvedeno, okruh zatím nezaveden" }
-
-  - id: P-OB-B
-    room: Obývák
-    location: Vstup
-    stack_position: 2
-    orientation: horizontal
-    tag: HUE
-    components:
       - type: double_switch
         switch_ref: SW-B
         cells:
           - { label: "Předsíň strop", circuit: L-11 }
           - { label: "Obývák strop", circuit: L-10 }
-
-  - id: P-OB-E
-    room: Obývák
-    location: Vstup
-    stack_position: 3
-    orientation: horizontal
-    tag: existing
-    status: existing
-    components:
       - type: single_switch
         switch_ref: SW-E
         cells:
           - { label: "LED strop", circuit: L-12 }
-
-  - id: P-OB-C
-    room: Obývák
-    location: Vstup
-    stack_position: 4
-    orientation: horizontal
-    tag: non-HUE
-    note: "220V, nedimovat"
-    components:
       - type: double_switch
         switch_ref: SW-C
+        note: "220V, nedimovat"
         cells:
           - { label: "Lišta 1", circuit: L-05 }
           - { label: "Lišta 2", circuit: L-06 }
-
-  - id: P-OB-D
-    room: Obývák
-    location: Vstup
-    stack_position: 5
-    orientation: horizontal
-    tag: HUE
-    components:
       - type: double_switch
         switch_ref: SW-D
         cells:
           - { label: "Lišta 3", circuit: L-07 }
           - { label: "Lustr K", circuit: L-08 }
 
-  # ============ DOLNÍ PŘEDSÍŇ (u pracovny, 2 jednovypínače pod sebou) ============
+  # ============ DOLNÍ PŘEDSÍŇ — 2 rámečky: vertikální (2 jednovypínače) + samostatný dvojvypínač ============
 
-  - id: P-DP-F1
+  - id: P-DP-F
     room: Dolní předsíň
     location: U pracovny
-    stack_position: 1
-    orientation: horizontal
-    tag: non-HUE
+    orientation: vertical
     components:
       - type: single_switch
         switch_ref: SW-F1
         cells:
           - { label: "LED pásek", circuit: L-02 }
-
-  - id: P-DP-F2
-    room: Dolní předsíň
-    location: U pracovny
-    stack_position: 2
-    orientation: horizontal
-    tag: HUE
-    components:
       - type: single_switch
         switch_ref: SW-F2
         cells:
           - { label: "Předsíň strop", circuit: L-09 }
 
-  # ============ DOLNÍ PŘEDSÍŇ (u dveří, dvojvypínač — paralelka) ============
-
   - id: P-DP-G
     room: Dolní předsíň
     location: U dveří
-    stack_position: 1
     orientation: horizontal
-    tag: mixed
-    note: "Paralelka k P-DP-F1/F2 přes stávající schodišťákové dráty"
+    note: "Paralelka k P-DP-F přes stávající schodišťákové dráty"
     components:
       - type: double_switch
         switch_ref: SW-G
@@ -120,27 +74,17 @@ plates:
           - { label: "LED pásek", circuit: L-02 }
           - { label: "Předsíň strop", circuit: L-09 }
 
-  # ============ HORNÍ PŘEDSÍŇ (u schodů, 2 jednovypínače vedle sebe) ============
+  # ============ HORNÍ PŘEDSÍŇ — 1 rámeček u schodů (2 jednovypínače) + 1 samostatný ============
 
-  - id: P-HP-H1
+  - id: P-HP
     room: Horní předsíň
     location: U schodů
-    stack_position: 1
     orientation: horizontal
-    tag: non-HUE
     components:
       - type: single_switch
         switch_ref: SW-H1
         cells:
-          - { label: "Schody", circuit: L-01, note: "3-cestné se SW-A, SW-CP" }
-
-  - id: P-HP-H2
-    room: Horní předsíň
-    location: U schodů
-    stack_position: 2
-    orientation: horizontal
-    tag: non-HUE
-    components:
+          - { label: "Schodiště", circuit: L-01, note: "3-cestné se SW-A, SW-CP" }
       - type: single_switch
         switch_ref: SW-H2
         cells:
@@ -149,9 +93,7 @@ plates:
   - id: P-HP-H3
     room: Horní předsíň
     location: Samostatný (paralelka)
-    stack_position: 1
     orientation: horizontal
-    tag: non-HUE
     note: "Paralelka k SW-H2 přes stávající schodišťákový drát"
     components:
       - type: single_switch
@@ -164,9 +106,7 @@ plates:
   - id: P-CP
     room: Chodba u pokoje
     location: ""
-    stack_position: 1
     orientation: horizontal
-    tag: non-HUE
     note: "3-cestné se SW-A, SW-H1"
     components:
       - type: single_switch
@@ -179,49 +119,48 @@ plates:
   - id: P-JI
     room: Jídelna
     location: ""
-    stack_position: 1
     orientation: horizontal
-    tag: mixed
     components:
       - type: double_switch
         switch_ref: SW-J
         cells:
-          - { label: "LED 24V", circuit: L-13, status: existing }
-          - { label: "Lustr 220V", circuit: L-04 }
+          - { label: "LED", circuit: L-13, note: "LED jídelna (24V, stávající)" }
+          - { label: "Lustr", circuit: L-04 }
 
-  # ============ KUCHYŇ (stávající, smíšený rámeček) ============
+  # ============ KUCHYŇ (smíšený rámeček, 24V) ============
 
   - id: P-KU
     room: Kuchyň
     location: ""
-    stack_position: 1
     orientation: horizontal
-    tag: existing
-    status: existing
-    note: "24V systém, vyřešeno. Poznámka z nákresu: 2× LED sloučit do jednoho okruhu."
+    note: "Celý rámeček je 24V systém (stávající). Každá LED = jiné svítidlo (doplnit specifické názvy)."
     components:
       - type: socket
         cells:
-          - { label: "Z" }
+          - { label: "Z", voltage: "220V" }
       - type: single_switch
         cells:
-          - { label: "Lišta 3" }
+          - { label: "Lišta 3", voltage: "24V" }
       - type: double_switch
         cells:
-          - { label: "LED" }
-          - { label: "LED", note: "sloučit s předchozí" }
+          - { label: "LED A", voltage: "24V" }
+          - { label: "LED B", voltage: "24V" }
       - type: single_switch
         cells:
-          - { label: "dřezák" }
+          - { label: "LED digestoř", voltage: "24V" }
 
 # ============ LEGENDA ============
 legend:
-  tags:
+  device_types:
     HUE: "Svítidlo v Hue ekosystému, fáze trvalá, tlačítko posílá event"
     non-HUE: "Klasický okruh, Shelly spíná fázi"
-    mixed: "Kombinace (část HUE, část non-HUE)"
-    existing: "Stávající instalace, beze změny"
+  voltages:
+    "220V": "Síťové napětí 230 V~"
+    "24V": "Nízké napětí 24 V (LED pásek / driver)"
   components:
     single_switch: "Jednovypínač — jedno tlačítko (ABB Tango s pružinkou)"
-    double_switch: "Dvojvypínač — dvě tlačítka vedle sebe ve stejném rámečku"
+    double_switch: "Dvojvypínač — dvě tlačítka vedle sebe ve stejném modulu"
     socket: "Zásuvka (Z)"
+  orientations:
+    horizontal: "Moduly v rámečku vedle sebe (zleva doprava)"
+    vertical: "Moduly v rámečku pod sebou (shora dolů)"

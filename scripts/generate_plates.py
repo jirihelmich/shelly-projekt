@@ -16,17 +16,53 @@ import yaml
 
 PROJECT = Path(__file__).resolve().parent.parent
 PLATES_YAML = PROJECT / "devices" / "plates.yaml"
+CIRCUITS_YAML = PROJECT / "devices" / "circuits.yaml"
 OUTPUT_DIR = PROJECT / "plates"
 
 COLORS = {
-    "HUE": "#ffedd5",
-    "non-HUE": "#dbeafe",
-    "mixed": "#ede9fe",
-    "existing": "#e5e7eb",
+    "HUE": "#ffedd5",      # teplá oranžová = Hue (fáze trvalá)
+    "non-HUE": "#dbeafe",  # chladná modrá = klasický okruh
+    "neutral": "#f3f4f6",  # šedá = zásuvka / neklasifikovaný modul
+}
+VOLTAGE_COLORS = {
+    "220V": "#1e3a8a",  # tmavě modrá
+    "24V": "#047857",   # zelená
 }
 BORDER = "#374151"
 TEXT = "#111827"
 MUTED = "#6b7280"
+
+
+def classify_circuit(c: dict) -> tuple[str, str | None]:
+    """Vrátí (tag, voltage) pro okruh z circuits.yaml."""
+    t = (c.get("type") or "").strip()
+    tag = "HUE" if t.upper().startswith("HUE") else "non-HUE"
+    v = (c.get("voltage") or "").strip()
+    voltage: str | None = None
+    if "230" in v or "220" in v:
+        voltage = "220V"
+    elif "24" in v:
+        voltage = "24V"
+    return tag, voltage
+
+
+def load_circuits() -> dict[str, dict]:
+    data = yaml.safe_load(CIRCUITS_YAML.read_text(encoding="utf-8"))
+    out: dict[str, dict] = {}
+    for c in data["circuits"]:
+        tag, voltage = classify_circuit(c)
+        out[c["id"]] = {
+            "name": c.get("name", c["id"]),
+            "room": c.get("room", ""),
+            "tag": tag,
+            "voltage": voltage,
+            "dimmable": c.get("dimmable"),
+            "raw": c,
+        }
+    return out
+
+
+CIRCUITS: dict[str, dict] = {}
 
 CELL_W = 110
 CELL_H = 84
@@ -66,101 +102,145 @@ def component_width(c: dict) -> int:
 
 
 def plate_dims(plate: dict) -> tuple[int, int]:
-    w = sum(component_width(c) for c in plate["components"]) + 2 * PADDING
-    h = CELL_H + LABEL_H + 2 * PADDING
+    orientation = plate.get("orientation", "horizontal")
+    comps = plate["components"]
+    if orientation == "vertical":
+        w = max(component_width(c) for c in comps) + 2 * PADDING
+        h = len(comps) * CELL_H + LABEL_H + 2 * PADDING
+    else:
+        w = sum(component_width(c) for c in comps) + 2 * PADDING
+        h = CELL_H + LABEL_H + 2 * PADDING
     return w, h
 
 
-def render_socket(c: dict, x: int, y: int, fill: str) -> list[str]:
+def voltage_badge(x: int, y: int, voltage: str) -> list[str]:
+    """Badge ~32x14 s textem '220V' nebo '24V'."""
+    color = VOLTAGE_COLORS[voltage]
+    w = 32
+    return [
+        f'<rect x="{x-w}" y="{y}" width="{w}" height="13" fill="white" '
+        f'stroke="{color}" stroke-width="1" rx="2" ry="2"/>',
+        f'<text x="{x-w/2}" y="{y+9.5}" text-anchor="middle" '
+        f'font-family="sans-serif" font-size="8" font-weight="700" fill="{color}">{voltage}</text>',
+    ]
+
+
+def render_socket(c: dict, x: int, y: int) -> list[str]:
     cx = x + SOCKET_W / 2
     cy = y + CELL_H / 2
-    label = esc(c["cells"][0]["label"])
-    return [
-        f'<rect x="{x}" y="{y}" width="{SOCKET_W}" height="{CELL_H}" fill="{fill}" stroke="{BORDER}" stroke-width="1.5"/>',
+    cell = c["cells"][0]
+    label = esc(cell["label"])
+    voltage = cell.get("voltage", "220V")
+    parts = [
+        f'<rect x="{x}" y="{y}" width="{SOCKET_W}" height="{CELL_H}" fill="{COLORS["neutral"]}" stroke="{BORDER}" stroke-width="1.5"/>',
         f'<circle cx="{cx}" cy="{cy-6}" r="22" fill="white" stroke="{BORDER}" stroke-width="1.5"/>',
         f'<circle cx="{cx-7}" cy="{cy-6}" r="2.5" fill="{BORDER}"/>',
         f'<circle cx="{cx+7}" cy="{cy-6}" r="2.5" fill="{BORDER}"/>',
         f'<text x="{cx}" y="{y + CELL_H - 8}" text-anchor="middle" font-family="sans-serif" font-size="11" fill="{TEXT}">{label}</text>',
     ]
+    if voltage in VOLTAGE_COLORS:
+        parts.extend(voltage_badge(x + SOCKET_W - 4, y + 4, voltage))
+    return parts
 
 
 def render_cell(cell: dict, x: int, y: int, w: int) -> list[str]:
     parts: list[str] = []
-    # button plate (the actual "klapka")
+    circ = cell.get("circuit")
+    info = CIRCUITS.get(circ) if circ else None
+    tag = info["tag"] if info else "neutral"
+    voltage = cell.get("voltage") or (info["voltage"] if info else None)
+    bg = COLORS.get(tag, COLORS["neutral"])
+
+    # Buňkové pozadí (barva dle HUE/non-HUE)
+    parts.append(
+        f'<rect x="{x}" y="{y}" width="{w}" height="{CELL_H}" fill="{bg}" '
+        f'stroke="{BORDER}" stroke-width="1.5"/>'
+    )
+
+    # Klapka (tlačítko)
     inner_x = x + 14
     inner_y = y + 12
     inner_w = w - 28
     inner_h = CELL_H - 44
     blind = cell.get("blind")
-    fill = "#f3f4f6" if blind else "white"
+    klapka_fill = "#f3f4f6" if blind else "white"
     parts.append(
-        f'<rect x="{inner_x}" y="{inner_y}" width="{inner_w}" height="{inner_h}" fill="{fill}" stroke="{BORDER}" stroke-width="1" rx="3" ry="3"/>'
+        f'<rect x="{inner_x}" y="{inner_y}" width="{inner_w}" height="{inner_h}" '
+        f'fill="{klapka_fill}" stroke="{BORDER}" stroke-width="1" rx="3" ry="3"/>'
     )
     if blind:
         parts.append(
             f'<text x="{x + w/2}" y="{inner_y + inner_h/2 + 3}" text-anchor="middle" '
             f'font-family="sans-serif" font-size="10" font-style="italic" fill="{MUTED}">neobsazeno</text>'
         )
+
+    # Label
     label = esc(cell["label"])
     parts.append(
         f'<text x="{x + w/2}" y="{y + CELL_H - 19}" text-anchor="middle" '
         f'font-family="sans-serif" font-size="11" font-weight="600" fill="{TEXT}">{label}</text>'
     )
-    circ = cell.get("circuit")
+
+    # Circuit ID
     if circ:
         parts.append(
             f'<text x="{x + w/2}" y="{y + CELL_H - 5}" text-anchor="middle" '
             f'font-family="monospace" font-size="9" fill="{MUTED}">{esc(circ)}</text>'
         )
+
+    # Voltage badge (vpravo nahoře)
+    if voltage:
+        parts.extend(voltage_badge(x + w - 4, y + 4, voltage))
+
     return parts
 
 
-def render_component(c: dict, x: int, y: int, fill: str) -> tuple[list[str], int]:
+def render_component(c: dict, x: int, y: int) -> tuple[list[str], int]:
     t = c["type"]
     if t == "socket":
-        return render_socket(c, x, y, fill), SOCKET_W
+        return render_socket(c, x, y), SOCKET_W
     if t == "single_switch":
-        parts = [
-            f'<rect x="{x}" y="{y}" width="{CELL_W}" height="{CELL_H}" fill="{fill}" stroke="{BORDER}" stroke-width="1.5"/>'
-        ]
-        parts += render_cell(c["cells"][0], x, y, CELL_W)
-        return parts, CELL_W
+        return render_cell(c["cells"][0], x, y, CELL_W), CELL_W
     if t == "double_switch":
         w = CELL_W * 2
-        parts = [
-            f'<rect x="{x}" y="{y}" width="{w}" height="{CELL_H}" fill="{fill}" stroke="{BORDER}" stroke-width="1.5"/>',
-            f'<line x1="{x + CELL_W}" y1="{y+6}" x2="{x + CELL_W}" y2="{y+CELL_H-6}" stroke="{BORDER}" stroke-width="1" stroke-dasharray="3,3"/>',
-        ]
+        parts: list[str] = []
         for i, cell in enumerate(c["cells"]):
             parts += render_cell(cell, x + CELL_W * i, y, CELL_W)
+        parts.append(
+            f'<line x1="{x + CELL_W}" y1="{y+6}" x2="{x + CELL_W}" y2="{y+CELL_H-6}" '
+            f'stroke="{BORDER}" stroke-width="1" stroke-dasharray="3,3"/>'
+        )
         return parts, w
     return [], 0
 
 
 def render_plate(plate: dict, x: int, y: int) -> tuple[list[str], int, int]:
     w, h = plate_dims(plate)
-    tag = plate.get("tag", "")
-    fill = COLORS.get(tag, "#ffffff")
 
     parts = [
         f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#f9fafb" '
         f'stroke="{BORDER}" stroke-width="2" rx="8" ry="8"/>',
     ]
-    cx = x + PADDING
+    orientation = plate.get("orientation", "horizontal")
+    inner_w = w - 2 * PADDING
     cell_y = y + PADDING + LABEL_H
-    for c in plate["components"]:
-        comp_parts, cw = render_component(c, cx, cell_y, fill)
-        parts.extend(comp_parts)
-        cx += cw
+    if orientation == "vertical":
+        for c in plate["components"]:
+            cw = component_width(c)
+            cx = x + PADDING + (inner_w - cw) / 2
+            comp_parts, _ = render_component(c, cx, cell_y)
+            parts.extend(comp_parts)
+            cell_y += CELL_H
+    else:
+        cx = x + PADDING
+        for c in plate["components"]:
+            comp_parts, cw = render_component(c, cx, cell_y)
+            parts.extend(comp_parts)
+            cx += cw
 
     parts.append(
         f'<text x="{x+10}" y="{y + PADDING + 10}" font-family="monospace" font-size="9" fill="{MUTED}">{esc(plate["id"])}</text>'
     )
-    if tag:
-        parts.append(
-            f'<text x="{x+w-10}" y="{y + PADDING + 10}" text-anchor="end" font-family="sans-serif" '
-            f'font-size="9" font-weight="700" fill="{MUTED}">{esc(tag.upper())}</text>'
-        )
     return parts, w, h
 
 
@@ -211,30 +291,105 @@ def render_room(room: str, plates: list[dict]) -> str:
             cy += PLATE_GAP
         cx += col_w + COLUMN_GAP
 
-    legend_y = total_h - 24
-    legend_x = 20
-    for label, color in COLORS.items():
-        parts.append(
-            f'<rect x="{legend_x}" y="{legend_y-11}" width="14" height="14" fill="{color}" '
-            f'stroke="{BORDER}" stroke-width="1"/>'
-        )
-        parts.append(
-            f'<text x="{legend_x+20}" y="{legend_y}" font-size="11" fill="{TEXT}">{esc(label)}</text>'
-        )
-        legend_x += 100
-
+    parts.extend(render_legend(20, total_h - 24))
     parts.append("</svg>")
     return "\n".join(parts)
 
 
+def render_legend(x: int, y: int) -> list[str]:
+    parts: list[str] = []
+    # HUE / non-HUE
+    for label in ("HUE", "non-HUE"):
+        color = COLORS[label]
+        parts.append(
+            f'<rect x="{x}" y="{y-11}" width="14" height="14" fill="{color}" '
+            f'stroke="{BORDER}" stroke-width="1"/>'
+        )
+        parts.append(
+            f'<text x="{x+20}" y="{y}" font-size="11" fill="{TEXT}">{esc(label)}</text>'
+        )
+        x += 100
+    # Voltage badges
+    for v in ("220V", "24V"):
+        parts.extend(voltage_badge(x + 32, y - 11, v))
+        parts.append(
+            f'<text x="{x+38}" y="{y}" font-size="11" fill="{TEXT}">{esc(v)}</text>'
+        )
+        x += 100
+    return parts
+
+
 ROOM_ORDER = [
     "Obývák",
+    "Schodiště",
     "Horní předsíň",
     "Chodba u pokoje",
     "Dolní předsíň",
     "Kuchyň",
     "Jídelna",
 ]
+
+
+def normalize_device_room(r: str) -> str:
+    r = r.strip()
+    if r.startswith("Obývák"):
+        return "Obývák"
+    if r.startswith("Dolní"):
+        return "Dolní předsíň"
+    if r.startswith("Horní"):
+        return "Horní předsíň"
+    if r.startswith("Kuchyň") or r.startswith("Kuchyn"):
+        return "Kuchyň"
+    return r
+
+
+def devices_by_room() -> dict[str, list[dict]]:
+    out: dict[str, list[dict]] = defaultdict(list)
+    for circ_id, info in CIRCUITS.items():
+        room = normalize_device_room(info.get("room", ""))
+        if not room:
+            continue
+        out[room].append({"id": circ_id, **info})
+    for room in out:
+        out[room].sort(key=lambda d: d["id"])
+    return out
+
+
+DEVICE_PILL_W = 146
+DEVICE_PILL_H = 30
+DEVICE_PILL_GAP_X = 8
+DEVICE_PILL_GAP_Y = 6
+DEVICE_STRIP_PAD_TOP = 6
+DEVICE_STRIP_PAD_BOT = 10
+DEVICE_STRIP_TITLE_H = 18
+
+
+def render_device_pill(dev: dict, x: int, y: int) -> list[str]:
+    tag = dev["tag"]
+    fill = COLORS.get(tag, COLORS["neutral"])
+    voltage = dev.get("voltage")
+    parts = [
+        f'<rect x="{x}" y="{y}" width="{DEVICE_PILL_W}" height="{DEVICE_PILL_H}" '
+        f'fill="{fill}" stroke="{BORDER}" stroke-width="1" rx="14" ry="14"/>',
+        f'<text x="{x+10}" y="{y+12}" font-family="monospace" font-size="8" fill="{MUTED}">{esc(dev["id"])}</text>',
+        f'<text x="{x+10}" y="{y+24}" font-size="11" font-weight="600" fill="{TEXT}">{esc(dev["name"])}</text>',
+    ]
+    if voltage:
+        parts.extend(voltage_badge(x + DEVICE_PILL_W - 6, y + 4, voltage))
+    return parts
+
+
+def device_strip_dims(devices: list[dict], max_w: int) -> tuple[int, int, list[list[dict]]]:
+    """Vrátí (width, height, layout_rows). Rozloží pilulky do řádků tak, aby se vešly do max_w."""
+    if not devices:
+        return 0, 0, []
+    per_row = max(1, (max_w + DEVICE_PILL_GAP_X) // (DEVICE_PILL_W + DEVICE_PILL_GAP_X))
+    rows: list[list[dict]] = []
+    for i in range(0, len(devices), per_row):
+        rows.append(devices[i : i + per_row])
+    w = min(max_w, max(len(r) for r in rows) * (DEVICE_PILL_W + DEVICE_PILL_GAP_X) - DEVICE_PILL_GAP_X)
+    h = DEVICE_STRIP_TITLE_H + len(rows) * (DEVICE_PILL_H + DEVICE_PILL_GAP_Y) - DEVICE_PILL_GAP_Y + DEVICE_STRIP_PAD_TOP + DEVICE_STRIP_PAD_BOT
+    return w, h, rows
 
 CONNECTION_PALETTE = [
     "#dc2626",  # red
@@ -275,14 +430,18 @@ def render_overview(plates: list[dict]) -> str:
     for p in plates:
         by_room[p["room"]].append(p)
 
-    rooms = [r for r in ROOM_ORDER if r in by_room] + [
-        r for r in by_room if r not in ROOM_ORDER
-    ]
+    devices_per_room = devices_by_room()
+
+    # Sjednocená sada místností — i ty bez plates (např. Schodiště) se objeví, pokud mají zařízení.
+    all_rooms = set(by_room.keys()) | set(devices_per_room.keys())
+    rooms = [r for r in ROOM_ORDER if r in all_rooms] + sorted(
+        r for r in all_rooms if r not in ROOM_ORDER
+    )
 
     # Pre-compute plate layout within each room box (locations = sub-columns).
     room_blocks = []
     for room in rooms:
-        plates_in_room = by_room[room]
+        plates_in_room = by_room.get(room, [])
         by_location: dict[str, list[dict]] = defaultdict(list)
         for p in plates_in_room:
             by_location[p.get("location") or ""].append(p)
@@ -295,18 +454,33 @@ def render_overview(plates: list[dict]) -> str:
             col_h = sum(plate_dims(p)[1] for p in ps) + PLATE_GAP * (len(ps) - 1)
             loc_columns.append((loc, ps, col_w, col_h))
 
-        inner_w = sum(w for _, _, w, _ in loc_columns) + COLUMN_GAP * (len(loc_columns) - 1)
-        inner_h = max(h for _, _, _, h in loc_columns) + LOC_HEADER_H
-        box_w = inner_w + 2 * ROOM_BOX_PAD
+        plates_inner_w = (
+            sum(w for _, _, w, _ in loc_columns) + COLUMN_GAP * (len(loc_columns) - 1)
+            if loc_columns else 0
+        )
+        plates_inner_h = (
+            max(h for _, _, _, h in loc_columns) + LOC_HEADER_H
+            if loc_columns else 0
+        )
+
+        # Device strip
+        devs = devices_per_room.get(room, [])
+        dev_max_w = max(plates_inner_w, DEVICE_PILL_W * 2 + DEVICE_PILL_GAP_X) if devs else 0
+        dev_w, dev_h, dev_rows = device_strip_dims(devs, dev_max_w if dev_max_w else DEVICE_PILL_W * 3)
+
+        inner_w = max(plates_inner_w, dev_w)
+        inner_h = dev_h + plates_inner_h
+        box_w = max(inner_w, DEVICE_PILL_W + 2 * ROOM_BOX_PAD) + 2 * ROOM_BOX_PAD
         box_h = inner_h + ROOM_TITLE_H + 2 * ROOM_BOX_PAD
-        room_blocks.append((room, loc_columns, box_w, box_h))
+
+        room_blocks.append((room, loc_columns, dev_rows, dev_h, box_w, box_h))
 
     # Arrange room boxes left-to-right, wrap if needed.
     max_row_w = 1600
     rows: list[list[tuple]] = [[]]
     row_w = 0
     for block in room_blocks:
-        bw = block[2]
+        bw = block[4]
         if row_w + bw > max_row_w and rows[-1]:
             rows.append([])
             row_w = 0
@@ -314,8 +488,8 @@ def render_overview(plates: list[dict]) -> str:
         row_w += bw + ROOM_GAP
 
     # Compute overall canvas
-    total_w = max(sum(b[2] for b in row) + ROOM_GAP * (len(row) - 1) for row in rows) + 40
-    total_h = OVERVIEW_TOP_PAD + sum(max(b[3] for b in row) for row in rows) + ROOM_GAP * (len(rows) - 1) + 80
+    total_w = max(sum(b[4] for b in row) + ROOM_GAP * (len(row) - 1) for row in rows) + 40
+    total_h = OVERVIEW_TOP_PAD + sum(max(b[5] for b in row) for row in rows) + ROOM_GAP * (len(rows) - 1) + 80
 
     plate_positions: dict[str, tuple[int, int, int, int]] = {}
 
@@ -323,16 +497,17 @@ def render_overview(plates: list[dict]) -> str:
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {int(total_w)} {int(total_h)}" '
         f'width="{int(total_w)}" height="{int(total_h)}" font-family="sans-serif">',
         '<rect width="100%" height="100%" fill="white"/>',
-        f'<text x="20" y="36" font-size="24" font-weight="700" fill="{TEXT}">Přehled — propojení okruhů napříč místnostmi</text>',
+        f'<text x="20" y="36" font-size="24" font-weight="700" fill="{TEXT}">Přehled — svítidla, rámečky a propojení okruhů</text>',
         f'<text x="20" y="58" font-size="12" font-style="italic" fill="{MUTED}">'
-        f'Čáry spojují rámečky, které ovládají stejný okruh (3-cestné nebo paralelka).</text>',
+        f'Svítidla (pilulky nahoře) jsou barvou odlišená HUE vs non-HUE; '
+        f'badge ukazuje napětí (220V / 24V). Čáry spojují rámečky sdílející okruh.</text>',
     ]
 
     row_y = OVERVIEW_TOP_PAD
     for row in rows:
-        row_h = max(b[3] for b in row)
+        row_h = max(b[5] for b in row)
         bx = 20
-        for room, loc_columns, box_w, box_h in row:
+        for room, loc_columns, dev_rows, dev_h, box_w, box_h in row:
             # Room box
             parts.append(
                 f'<rect x="{bx}" y="{row_y}" width="{box_w}" height="{box_h}" '
@@ -342,16 +517,34 @@ def render_overview(plates: list[dict]) -> str:
                 f'<text x="{bx + ROOM_BOX_PAD}" y="{row_y + ROOM_BOX_PAD + 14}" '
                 f'font-size="16" font-weight="700" fill="{TEXT}">{esc(room)}</text>'
             )
+
+            inner_top = row_y + ROOM_BOX_PAD + ROOM_TITLE_H
+
+            # Device strip
+            if dev_rows:
+                parts.append(
+                    f'<text x="{bx + ROOM_BOX_PAD}" y="{inner_top + 11}" font-size="10" '
+                    f'font-style="italic" fill="{MUTED}">Svítidla</text>'
+                )
+                pill_y = inner_top + DEVICE_STRIP_TITLE_H + DEVICE_STRIP_PAD_TOP
+                for drow in dev_rows:
+                    pill_x = bx + ROOM_BOX_PAD
+                    for dev in drow:
+                        parts.extend(render_device_pill(dev, pill_x, pill_y))
+                        pill_x += DEVICE_PILL_W + DEVICE_PILL_GAP_X
+                    pill_y += DEVICE_PILL_H + DEVICE_PILL_GAP_Y
+
+            plates_top = inner_top + dev_h
+
             # Locations + plates inside
             cx = bx + ROOM_BOX_PAD
-            inner_top = row_y + ROOM_BOX_PAD + ROOM_TITLE_H
             for loc, ps, col_w, _ in loc_columns:
                 if loc:
                     parts.append(
-                        f'<text x="{cx}" y="{inner_top + 12}" font-size="11" '
+                        f'<text x="{cx}" y="{plates_top + 12}" font-size="11" '
                         f'font-style="italic" fill="{MUTED}">{esc(loc)}</text>'
                     )
-                cy = inner_top + LOC_HEADER_H
+                cy = plates_top + LOC_HEADER_H
                 for plate in ps:
                     plate_parts, pw, ph = render_plate(plate, cx, cy)
                     parts.extend(plate_parts)
@@ -411,23 +604,14 @@ def render_overview(plates: list[dict]) -> str:
     parts.extend(conn_svgs)
 
     # Legend
-    legend_y = total_h - 30
-    legend_x = 20
-    for label, color in COLORS.items():
-        parts.append(
-            f'<rect x="{legend_x}" y="{legend_y-11}" width="14" height="14" fill="{color}" '
-            f'stroke="{BORDER}" stroke-width="1"/>'
-        )
-        parts.append(
-            f'<text x="{legend_x+20}" y="{legend_y}" font-size="11" fill="{TEXT}">{esc(label)}</text>'
-        )
-        legend_x += 100
-
+    parts.extend(render_legend(20, total_h - 30))
     parts.append("</svg>")
     return "\n".join(parts)
 
 
 def main() -> None:
+    global CIRCUITS
+    CIRCUITS = load_circuits()
     data = yaml.safe_load(PLATES_YAML.read_text(encoding="utf-8"))
     plates = data["plates"]
     by_room: dict[str, list[dict]] = defaultdict(list)
