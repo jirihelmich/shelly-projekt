@@ -136,14 +136,21 @@ switches:
         mode: parallel
     notes: Krabice bez Shelly — jen tlačítko a propojení přes stávající schodišťákový drát do SH-03.
 
-  - id: SW-J
+  - id: SW-J1
     room: Jídelna
-    hardware: Dvojvypínač
+    position: V 1 rámečku se SW-J2
+    hardware: Jednovypínač
     buttons:
       - button: J1
         circuit: L-13  # LED jídelna (stávající)
         wired_to: SH-E2 SW
         status: existing
+
+  - id: SW-J2
+    room: Jídelna
+    position: V 1 rámečku se SW-J1
+    hardware: Jednovypínač
+    buttons:
       - button: J2
         circuit: L-04  # lustr jídelna (HUE)
         wired_to: SH-04 IN1  # i4 event → HA → Hue

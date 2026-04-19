@@ -18,6 +18,7 @@ PROJECT = Path(__file__).resolve().parent.parent
 PLATES_YAML = PROJECT / "devices" / "plates.yaml"
 CIRCUITS_YAML = PROJECT / "devices" / "circuits.yaml"
 SHELLY_YAML = PROJECT / "devices" / "shelly.yaml"
+SWITCHES_YAML = PROJECT / "devices" / "switches.yaml"
 OUTPUT_DIR = PROJECT / "plates"
 
 COLORS = {
@@ -94,7 +95,97 @@ def load_shelly() -> list[dict]:
     return out
 
 
+def load_switches() -> dict[str, dict]:
+    data = yaml.safe_load(SWITCHES_YAML.read_text(encoding="utf-8"))
+    out: dict[str, dict] = {}
+    for sw in data.get("switches", []):
+        out[sw["id"]] = sw
+    return out
+
+
+def shelly_type_label(sh: dict) -> str:
+    model = (sh.get("model") or "").lower()
+    if "i4" in model:
+        return "i4"
+    if "2pm" in model:
+        return "2PM"
+    if "1pm" in model:
+        return "1PM"
+    if "rgbw" in model:
+        return "RGBW PM"
+    return "?"
+
+
 SHELLY: list[dict] = []
+SWITCHES: dict[str, dict] = {}
+
+
+def shelly_by_id(sh_id: str) -> dict | None:
+    for sh in SHELLY:
+        if sh["id"] == sh_id:
+            return sh
+    return None
+
+
+def shelly_at_cell(plate: dict, comp_idx: int, cell_idx: int) -> dict | None:
+    """Vrátí Shelly fyzicky umístěný pod tímto konkrétním vypínačem (cell-level).
+    Pouze pokud je to at_switch typ a button není paralelka."""
+    comp = plate["components"][comp_idx]
+    sw_ref = comp.get("switch_ref")
+    if not sw_ref:
+        return None
+    sw = SWITCHES.get(sw_ref)
+    if not sw:
+        return None
+    btns = sw.get("buttons", [])
+    if cell_idx >= len(btns):
+        return None
+    btn = btns[cell_idx]
+    if btn.get("mode") == "parallel":
+        return None
+    wired = btn.get("wired_to", "")
+    if not wired or not isinstance(wired, str):
+        return None
+    sh_id = wired.split()[0] if wired else ""
+    if not sh_id.startswith("SH"):
+        return None
+    sh = shelly_by_id(sh_id)
+    if sh and sh.get("mount") == "at_switch":
+        return sh
+    return None
+
+
+def cell_positions_in_plate(plate: dict, plate_x: float, plate_y: float):
+    """Yield (cx, cy, cw, comp_idx, cell_idx) — pozice každé buňky v rámečku."""
+    orientation = plate.get("orientation", "horizontal")
+    pw, _ = plate_dims(plate)
+    inner_w = pw - 2 * PADDING
+    cell_y = plate_y + PADDING + LABEL_H
+
+    if orientation == "vertical":
+        for comp_idx, comp in enumerate(plate["components"]):
+            cw = component_width(comp)
+            cx_base = plate_x + PADDING + (inner_w - cw) / 2
+            if comp["type"] == "socket":
+                yield cx_base, cell_y, SOCKET_W, comp_idx, 0
+            elif comp["type"] == "single_switch":
+                yield cx_base, cell_y, CELL_W, comp_idx, 0
+            elif comp["type"] == "double_switch":
+                for i in range(len(comp.get("cells", []))):
+                    yield cx_base + CELL_W * i, cell_y, CELL_W, comp_idx, i
+            cell_y += CELL_H + MODULE_GAP
+    else:
+        cx_base = plate_x + PADDING
+        for comp_idx, comp in enumerate(plate["components"]):
+            cw = component_width(comp)
+            if comp["type"] == "socket":
+                yield cx_base, cell_y, SOCKET_W, comp_idx, 0
+            elif comp["type"] == "single_switch":
+                yield cx_base, cell_y, CELL_W, comp_idx, 0
+            elif comp["type"] == "double_switch":
+                for i in range(len(comp.get("cells", []))):
+                    yield cx_base + CELL_W * i, cell_y, CELL_W, comp_idx, i
+            cx_base += cw + MODULE_GAP
 
 CELL_W = 110
 CELL_H = 84
@@ -444,21 +535,27 @@ def shelly_for_circuit(circuit_id: str) -> list[dict]:
     return [sh for sh in SHELLY if sh["id"] == sh_id and sh.get("mount") == "at_device"]
 
 
-SHELLY_BADGE_W = 58
-SHELLY_BADGE_H = 16
 SHELLY_BG = "#1f2937"  # tmavě šedá
 SHELLY_FG = "#f9fafb"
 
 
-def render_shelly_badge(sh_id: str, model: str, x: float, y: float) -> list[str]:
-    """Malá tmavá pilulka 'SH-XX' — na rámečku nebo u svítidla."""
-    label = f"📦 {sh_id}"
-    return [
-        f'<rect x="{x}" y="{y}" width="{SHELLY_BADGE_W}" height="{SHELLY_BADGE_H}" '
-        f'fill="{SHELLY_BG}" rx="3" ry="3"/>',
-        f'<text x="{x + SHELLY_BADGE_W/2}" y="{y + SHELLY_BADGE_H - 4}" text-anchor="middle" '
-        f'font-family="monospace" font-size="10" font-weight="700" fill="{SHELLY_FG}">{esc(sh_id)}</text>',
+def render_shelly_badge(sh: dict, x: float, y: float, *, compact: bool = False) -> tuple[list[str], float]:
+    """Tmavá pilulka: '{type} {SH-ID}'. Vrací (SVG parts, badge_width)."""
+    type_label = shelly_type_label(sh)
+    sh_id = sh["id"]
+    text = f"{type_label} {sh_id}"
+    # Šířka dynamicky podle délky textu (monospace ~6px na znak při 9px fontu)
+    fs = 9 if not compact else 8
+    char_w = 5.6 if not compact else 5.0
+    pad = 7 if not compact else 6
+    h = 14 if not compact else 12
+    w = max(48, int(len(text) * char_w + pad * 2))
+    parts = [
+        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{SHELLY_BG}" rx="3" ry="3"/>',
+        f'<text x="{x + w/2}" y="{y + h - (3 if compact else 4)}" text-anchor="middle" '
+        f'font-family="monospace" font-size="{fs}" font-weight="700" fill="{SHELLY_FG}">{esc(text)}</text>',
     ]
+    return parts, w
 
 
 DEVICE_PILL_W = 156
@@ -739,46 +836,53 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
 
     parts.extend(conn_svgs)
 
-    # V "after" módu vykreslit Shelly badges na rámečcích a svítidlech
+    # V "after" módu: Shelly badges na buňkách (kde je Shelly fyzicky pod tím vypínačem)
+    # a u svítidel (Shelly u spotřebiče).
     if mode == "after":
-        # Badges na rámečcích (Shelly za vypínačem)
+        # Cell-level Shelly badges
         for p in plates:
             if p["id"] not in plate_positions:
                 continue
-            px, py, pw, ph = plate_positions[p["id"]]
-            shellies = shelly_for_plate(p)
-            for i, sh in enumerate(shellies):
-                badge_x = px + pw - SHELLY_BADGE_W - 6
-                badge_y = py + 6 + i * (SHELLY_BADGE_H + 3)
-                parts.extend(render_shelly_badge(sh["id"], sh.get("model", ""), badge_x, badge_y))
-        # Badges u svítidel (Shelly u spotřebiče)
+            px, py, _, _ = plate_positions[p["id"]]
+            for cx, cy, cw, comp_idx, cell_idx in cell_positions_in_plate(p, px, py):
+                sh = shelly_at_cell(p, comp_idx, cell_idx)
+                if not sh:
+                    continue
+                # Levý horní roh buňky
+                bx = cx + 4
+                by = cy + 4
+                badge_parts, _ = render_shelly_badge(sh, bx, by, compact=True)
+                parts.extend(badge_parts)
+        # Device-pill Shelly badges (vpravo od pilulky)
         for dev_id, (dpx, dpy) in device_positions.items():
             shellies = shelly_for_circuit(dev_id)
             for i, sh in enumerate(shellies):
-                # pilulka vpravo od svítidlové pilulky
                 badge_x = dpx + DEVICE_PILL_W + 6
-                badge_y = dpy - SHELLY_BADGE_H / 2 + i * (SHELLY_BADGE_H + 3)
-                parts.extend(render_shelly_badge(sh["id"], sh.get("model", ""), badge_x, badge_y))
+                badge_y = dpy - 7 + i * 17
+                badge_parts, _ = render_shelly_badge(sh, badge_x, badge_y)
+                parts.extend(badge_parts)
 
     # Legend
     parts.extend(render_legend(20, total_h - 30))
     if mode == "after":
-        # Vysvětlivka k Shelly badge
         lg_x = 20
         lg_y = total_h - 52
-        parts.extend(render_shelly_badge("SH-XX", "", lg_x, lg_y))
+        sample_sh = {"id": "SH-XX", "model": "Shelly i4"}
+        sample_parts, sample_w = render_shelly_badge(sample_sh, lg_x, lg_y)
+        parts.extend(sample_parts)
         parts.append(
-            f'<text x="{lg_x + SHELLY_BADGE_W + 8}" y="{lg_y + SHELLY_BADGE_H - 4}" '
-            f'font-size="11" fill="{TEXT}">namontovaný Shelly (za vypínačem nebo u svítidla)</text>'
+            f'<text x="{lg_x + sample_w + 8}" y="{lg_y + 10}" '
+            f'font-size="11" fill="{TEXT}">namontovaný Shelly (na buňce = pod vypínačem; u svítidla = u spotřebiče)</text>'
         )
     parts.append("</svg>")
     return "\n".join(parts)
 
 
 def main() -> None:
-    global CIRCUITS, SHELLY
+    global CIRCUITS, SHELLY, SWITCHES
     CIRCUITS = load_circuits()
     SHELLY = load_shelly()
+    SWITCHES = load_switches()
     data = yaml.safe_load(PLATES_YAML.read_text(encoding="utf-8"))
     plates = data["plates"]
 

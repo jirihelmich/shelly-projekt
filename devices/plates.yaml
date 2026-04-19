@@ -109,11 +109,15 @@ plates:
     room: Jídelna
     location: ""
     orientation: horizontal
+    note: "2 jednovypínače v jednom rámečku (ne dvojvypínač)."
     components:
-      - type: double_switch
-        switch_ref: SW-J
+      - type: single_switch
+        switch_ref: SW-J1
         cells:
           - { label: "LED", circuit: L-13, note: "LED jídelna (24V, stávající)" }
+      - type: single_switch
+        switch_ref: SW-J2
+        cells:
           - { label: "Lustr", circuit: L-04 }
 
   # ============ KUCHYŇ (smíšený rámeček, 24V) ============

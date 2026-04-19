@@ -50,7 +50,7 @@ devices:
 
   - id: SH-04
     model: Shelly i4
-    location: Za vypínačem SW-J v jídelně
+    location: Za vypínači SW-J1 + SW-J2 (jeden rámeček v jídelně)
     function: Čte tlačítko SW-J2 (event → HA → Hue toggle pro Lustr jídelna L-04)
     mode: detached
     inputs:
