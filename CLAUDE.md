@@ -46,8 +46,8 @@ Osazení Shelly zařízení v domě pro ovládání osvětlení. Integrace s Hom
 ## Aktuální stav
 
 **Verze specifikace:** DRAFT v0.1
-**Celkový počet nových Shelly:** 8 ks (3× Plus 1PM, 2× Plus 2PM, 3× i4)
-**Odhad hardware:** ~5 900 Kč
+**Celkový počet nových Shelly:** 7 ks (3× Shelly 1 Mini, 2× Plus 2PM, 2× i4). Mini už nakoupené.
+**Odhad k nákupu:** ~3 600 Kč (2× 2PM + 2× i4 + rezerva)
 
 Viz `open-questions.md` pro seznam věcí k ověření.
 

@@ -6,47 +6,49 @@ devices:
   # ============ NOVĚ INSTALOVANÁ ============
 
   - id: SH-01
-    model: Shelly Plus 1PM
-    location: U svítidla schodiště (stropní krabice)
+    model: Shelly 1 Mini
+    location: Za vypínačem SW-A v obýváku (konzole)
     function: Spíná fázi svítidla schodiště (L-01)
-    mode: detached
+    mode: attached
     inputs:
-      SW1: unused  # volitelně: nejbližší tlačítko pro offline fallback
+      SW1: [SW-A, SW-H1]  # attached + paralelka přes stáv. schodišťák
     outputs:
       O1: L-01 (schodiště)
-    controlled_by: [SW-A, SW-H1]  # přes HA
+    controlled_by: [SW-A, SW-H1]
     notes: >
-      2-cestné ovládání přes HA (SW-A v obýváku, SW-H1 v horní předsíni).
-      Umístit do stropní krabice, ne za vypínač.
-      Napájení: trvalé L+N z jističe schodiště.
+      Mini má 1 výstup a 1 vstup — stačí pro schodiště.
+      SW-A připojen attached přímo na SW1; SW-H1 paralelka přes stávající schodišťákový
+      drát Obývák↔Horní předsíň do stejného vstupu SW1.
+      Funguje offline bez HA. Umístěno v obýváku (konzole) kvůli koncentraci instalace.
 
   - id: SH-02
-    model: Shelly Plus 1PM
-    location: U trafa LED pásku dolní předsíně
-    function: Spíná 230V primár trafa (L-02)
+    model: Shelly 1 Mini
+    location: Za vypínačem SW-F1 v dolní předsíni (u pracovny)
+    function: Spíná 220V do LED driveru pásku (L-02)
     mode: attached
     inputs:
       SW1: [SW-F1, SW-G1]  # paralelně, přes stávající schodišťákový drát
     outputs:
-      O1: L-02 (LED pásek 24V přes trafo)
-    controlled_by: [SW-F1, SW-G1]  # přímo, paralelně
+      O1: L-02 (LED pásek 220V)
+    controlled_by: [SW-F1, SW-G1]
     notes: >
-      Obě tlačítka paralelně na SW1 (přes stáv. schodišťákový drát).
-      Funguje offline bez HA. Ověřit toleranci trafa ke spínání 230V primáru.
+      Obě tlačítka paralelně na SW1 (přes stáv. schodišťákový drát Pracovna↔Dveře).
+      Funguje offline bez HA. Umístěno v krabici za SW-F1 (mělká → KU68).
 
   - id: SH-03
-    model: Shelly Plus 1PM
-    location: U lustru horní předsíně (stropní krabice)
+    model: Shelly 1 Mini
+    location: Za vypínačem SW-H2 v horní předsíni (u schodů)
     function: Spíná fázi lustru horní předsíně (L-03)
     mode: attached
     inputs:
       SW1: [SW-H2, SW-CP]  # paralelně, přes stávající schodišťákový drát
     outputs:
       O1: L-03 (lustr horní předsíň)
-    controlled_by: [SW-H2, SW-CP]  # přímo, paralelně
+    controlled_by: [SW-H2, SW-CP]
     notes: >
-      Obě tlačítka paralelně na SW1 (přes stáv. schodišťákový drát mezi SW-H2 v horní předsíni
-      a SW-CP v chodbě u pokoje). Funguje offline bez HA.
+      Obě tlačítka paralelně na SW1 (přes stáv. schodišťákový drát SW-H2↔SW-CP).
+      Funguje offline bez HA. Mini se vejde do krabice za vypínačem (vs. Plus 1PM do
+      stropní krabice). Kompaktní varianta u spínače.
 
   # (dříve zde bylo SH-04 i4 za SW-J v jídelně pro Lustr jídelna L-04;
   # odstraněno — SW-J2 je paralelka k SW-D2 přes stávající schodišťákový drát
@@ -87,18 +89,18 @@ devices:
   - id: SH-07
     model: Shelly i4
     location: Za vypínači SW-A + SW-B v obýváku
-    function: Čte tlačítka A (schodiště), B1 (předsíň strop HUE), B2 (obývák strop HUE)
+    function: Čte tlačítka B1 (předsíň strop HUE), B2 (obývák strop HUE). IN1 rezerva (SW-A teď attached na SH-01).
     mode: detached
     inputs:
-      IN1: SW-A  # → HA → SH-01 (schodiště)
+      IN1: rezerva  # (dříve SW-A; ten je teď attached přímo na SH-01 Mini)
       IN2: SW-B1  # → HA → Hue L-09 (sdíleno s SW-F2/SW-G2 v dolní předsíni)
       IN3: SW-B2  # → HA → Hue L-10
       IN4: rezerva
     outputs: []
-    controlled_by: [SW-A, SW-B1, SW-B2]
+    controlled_by: [SW-B1, SW-B2]
     notes: >
-      Ověřit fyzické rozmístění SW-A a SW-B — pokud nejsou ve stejné krabici,
-      možná potřeba 2× i4. Mělká krabice — prosekat.
+      IN1 uvolněno, protože SW-A je nyní attached na SH-01 (Mini v obýváku).
+      Scény na SW-A případně lze doplnit přidáním paralelního napojení na IN1.
 
   - id: SH-08
     model: Shelly i4
@@ -116,21 +118,10 @@ devices:
       Tlačítko F1 (LED pásek) jde přímo do SH-02 SW1, ne do této i4.
       SW-F1 a SW-F2 jsou dva samostatné jednovypínače vedle sebe u pracovny.
 
-  - id: SH-09
-    model: Shelly i4
-    location: Za vypínači u schodů (horní předsíň)
-    function: Čte tlačítko H1 (schodiště)
-    mode: detached
-    inputs:
-      IN1: SW-H1  # → HA → SH-01
-      IN2: rezerva
-      IN3: rezerva
-      IN4: rezerva
-    outputs: []
-    controlled_by: [SW-H1]
-    notes: >
-      Tlačítko H2 (lustr) jde přímo do SH-03 SW1, ne do této i4.
-      SW-H1 a SW-H2 jsou dva jednovypínače vedle sebe u schodů.
+  # (dříve zde bylo SH-09 i4 v horní předsíni pro SW-H1;
+  # odstraněno — SW-H1 je teď paralelka k SW-A přes stáv. schodišťákový drát
+  # do SH-01 SW1 v obýváku. Krabice u schodů obsahuje jen SH-03 Mini
+  # (za SW-H2) + WAGO propoj pro paralelku SW-H1.)
 
   # (dříve zde bylo SH-10 i4 za SW-CP pro 3-cestné schodiště;
   # odstraněno po úpravě: SW-CP = paralelka k SW-H2 pro lustr přes stáv. schodišťákový drát,
@@ -168,11 +159,15 @@ devices:
 
 summary:
   new:
-    plus_1pm: 3  # SH-01, SH-02, SH-03
-    plus_2pm: 2  # SH-05, SH-06
-    i4: 3        # SH-07, SH-08, SH-09
-    total: 8
+    shelly_1_mini: 3  # SH-01, SH-02, SH-03 — již nakoupené, mimo rozpočet
+    plus_2pm: 2       # SH-05, SH-06
+    i4: 2             # SH-07, SH-08
+    total_new_installed: 7
   existing:
     rgbw_pm: 2     # SH-E1 obývák, SH-E2 jídelna
     other: 1       # SH-E3 kuchyň (model neznámý)
-  estimated_cost_czk: 5900  # 3*700 + 2*1000 + 3*600 + rezerva
+  to_purchase:
+    plus_2pm: 2
+    i4: 2
+    estimated_cost_czk: 3600  # 2*1000 + 2*600 + rezerva 400
+  notes: Shelly 1 Mini už je zakoupené (3 ks) — nejsou v rozpočtu.

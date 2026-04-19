@@ -21,7 +21,7 @@ Stávající schodišťákové zapojení existuje pro oba okruhy (LED pásek i p
 
 | ID | Model | Umístění | Výstup |
 |---|---|---|---|
-| SH-02 | Plus 1PM | U trafa LED pásku | O1 → 230V primár trafa → L-02 |
+| SH-02 | Shelly 1 Mini | Za SW-F1 (krabice u pracovny) | O1 → 220V do LED driveru pásku → L-02 |
 | SH-08 | i4 | Za SW-F2 (krabice u pracovny) | čte F2+G2 paralelně |
 
 ## Krabice BEZ Shelly

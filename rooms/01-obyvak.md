@@ -6,7 +6,7 @@ U vstupu do obýváku: 4× dvojvypínač v řadě + 1× stávající vypínač p
 
 | ID | Tlačítko | Okruh | Typ | Shelly vstup | Režim |
 |---|---|---|---|---|---|
-| SW-A | A | L-01 Schodiště | non-HUE | SH-07 IN1 | detached |
+| SW-A | A | L-01 Schodiště | non-HUE | SH-01 SW1 (Mini) | attached, paralelně s SW-H1 přes stáv. schodišťák |
 | SW-B | B1 | L-09 Předsíň strop (sdíleno) | HUE | SH-07 IN2 | detached |
 | SW-B | B2 | L-10 Obývák strop | HUE | SH-07 IN3 | detached |
 | SW-C | C1 | L-05 Lišta 1 | non-HUE | SH-05 SW1 | attached |
@@ -19,9 +19,10 @@ U vstupu do obýváku: 4× dvojvypínač v řadě + 1× stávající vypínač p
 
 | ID | Model | Umístění | Výstupy |
 |---|---|---|---|
+| SH-01 | Shelly 1 Mini | Za SW-A (konzole) | O1→L-01 schodiště |
 | SH-05 | Plus 2PM | Za SW-C | O1→L-05, O2→L-06 |
-| SH-06 | Plus 2PM | Za SW-D | O1→L-07; O2 nezapojen (L-04 spíná SH-04 v jídelně) |
-| SH-07 | i4 | Za SW-A + SW-B | čtení tlačítek, žádné výstupy |
+| SH-06 | Plus 2PM | Za SW-D | O1→L-07; O2 nezapojen (L-04 je HUE) |
+| SH-07 | i4 | Za SW-A + SW-B | IN2=SW-B1, IN3=SW-B2; IN1 rezerva |
 
 ## Stávající
 

@@ -111,9 +111,36 @@ def shelly_type_label(sh: dict) -> str:
         return "2PM"
     if "1pm" in model:
         return "1PM"
+    if "1 mini" in model or "mini" in model:
+        return "Mini"
     if "rgbw" in model:
         return "RGBW PM"
     return "?"
+
+
+def shelly_channel_for_wired(wired: str) -> str | None:
+    """Z 'SH-05 SW1' / 'SH-06 SW2' vytáhne 'SW1' / 'SW2'. None pro IN* nebo prázdné."""
+    if not wired:
+        return None
+    parts = wired.split()
+    if len(parts) < 2:
+        return None
+    ch = parts[1]
+    if ch.startswith("SW"):
+        return ch
+    return None
+
+
+def shelly_channel_mode(sh: dict, channel: str) -> str:
+    """Vrací 'A' (attached) nebo 'D' (detached) pro daný kanál 2PM."""
+    outputs = sh.get("outputs")
+    if not isinstance(outputs, dict) or not channel.startswith("SW"):
+        return ""
+    out_key = "O" + channel[2:]
+    out_val = outputs.get(out_key)
+    if not out_val or "unused" in str(out_val).lower():
+        return "D"
+    return "A"
 
 
 SHELLY: list[dict] = []
@@ -555,12 +582,14 @@ SHELLY_BG = "#1f2937"  # tmavě šedá
 SHELLY_FG = "#f9fafb"
 
 
-def render_shelly_badge(sh: dict, x: float, y: float, *, compact: bool = False) -> tuple[list[str], float]:
-    """Tmavá pilulka: '{type} {SH-ID}'. Vrací (SVG parts, badge_width)."""
+def render_shelly_badge(sh: dict, x: float, y: float, *, compact: bool = False, channel_mode: str = "") -> tuple[list[str], float]:
+    """Tmavá pilulka: '{type} [A/D] {SH-ID}'. Vrací (SVG parts, badge_width)."""
     type_label = shelly_type_label(sh)
     sh_id = sh["id"]
-    text = f"{type_label} {sh_id}"
-    # Šířka dynamicky podle délky textu (monospace ~6px na znak při 9px fontu)
+    if type_label == "2PM" and channel_mode:
+        text = f"2PM [{channel_mode}] {sh_id}"
+    else:
+        text = f"{type_label} {sh_id}"
     fs = 9 if not compact else 8
     char_w = 5.6 if not compact else 5.0
     pad = 7 if not compact else 6
@@ -871,10 +900,22 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
                 sh = shelly_at_cell(p, comp_idx, cell_idx)
                 if not sh:
                     continue
+                # Pro 2PM zjistit kanál (K1/K2) a jeho režim (A/D)
+                channel_mode = ""
+                if shelly_type_label(sh) == "2PM":
+                    comp = p["components"][comp_idx]
+                    sw_ref = comp.get("switch_ref")
+                    sw = SWITCHES.get(sw_ref or "")
+                    btns = (sw or {}).get("buttons", [])
+                    if cell_idx < len(btns):
+                        wired = btns[cell_idx].get("wired_to", "")
+                        ch = shelly_channel_for_wired(wired)
+                        if ch:
+                            channel_mode = shelly_channel_mode(sh, ch)
                 # Levý horní roh buňky
                 bx = cx + 4
                 by = cy + 4
-                badge_parts, _ = render_shelly_badge(sh, bx, by, compact=True)
+                badge_parts, _ = render_shelly_badge(sh, bx, by, compact=True, channel_mode=channel_mode)
                 parts.extend(badge_parts)
         # Device-pill Shelly badges (vpravo od pilulky)
         for dev_id, (dpx, dpy) in device_positions.items():

@@ -54,6 +54,22 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 - **SH-10 i4 odstraněno** — krabice v Chodbě u pokoje je bez Shelly (paralelka stačí)
 - Nové Shelly: 4× Plus 1PM + 2× Plus 2PM + **3× i4** = **9 ks** (~7 000 Kč)
 
+### Konsolidace Shelly do obývákové konzole; 1PM → 1 Mini
+
+Úpravy koncentrovány do obývákové konzole (místo stropních krabic u svítidel).
+Shelly Plus 1PM nahrazeny **Shelly 1 Mini** (už nakoupené).
+
+- **SH-01 Shelly 1 Mini**: za SW-A v obývákové konzoli (ne u schodiště svítidla).
+  SW-A attached, SW-H1 paralelka přes stáv. schodišťákový drát Obývák↔Horní předsíň.
+  Funguje offline bez HA.
+- **SH-02 Shelly 1 Mini**: za SW-F1 v dolní předsíni (ne u trafa).
+- **SH-03 Shelly 1 Mini**: za SW-H2 v horní předsíni (ne u lustru).
+- **SH-09 odstraněno** (i4 pro SW-H1 → HA → SH-01); SW-H1 je nyní přímá paralelka.
+- **SH-07 IN1 → rezerva** (SW-A už neposílá event, stačí attached toggle).
+- **Nové Shelly: 8 → 7** (3× Mini + 2× 2PM + 2× i4). Mini už nakoupené.
+- **K nákupu: ~5 900 Kč → ~3 600 Kč** (2× 2PM + 2× i4 + rezerva).
+- **Trade-off**: SW-A ztratilo HA event (scény jen přes state change SH-01, ne tlačítkový event).
+
 ### Zjednodušení: SH-04 odstraněno, SW-J2 paralelka přes schodišťákový drát
 
 - **SH-04 zrušeno.** Původně i4 v jídelně (event reader pro SW-J2). Nahrazeno paralelkou: SW-J2 připojen paralelně k SW-D2 přes stávající schodišťákový drát Obývák↔Jídelna do SH-06 SW2 (Plus 2PM v obýváku, detached kanál K2). Jeden vstup čte obě tlačítka.

@@ -27,9 +27,9 @@ Pro referenci při instalaci:
 
 ## Co se instaluje
 
-- **8 nových Shelly zařízení** (3× Plus 1PM, 2× Plus 2PM, 3× i4)
+- **7 nových Shelly zařízení** (3× Shelly 1 Mini, 2× Plus 2PM, 2× i4). Všechny Mini už nakoupené.
 - **9 krabic** s vypínači nebo Shelly (z toho 3 krabice bez Shelly — jen WAGO propojení)
-- **Odhad hardware:** ~5 900 Kč (viz kusovník níže)
+- **Odhad k nákupu:** ~3 600 Kč (2× 2PM + 2× i4 + rezerva; Mini už je)
 - **14 světelných okruhů** celkem (9 nových/upravených + 5 stávajících beze změny)
 
 ### Stávající zařízení (beze změny)
@@ -65,24 +65,25 @@ Všechny nové vypínače jsou **ABB Tango s pružinkami = monostabilní tlačí
 Dvě tlačítka z různých krabic jsou připojena paralelně na **jeden** `SW` vstup Shelly (přes stávající schodišťákové dráty). Shelly vidí „někdo stiskl" → toggle. Funguje offline.
 
 Kde to je:
-- **L-02** LED pásek — SW-F1 + SW-G1 → SH-02 SW1
-- **L-03** horní předsíň lustr — SW-H2 (u schodů) + SW-CP (u pokoje) → SH-03 SW1
+- **L-01** schodiště — SW-A (obývák) + SW-H1 (horní předsíň) → SH-01 SW1 (Mini v obývákové konzoli)
+- **L-02** LED pásek — SW-F1 + SW-G1 → SH-02 SW1 (Mini za SW-F1)
+- **L-03** horní předsíň lustr — SW-H2 (u schodů) + SW-CP (u pokoje) → SH-03 SW1 (Mini za SW-H2)
 - **L-04** lustr jídelna (HUE) — SW-D2 (obývák) + SW-J2 (jídelna) → SH-06 SW2 (detached, event)
 - **L-07** Lišta 3 — SW-D1 (obývák) + SW-KU-L3 (kuchyň) → SH-06 SW1
 - **L-09** předsíň strop — SW-F2 + SW-G2 → SH-08 IN1 (přes HA pak i SW-B1 z obýváku)
 
-### 5. 2-cestné schodiště (L-01)
+### 5. 2-cestné schodiště (L-01) — attached paralelka
 
-Dvě tlačítka ve dvou místnostech (obývák SW-A, horní předsíň SW-H1). Každé jde do lokální `i4` (SH-07, SH-09) v **detached** režimu → HA → SH-01 přepne fázi. **Vyžaduje HA.**
+SW-A (obývák) attached přímo na SH-01 SW1 (Shelly 1 Mini v obývákové konzoli). SW-H1 (horní předsíň) paralelně přes stávající schodišťákový drát na stejný vstup. Funguje **offline bez HA** — stisk libovolného tlačítka toggluje SH-01.
 
 ### 6. Umístění Shelly — preferenčně u svítidel
 
 Krabice za vypínači jsou **mělké** → nutno prosekat hlouběji nebo použít **KU68 prodlužovací kroužek**. Shelly proto umísťujeme do stropních krabic u svítidel, kde je místa dost, kdykoli to jde.
 
 Krabice, kde se bude sekat / KU68:
-- Obývák vstup (SH-05, SH-06, SH-07 — 3 Shelly ve dvou krabicích za SW-C, SW-D, SW-A+SW-B)
-- Dolní předsíň u pracovny (SH-08)
-- Horní předsíň u schodů (SH-09)
+- Obývák vstup, konzole (SH-01 Mini + SH-05/06 2PM + SH-07 i4 — 4 Shelly ve více krabicích za SW-A/B/C/D)
+- Dolní předsíň u pracovny (SH-02 Mini + SH-08 i4 — za SW-F1/F2)
+- Horní předsíň u schodů (SH-03 Mini — za SW-H2)
 
 ---
 
@@ -90,12 +91,12 @@ Krabice, kde se bude sekat / KU68:
 
 | Ks | Položka | Orient. cena/ks | Σ |
 |---:|---|---:|---:|
-| 3 | Shelly Plus 1PM | 700 Kč | 2 100 Kč |
+| 3 | Shelly 1 Mini | — | **již nakoupeno** |
 | 2 | Shelly Plus 2PM | 1 000 Kč | 2 000 Kč |
-| 3 | Shelly i4 (230V) | 600 Kč | 1 800 Kč |
+| 2 | Shelly i4 (230V) | 600 Kč | 1 200 Kč |
 | — | KU68 prodlužovací kroužky | — | rezerva 400 Kč |
 | — | WAGO svorky | — | rezerva ~ |
-| | | **Celkem** | **~5 900 Kč** |
+| | | **K nákupu** | **~3 600 Kč** |
 
 Vypínače ABB Tango (pružinkové tlačítkové moduly + rámečky) řeší zákazník samostatně.
 

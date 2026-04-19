@@ -5,13 +5,14 @@
 switches:
   - id: SW-A
     room: Obývák
-    position: Vstup, první dvojvypínač
-    hardware: Dvojvypínač #1 (tlačítko A)
+    position: Vstup, první modul v P-OB (jednovypínač)
+    hardware: Jednovypínač
     buttons:
       - button: A
         circuit: L-01  # schodiště
-        wired_to: SH-07 IN1
-        mode: detached
+        wired_to: SH-01 SW1  # Mini za SW-A, attached → O1 spíná L-01
+        mode: attached
+        parallel_with: SW-H1  # přes stáv. schodišťákový drát Obývák↔Horní předsíň
 
   - id: SW-B
     room: Obývák
@@ -111,8 +112,8 @@ switches:
     buttons:
       - button: H1
         circuit: L-01  # schodiště
-        wired_to: SH-09 IN1
-        mode: detached
+        wired_to: SH-01 SW1  # paralelka k SW-A přes stáv. schodišťákový drát Obývák↔Horní předsíň
+        mode: parallel
 
   - id: SW-H2
     room: Horní předsíň
@@ -200,12 +201,9 @@ switches:
 
 boxes_summary:
   with_shelly:
-    - {location: "Obývák vstup", devices: [SH-05, SH-06, SH-07]}
-    - {location: "Dolní předsíň, pracovna (SW-F2)", devices: [SH-08]}
-    - {location: "Horní předsíň, u schodů", devices: [SH-09]}
-    - {location: "U trafa LED pásku", devices: [SH-02]}
-    - {location: "U svítidla schodiště", devices: [SH-01]}
-    - {location: "U lustru horní předsíně", devices: [SH-03]}
+    - {location: "Obývák vstup (SW-A/B/C/D)", devices: [SH-01, SH-05, SH-06, SH-07]}
+    - {location: "Dolní předsíň, pracovna (SW-F1+F2)", devices: [SH-02, SH-08]}
+    - {location: "Horní předsíň, u schodů (SW-H1+H2)", devices: [SH-03]}
 
   without_shelly:
     - {location: "Dolní předsíň, u dveří (SW-G)", reason: "Stáv. schodišťákové dráty vedou signál do SH-02 SW1 a SH-08 IN1"}

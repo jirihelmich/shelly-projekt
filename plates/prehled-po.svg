@@ -335,32 +335,28 @@
 <path d="M 1399.0 836.0 C 1445.5 836.0, 1445.5 818.0, 1492 818.0" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.75"/>
 <circle cx="1399.0" cy="836.0" r="2.5" fill="#ea580c"/>
 <circle cx="1492" cy="818.0" r="2.5" fill="#ea580c"/>
-<rect x="105.0" y="192" width="52" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="131.0" y="201" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">i4 SH-07</text>
+<rect x="105.0" y="192" width="62" height="12" fill="#1f2937" rx="3" ry="3"/>
+<text x="136.0" y="201" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">Mini SH-01</text>
 <rect x="50.0" y="284" width="52" height="12" fill="#1f2937" rx="3" ry="3"/>
 <text x="76.0" y="293" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">i4 SH-07</text>
 <rect x="160.0" y="284" width="52" height="12" fill="#1f2937" rx="3" ry="3"/>
 <text x="186.0" y="293" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">i4 SH-07</text>
-<rect x="50.0" y="468" width="57" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="78.5" y="477" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM SH-05</text>
-<rect x="160.0" y="468" width="57" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="188.5" y="477" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM SH-05</text>
-<rect x="50.0" y="560" width="57" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="78.5" y="569" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM SH-06</text>
-<rect x="160.0" y="560" width="57" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="188.5" y="569" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM SH-06</text>
+<rect x="50.0" y="468" width="77" height="12" fill="#1f2937" rx="3" ry="3"/>
+<text x="88.5" y="477" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM [A] SH-05</text>
+<rect x="160.0" y="468" width="77" height="12" fill="#1f2937" rx="3" ry="3"/>
+<text x="198.5" y="477" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM [A] SH-05</text>
+<rect x="50.0" y="560" width="77" height="12" fill="#1f2937" rx="3" ry="3"/>
+<text x="88.5" y="569" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM [A] SH-06</text>
+<rect x="160.0" y="560" width="77" height="12" fill="#1f2937" rx="3" ry="3"/>
+<text x="198.5" y="569" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM [D] SH-06</text>
+<rect x="50.0" y="798" width="62" height="12" fill="#1f2937" rx="3" ry="3"/>
+<text x="81.0" y="807" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">Mini SH-02</text>
 <rect x="50.0" y="890" width="52" height="12" fill="#1f2937" rx="3" ry="3"/>
 <text x="76.0" y="899" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">i4 SH-08</text>
-<rect x="982" y="192" width="52" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="1008.0" y="201" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">i4 SH-09</text>
+<rect x="1100" y="192" width="62" height="12" fill="#1f2937" rx="3" ry="3"/>
+<text x="1131.0" y="201" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">Mini SH-03</text>
 <rect x="466" y="337.0" width="86" height="14" fill="#1f2937" rx="3" ry="3"/>
 <text x="509.0" y="347.0" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#f9fafb">RGBW PM SH-E1</text>
-<rect x="812" y="161.0" width="64" height="14" fill="#1f2937" rx="3" ry="3"/>
-<text x="844.0" y="171.0" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#f9fafb">1PM SH-01</text>
-<rect x="1584" y="161.0" width="64" height="14" fill="#1f2937" rx="3" ry="3"/>
-<text x="1616.0" y="171.0" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#f9fafb">1PM SH-03</text>
-<rect x="644" y="767.0" width="64" height="14" fill="#1f2937" rx="3" ry="3"/>
-<text x="676.0" y="777.0" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#f9fafb">1PM SH-02</text>
 <rect x="1654" y="767.0" width="86" height="14" fill="#1f2937" rx="3" ry="3"/>
 <text x="1697.0" y="777.0" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#f9fafb">RGBW PM SH-E3</text>
 <rect x="1654" y="811.0" width="86" height="14" fill="#1f2937" rx="3" ry="3"/>

@@ -8,10 +8,11 @@ circuits:
     type: non-HUE
     voltage: 230V
     dimmable: false
-    switched_by: SH-01
+    switched_by: SH-01  # Shelly 1 Mini v obývákové konzoli (za SW-A)
     controlled_from: [SW-A, SW-H1]
-    control_mode: 2-way via HA
+    control_mode: SW-A attached (SH-01 SW1), SW-H1 paralelně přes stáv. schodišťákový drát
     ha_entity: switch.sh_01_schodiste
+    notes: Funguje offline bez HA. Fáze ke svítidlu schodiště vede z SH-01 O1 (v obýváku).
 
   - id: L-02
     name: LED pásek dolní předsíň

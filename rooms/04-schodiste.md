@@ -2,39 +2,41 @@
 
 ## Princip
 
-2-cestné ovládání jednoho svítidla (L-01) ze dvou míst:
-- Obývák (SW-A)
-- Horní předsíň u schodů (SW-H1)
+2-cestné ovládání jednoho svítidla (L-01) ze dvou míst, **attached přes paralelní drát** — funguje offline bez HA:
+- Obývák (SW-A) attached přímo
+- Horní předsíň u schodů (SW-H1) paralelka přes stávající schodišťákový drát
 
-Spínání fáze: **SH-01 (Plus 1PM) u svítidla**.
-Logika přes **Home Assistant** — obě tlačítka → events → HA automation → `switch.toggle SH-01`.
+Spínání fáze: **SH-01 (Shelly 1 Mini) v obývákové konzoli za SW-A**. Stávající schodišťákový drát vede signál z SW-H1 na stejný vstup SH-01 SW1.
 
-## Shelly v této místnosti
+## Shelly u tohoto okruhu
 
 | ID | Model | Umístění | Výstup |
 |---|---|---|---|
-| SH-01 | Plus 1PM | U svítidla schodiště (stropní krabice) | O1 → L-01 |
+| SH-01 | Shelly 1 Mini | Za SW-A v obývákové konzoli | O1 → L-01 |
 
-## Ovládání (tlačítka jsou v jiných místnostech)
+## Ovládání
 
-| Vypínač | Tlačítko | i4 v krabici | Cesta |
-|---|---|---|---|
-| SW-A (obývák) | A | SH-07 IN1 | event → HA → SH-01 toggle |
-| SW-H1 (horní předsíň) | H1 | SH-09 IN1 | event → HA → SH-01 toggle |
+| Vypínač | Tlačítko | Cesta |
+|---|---|---|
+| SW-A (obývák) | A | attached → SH-01 SW1 → O1 toggle → L-01 |
+| SW-H1 (horní předsíň) | H1 | paralelka přes stáv. drát → SH-01 SW1 (stejný vstup) |
 
-## Offline fallback
+## Zapojení
 
-**Žádný aktuálně.** Pokud HA spadne, žádný vypínač nefunguje. Schodiště je chodba → přijatelné riziko.
+- Fáze k svítidlu schodiště je vedena z **SH-01 O1 v obývákové konzoli** (předtím vedená přímo z rozvaděče se odpojí, Shelly bude v cestě).
+- SW-A i SW-H1 se sejdou na stejném vstupu SH-01 SW1 → obě tlačítka toggle identicky.
+- Schodišťákový drát Obývák (SW-A) ↔ Horní předsíň (SW-H1) existuje a je použit jako signálový vodič.
 
-**Alternativa (pokud by se rozhodlo přidat):** nejbližší tlačítko (pravděpodobně SW-H1) zapojit paralelně přímo do SH-01 SW1 přes signálový drát. Vyžaduje novou kabeláž od vypínače k svítidlu.
+## Offline chování
+
+Funguje **offline bez HA**. Stisk libovolného tlačítka mechanicky toggluje SH-01.
+
+## Trade-off
+
+- SW-A je attached — **negeneruje HA event** pro scény (long-press, double-press).
+- Pokud bychom chtěli scény z SW-A, přidat paralelní propoj na SH-07 IN1 (dnes rezerva).
 
 ## Instalační poznámky
 
-- SH-01 do stropní krabice u svítidla — trvalé napájení L, N z jističe schodiště
-- Výstup O1 spíná fázi do svítidla
-- SW1 vstup SH-01: nezapojený (pokud nebude offline fallback)
-
-## Ověřit
-
-- [ ] Stropní krabice u svítidla schodiště: dostupná, dostatek místa pro Plus 1PM?
-- [ ] Kde je jistič schodiště? (pro přivedení L, N k SH-01)
+- SH-01 do krabice za SW-A (obývák, mělká krabice → KU68 kroužek)
+- Stávající schodišťákový drát využit jako signál — ověřit, že jsou 2 volné vodiče
