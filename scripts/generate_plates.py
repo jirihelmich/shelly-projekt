@@ -58,6 +58,17 @@ def classify_circuit(c: dict) -> tuple[str, str | None]:
     return tag, voltage
 
 
+def is_always_powered(c: dict) -> bool:
+    """Svítidlo s trvalou fází: HUE žárovky nebo žádný Shelly nespíná fázi."""
+    tag, _ = classify_circuit(c)
+    if tag == "HUE":
+        return True
+    switched_by = c.get("switched_by")
+    if switched_by is None or switched_by == "null":
+        return True
+    return bool(c.get("always_powered"))
+
+
 def load_circuits() -> dict[str, dict]:
     data = yaml.safe_load(CIRCUITS_YAML.read_text(encoding="utf-8"))
     out: dict[str, dict] = {}
@@ -69,6 +80,7 @@ def load_circuits() -> dict[str, dict]:
             "tag": tag,
             "voltage": voltage,
             "dimmable": c.get("dimmable"),
+            "always_powered": is_always_powered(c),
             "raw": c,
         }
     return out
@@ -615,6 +627,7 @@ def render_device_pill(dev: dict, x: int, y: int) -> list[str]:
     tag = dev["tag"]
     fill = COLORS.get(tag, COLORS["neutral"])
     voltage = dev.get("voltage")
+    always_powered = dev.get("always_powered")
     parts = [
         f'<rect x="{x}" y="{y}" width="{DEVICE_PILL_W}" height="{DEVICE_PILL_H}" '
         f'fill="{fill}" stroke="{BORDER}" stroke-width="1" rx="14" ry="14"/>',
@@ -623,6 +636,12 @@ def render_device_pill(dev: dict, x: int, y: int) -> list[str]:
     ]
     if voltage:
         parts.extend(voltage_badge(x + DEVICE_PILL_W - 6, y + 4, voltage))
+    if always_powered:
+        # ⚡ symbol v levém dolním rohu pilulky = trvalá fáze
+        parts.append(
+            f'<text x="{x + DEVICE_PILL_W - 8}" y="{y + DEVICE_PILL_H - 4}" '
+            f'text-anchor="end" font-size="9" font-weight="700" fill="#b45309">⚡ trvalá fáze</text>'
+        )
     return parts
 
 
@@ -772,7 +791,7 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
         row_w += bw + ROOM_GAP
 
     # Compute overall canvas (extra bottom padding pro legendu; více pokud mode=after)
-    legend_pad = 110 if mode == "after" else 80
+    legend_pad = 140 if mode == "after" else 80
     total_w = max(sum(b[4] for b in row) + ROOM_GAP * (len(row) - 1) for row in rows) + 40
     total_h = OVERVIEW_TOP_PAD + sum(max(b[5] for b in row) for row in rows) + ROOM_GAP * (len(rows) - 1) + legend_pad
 
@@ -929,8 +948,8 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
 
     # Legend — 2 řádky když je mode=after (barvy/napětí nahoře, Shelly dole), jinak 1 řádek
     if mode == "after":
-        color_legend_y = total_h - 70
-        shelly_legend_y = total_h - 35
+        color_legend_y = total_h - 100
+        shelly_legend_y = total_h - 65
         parts.extend(render_legend(20, color_legend_y))
         sample_sh = {"id": "SH-XX", "model": "Shelly i4"}
         sample_parts, sample_w = render_shelly_badge(sample_sh, 20, shelly_legend_y - 10)
@@ -953,6 +972,16 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
         parts.append(
             f'<text x="{relay_x + 92}" y="{relay_y}" '
             f'font-size="11" fill="{TEXT}">předsazené relé (konverze 220V signálu na 24V pro Shelly vstup)</text>'
+        )
+        # Legend: trvalá fáze
+        tp_x = 20
+        tp_y = relay_y + 18
+        parts.append(
+            f'<text x="{tp_x}" y="{tp_y}" font-size="11" font-weight="700" fill="#b45309">⚡ trvalá fáze</text>'
+        )
+        parts.append(
+            f'<text x="{tp_x + 100}" y="{tp_y}" '
+            f'font-size="11" fill="{TEXT}">svítidlo má fázi stále pod proudem (HUE / Shelly Vintage); Shelly je detached, čte jen event</text>'
         )
     else:
         parts.extend(render_legend(20, total_h - 30))

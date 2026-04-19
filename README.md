@@ -27,9 +27,9 @@ Pro referenci při instalaci:
 
 ## Co se instaluje
 
-- **6 nových Shelly zařízení** (3× Shelly 1 Mini, 2× Plus 2PM, 1× i4). Mini už nakoupené (3 ks, všechny se použijí).
+- **6 nových Shelly zařízení** (3× Shelly 1 Mini, 2× Plus 2PM, 1× i4)
 - **9 krabic** s vypínači nebo Shelly (z toho 4 krabice bez Shelly — jen WAGO propojení)
-- **Odhad k nákupu:** ~3 000 Kč (2× 2PM + 1× i4 + rezerva; Mini už je)
+- **K nákupu:** ~700 Kč (1× Mini + rezerva; ostatní už máme — viz inventář níže)
 - **14 světelných okruhů** celkem (9 nových/upravených + 5 stávajících beze změny)
 
 ### Stávající zařízení (beze změny)
@@ -46,10 +46,10 @@ Pro referenci při instalaci:
 
 | Typ | Co to znamená | Zapojení |
 |---|---|---|
-| **HUE** | Stmívatelná Hue žárovka/pásek, fáze trvale pod proudem | Shelly **nikdy nespíná fázi**. Tlačítko jde jen do `i4` vstupu (**detached**) → HA → Hue bridge. |
-| **non-HUE** | Klasický 230V okruh | Shelly Plus 1PM/2PM **spíná fázi**. Tlačítko do `SW` vstupu (**attached**), nebo do `i4` (**detached**). |
+| **HUE** | Stmívatelná Hue žárovka/pásek, **fáze trvale pod proudem** ⚡ | Shelly **nikdy nespíná fázi**. Tlačítko jde jen do `i4` vstupu (**detached**) → HA → Hue bridge. |
+| **non-HUE** | Klasický 230V okruh | Shelly Plus 1PM/2PM/Mini **spíná fázi**. Tlačítko do `SW` vstupu (**attached**), nebo do `i4` (**detached**). |
 
-**Důsledek:** u HUE okruhů fázi žárovky **nikdy neodpojuj** — jinak se Hue žárovka „resetuje" do výchozího stavu po zapnutí.
+**Důsledek:** u HUE okruhů fázi žárovky **nikdy neodpojuj** — jinak se Hue žárovka „resetuje" do výchozího stavu po zapnutí. V diagramu „po úpravě" jsou tato svítidla označena ⚡ ikonou.
 
 ### 2. Tlačítka, ne vypínače
 
@@ -91,12 +91,26 @@ Krabice, kde se bude sekat / KU68:
 
 | Ks | Položka | Orient. cena/ks | Σ |
 |---:|---|---:|---:|
-| 3 | Shelly 1 Mini (všechny použité) | — | **již nakoupeno** |
-| 2 | Shelly Plus 2PM | 1 000 Kč | 2 000 Kč |
-| 1 | Shelly i4 (230V) | 600 Kč | 600 Kč |
-| — | KU68 prodlužovací kroužky | — | rezerva 400 Kč |
-| — | WAGO svorky | — | rezerva ~ |
-| | | **K nákupu** | **~3 000 Kč** |
+### Inventář (co už je nakoupeno)
+
+| Ks | Shelly typ |
+|---:|---|
+| 2 | Shelly 1 Mini |
+| 2 | Shelly i4 |
+| 5 | Shelly Plus 2PM |
+| 1 | Shelly RGBW PM |
+
+### Potřeba pro tento projekt (jen obývák / předsíně / jídelna / schodiště / kuchyň)
+
+| Ks | Shelly typ | Máme | Chybí |
+|---:|---|---:|---:|
+| 3 | Shelly 1 Mini (SH-01, SH-02, SH-03) | 2 | **1** (~300 Kč) |
+| 2 | Shelly Plus 2PM (SH-05, SH-06) | 5 (+3 rezerva) | 0 |
+| 1 | Shelly i4 (SH-07) | 2 (+1 rezerva) | 0 |
+| — | KU68 kroužky + WAGO svorky | — | rezerva ~400 Kč |
+| | | **K nákupu** | **~700 Kč** |
+
+Hardware pro ložnici a další místnosti je dokumentován samostatně (viz níže).
 
 Vypínače ABB Tango (pružinkové tlačítkové moduly + rámečky) řeší zákazník samostatně.
 

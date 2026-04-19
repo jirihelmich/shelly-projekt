@@ -23,18 +23,18 @@ devices:
 
   - id: SH-02
     model: Shelly 1 Mini
-    location: Za vypínačem SW-F1 v dolní předsíni (u pracovny)
+    location: U LED driveru/trafa pásku (v krabičce u svítidla, dolní předsíň)
     function: Spíná 220V do LED driveru pásku (L-02)
     mode: attached
     inputs:
-      SW1: [SW-F1, SW-G1]  # paralelně přes stáv. schodišťák Pracovna↔Dveře
+      SW1: [SW-F1, SW-G1]  # signálový vodič z tlačítek přes stáv. schodišťák
     outputs:
       O1: L-02 (LED pásek 220V)
     controlled_by: [SW-F1, SW-G1]
     notes: >
-      Mini, K1 attached. SW-F2 + SW-G2 pro L-09 Předsíň strop jsou paralelkou
-      přes stáv. schodišťák Obývák↔Dolní předsíň do SH-07 IN2 (čte je i4 v obýváku),
-      ne přes tento Shelly.
+      Umístěno v krabičce u LED driveru, ne pod vypínačem — tam je víc místa
+      a Shelly je přímo u spínaného zařízení. SW-F1 attached signálovým
+      vodičem, SW-G1 paralelka přes stáv. schodišťák Pracovna↔Dveře.
 
   - id: SH-03
     model: Shelly 1 Mini
