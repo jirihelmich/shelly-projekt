@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 260" width="280" height="260" font-family="sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="20" y="32" font-size="22" font-weight="700" fill="#111827">Jídelna</text>
+<line x1="20" y1="42" x2="260" y2="42" stroke="#374151" stroke-width="1"/>
+<text x="20" y="72" font-size="12" font-style="italic" fill="#6b7280">—</text>
+<rect x="20" y="82" width="240" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="30" y="110" width="220" height="84" fill="#ede9fe" stroke="#374151" stroke-width="1.5"/>
+<line x1="140" y1="116" x2="140" y2="188" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="44" y="122" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="85.0" y="175" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED 24V</text>
+<text x="85.0" y="189" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-13</text>
+<rect x="154" y="122" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="195.0" y="175" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lustr 220V</text>
+<text x="195.0" y="189" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-04</text>
+<text x="30" y="102" font-family="monospace" font-size="9" fill="#6b7280">P-JI</text>
+<text x="250" y="102" text-anchor="end" font-family="sans-serif" font-size="9" font-weight="700" fill="#6b7280">MIXED</text>
+<rect x="20" y="225" width="14" height="14" fill="#ffedd5" stroke="#374151" stroke-width="1"/>
+<text x="40" y="236" font-size="11" fill="#111827">HUE</text>
+<rect x="120" y="225" width="14" height="14" fill="#dbeafe" stroke="#374151" stroke-width="1"/>
+<text x="140" y="236" font-size="11" fill="#111827">non-HUE</text>
+<rect x="220" y="225" width="14" height="14" fill="#ede9fe" stroke="#374151" stroke-width="1"/>
+<text x="240" y="236" font-size="11" fill="#111827">mixed</text>
+<rect x="320" y="225" width="14" height="14" fill="#e5e7eb" stroke="#374151" stroke-width="1"/>
+<text x="340" y="236" font-size="11" fill="#111827">existing</text>
+</svg>

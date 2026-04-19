@@ -21,7 +21,9 @@ shelly-projekt/
 ├── devices/
 │   ├── shelly.yaml              # Inventář Shelly zařízení (SH-01 až SH-10, SH-E*)
 │   ├── circuits.yaml            # Světelné okruhy (L-01 až L-14)
-│   └── switches.yaml            # Fyzické vypínače a tlačítka (SW-*)
+│   ├── switches.yaml            # Fyzické vypínače a tlačítka (SW-*)
+│   └── plates.yaml              # Rámečky na stěnách (P-*), digitální nákres
+├── plates/                      # SVG vizualizace rámečků per místnost (generováno)
 ├── rooms/                       # Rozpis per místnost (pro elektrikáře)
 │   ├── 01-obyvak.md
 │   ├── 02-dolni-predsin.md
@@ -30,6 +32,10 @@ shelly-projekt/
 │   ├── 05-chodba-u-pokoje.md
 │   ├── 06-jidelna.md
 │   └── 07-kuchyn.md
+├── scripts/
+│   └── generate_plates.py       # Generátor SVG z plates.yaml
+├── sources/
+│   └── nakres-puvodni.png       # Původní ručně psaný nákres (zdroj)
 └── ha/
     └── automations.md           # Home Assistant automatizace (draft)
 ```

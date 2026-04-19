@@ -1,0 +1,227 @@
+# Fyzická rozmístění vypínačů/zásuvek (rámečků) na stěnách
+# Digitální reprezentace nákresu v sources/nakres-puvodni.png
+#
+# Každý plate = jeden rámeček (fyzická krytka na stěně).
+# components = seznam mechanismů v rámečku (zásuvka / jednovypínač / dvojvypínač).
+# Pro jednoduché rámečky je typicky jeden component. Kuchyň má 4.
+#
+# orientation = jak jsou components v rámečku uspořádány (horizontal | vertical)
+# stack_position = pořadí rámečku ve svislé řadě na stejné stěně (1 = nejvýš)
+# switch_ref = odkaz do switches.yaml (pro dohledání zapojení)
+
+plates:
+  # ============ OBÝVÁK (vstupní stěna, řada 5 rámečků pod sebou) ============
+
+  - id: P-OB-A
+    room: Obývák
+    location: Vstup
+    stack_position: 1
+    orientation: horizontal
+    tag: non-HUE
+    components:
+      - type: double_switch
+        switch_ref: SW-A
+        cells:
+          - { label: "Schodiště", circuit: L-01 }
+          - { label: "schody", circuit: null, blind: true, note: "v nákresu uvedeno, okruh zatím nezaveden" }
+
+  - id: P-OB-B
+    room: Obývák
+    location: Vstup
+    stack_position: 2
+    orientation: horizontal
+    tag: HUE
+    components:
+      - type: double_switch
+        switch_ref: SW-B
+        cells:
+          - { label: "Předsíň strop", circuit: L-11 }
+          - { label: "Obývák strop", circuit: L-10 }
+
+  - id: P-OB-E
+    room: Obývák
+    location: Vstup
+    stack_position: 3
+    orientation: horizontal
+    tag: existing
+    status: existing
+    components:
+      - type: single_switch
+        switch_ref: SW-E
+        cells:
+          - { label: "LED strop", circuit: L-12 }
+
+  - id: P-OB-C
+    room: Obývák
+    location: Vstup
+    stack_position: 4
+    orientation: horizontal
+    tag: non-HUE
+    note: "220V, nedimovat"
+    components:
+      - type: double_switch
+        switch_ref: SW-C
+        cells:
+          - { label: "Lišta 1", circuit: L-05 }
+          - { label: "Lišta 2", circuit: L-06 }
+
+  - id: P-OB-D
+    room: Obývák
+    location: Vstup
+    stack_position: 5
+    orientation: horizontal
+    tag: HUE
+    components:
+      - type: double_switch
+        switch_ref: SW-D
+        cells:
+          - { label: "Lišta 3", circuit: L-07 }
+          - { label: "Lustr K", circuit: L-08 }
+
+  # ============ DOLNÍ PŘEDSÍŇ (u pracovny, 2 jednovypínače pod sebou) ============
+
+  - id: P-DP-F1
+    room: Dolní předsíň
+    location: U pracovny
+    stack_position: 1
+    orientation: horizontal
+    tag: non-HUE
+    components:
+      - type: single_switch
+        switch_ref: SW-F1
+        cells:
+          - { label: "LED pásek", circuit: L-02 }
+
+  - id: P-DP-F2
+    room: Dolní předsíň
+    location: U pracovny
+    stack_position: 2
+    orientation: horizontal
+    tag: HUE
+    components:
+      - type: single_switch
+        switch_ref: SW-F2
+        cells:
+          - { label: "Předsíň strop", circuit: L-09 }
+
+  # ============ DOLNÍ PŘEDSÍŇ (u dveří, dvojvypínač — paralelka) ============
+
+  - id: P-DP-G
+    room: Dolní předsíň
+    location: U dveří
+    stack_position: 1
+    orientation: horizontal
+    tag: mixed
+    note: "Paralelka k P-DP-F1/F2 přes stávající schodišťákové dráty"
+    components:
+      - type: double_switch
+        switch_ref: SW-G
+        cells:
+          - { label: "LED pásek", circuit: L-02 }
+          - { label: "Předsíň strop", circuit: L-09 }
+
+  # ============ HORNÍ PŘEDSÍŇ (u schodů, 2 jednovypínače vedle sebe) ============
+
+  - id: P-HP-H1
+    room: Horní předsíň
+    location: U schodů
+    stack_position: 1
+    orientation: horizontal
+    tag: non-HUE
+    components:
+      - type: single_switch
+        switch_ref: SW-H1
+        cells:
+          - { label: "Schody", circuit: L-01, note: "3-cestné se SW-A, SW-CP" }
+
+  - id: P-HP-H2
+    room: Horní předsíň
+    location: U schodů
+    stack_position: 2
+    orientation: horizontal
+    tag: non-HUE
+    components:
+      - type: single_switch
+        switch_ref: SW-H2
+        cells:
+          - { label: "Horní předsíň lustr", circuit: L-03 }
+
+  - id: P-HP-H3
+    room: Horní předsíň
+    location: Samostatný (paralelka)
+    stack_position: 1
+    orientation: horizontal
+    tag: non-HUE
+    note: "Paralelka k SW-H2 přes stávající schodišťákový drát"
+    components:
+      - type: single_switch
+        switch_ref: SW-H3
+        cells:
+          - { label: "Horní předsíň lustr", circuit: L-03 }
+
+  # ============ CHODBA U POKOJE (3-cestné schodiště) ============
+
+  - id: P-CP
+    room: Chodba u pokoje
+    location: ""
+    stack_position: 1
+    orientation: horizontal
+    tag: non-HUE
+    note: "3-cestné se SW-A, SW-H1"
+    components:
+      - type: single_switch
+        switch_ref: SW-CP
+        cells:
+          - { label: "Schodiště", circuit: L-01 }
+
+  # ============ JÍDELNA ============
+
+  - id: P-JI
+    room: Jídelna
+    location: ""
+    stack_position: 1
+    orientation: horizontal
+    tag: mixed
+    components:
+      - type: double_switch
+        switch_ref: SW-J
+        cells:
+          - { label: "LED 24V", circuit: L-13, status: existing }
+          - { label: "Lustr 220V", circuit: L-04 }
+
+  # ============ KUCHYŇ (stávající, smíšený rámeček) ============
+
+  - id: P-KU
+    room: Kuchyň
+    location: ""
+    stack_position: 1
+    orientation: horizontal
+    tag: existing
+    status: existing
+    note: "24V systém, vyřešeno. Poznámka z nákresu: 2× LED sloučit do jednoho okruhu."
+    components:
+      - type: socket
+        cells:
+          - { label: "Z" }
+      - type: single_switch
+        cells:
+          - { label: "Lišta 3" }
+      - type: double_switch
+        cells:
+          - { label: "LED" }
+          - { label: "LED", note: "sloučit s předchozí" }
+      - type: single_switch
+        cells:
+          - { label: "dřezák" }
+
+# ============ LEGENDA ============
+legend:
+  tags:
+    HUE: "Svítidlo v Hue ekosystému, fáze trvalá, tlačítko posílá event"
+    non-HUE: "Klasický okruh, Shelly spíná fázi"
+    mixed: "Kombinace (část HUE, část non-HUE)"
+    existing: "Stávající instalace, beze změny"
+  components:
+    single_switch: "Jednovypínač — jedno tlačítko (ABB Tango s pružinkou)"
+    double_switch: "Dvojvypínač — dvě tlačítka vedle sebe ve stejném rámečku"
+    socket: "Zásuvka (Z)"

@@ -54,5 +54,5 @@ Viz `open-questions.md` pro seznam věcí k ověření.
 
 ## Zdroj
 
-Původní nákres: fotografie ručně psaného schématu (`sources/nakres-puvodni.jpg` — chybí, doplnit).
+Původní nákres: fotografie ručně psaného schématu (`sources/nakres-puvodni.png`).
 Chatová historie návrhu: Claude chat, duben 2026.
