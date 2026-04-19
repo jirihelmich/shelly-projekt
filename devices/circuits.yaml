@@ -16,14 +16,14 @@ circuits:
   - id: L-02
     name: LED pásek dolní předsíň
     room: Dolní předsíň
-    type: non-HUE
-    voltage: 24V (přes 230V trafo)
+    type: LED-trafo
+    voltage: 24V
     dimmable: false
     switched_by: SH-02  # spíná 230V primár trafa
     controlled_from: [SW-F1, SW-G1]
     control_mode: 2-way parallel to SW1
     ha_entity: switch.sh_02_led_pasek
-    notes: Ověřit toleranci trafa ke spínání 230V primáru.
+    notes: LED 24V přes trafo, Shelly Plus 1PM spíná 230V primár trafa. Ověřit toleranci trafa ke spínání primáru.
 
   - id: L-03
     name: Lustr horní předsíň
@@ -114,18 +114,18 @@ circuits:
   - id: L-12
     name: LED strop obývák
     room: Obývák
-    type: non-HUE
+    type: RGBW-PM
     voltage: 24V
     dimmable: true
     switched_by: SH-E1
     controlled_from: [SW-E]
     status: existing
-    notes: Stávající Shelly RGBW PM, beze změny. RGBW 24V LED.
+    notes: Stávající Shelly RGBW PM, beze změny.
 
   - id: L-13
     name: LED 24V jídelna
     room: Jídelna
-    type: RGBW 24V (stávající)
+    type: RGBW-PM
     voltage: 24V
     switched_by: SH-E2
     controlled_from: [SW-J1]

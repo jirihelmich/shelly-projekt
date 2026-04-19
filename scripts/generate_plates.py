@@ -20,9 +20,11 @@ CIRCUITS_YAML = PROJECT / "devices" / "circuits.yaml"
 OUTPUT_DIR = PROJECT / "plates"
 
 COLORS = {
-    "HUE": "#ffedd5",      # teplá oranžová = Hue (fáze trvalá)
-    "non-HUE": "#dbeafe",  # chladná modrá = klasický okruh
-    "neutral": "#f3f4f6",  # šedá = zásuvka / neklasifikovaný modul
+    "HUE": "#ffedd5",       # teplá oranžová = Hue (fáze trvalá)
+    "non-HUE": "#dbeafe",   # chladná modrá = klasický spínaný 230V okruh
+    "LED-trafo": "#fef3c7", # žlutá = LED 24V přes 230V→24V trafo (Shelly spíná primár)
+    "RGBW-PM": "#dcfce7",   # zelená = LED 24V přímo přes Shelly RGBW PM
+    "neutral": "#f3f4f6",   # šedá = zásuvka / neklasifikovaný modul
 }
 VOLTAGE_COLORS = {
     "220V": "#1e3a8a",  # tmavě modrá
@@ -36,7 +38,15 @@ MUTED = "#6b7280"
 def classify_circuit(c: dict) -> tuple[str, str | None]:
     """Vrátí (tag, voltage) pro okruh z circuits.yaml."""
     t = (c.get("type") or "").strip()
-    tag = "HUE" if t.upper().startswith("HUE") else "non-HUE"
+    t_upper = t.upper()
+    if t_upper.startswith("HUE"):
+        tag = "HUE"
+    elif "RGBW" in t_upper or "RGBW-PM" in t_upper:
+        tag = "RGBW-PM"
+    elif "TRAFO" in t_upper or "LED-TRAFO" in t_upper:
+        tag = "LED-trafo"
+    else:
+        tag = "non-HUE"
     v = (c.get("voltage") or "").strip()
     voltage: str | None = None
     if "230" in v or "220" in v:
@@ -298,8 +308,8 @@ def render_room(room: str, plates: list[dict]) -> str:
 
 def render_legend(x: int, y: int) -> list[str]:
     parts: list[str] = []
-    # HUE / non-HUE
-    for label in ("HUE", "non-HUE"):
+    # Tags (HUE, non-HUE, LED-trafo, RGBW-PM)
+    for label in ("HUE", "non-HUE", "LED-trafo", "RGBW-PM"):
         color = COLORS[label]
         parts.append(
             f'<rect x="{x}" y="{y-11}" width="14" height="14" fill="{color}" '
@@ -308,7 +318,7 @@ def render_legend(x: int, y: int) -> list[str]:
         parts.append(
             f'<text x="{x+20}" y="{y}" font-size="11" fill="{TEXT}">{esc(label)}</text>'
         )
-        x += 100
+        x += 110
     # Voltage badges
     for v in ("220V", "24V"):
         parts.extend(voltage_badge(x + 32, y - 11, v))
@@ -354,13 +364,11 @@ def devices_by_room() -> dict[str, list[dict]]:
     return out
 
 
-DEVICE_PILL_W = 146
-DEVICE_PILL_H = 30
-DEVICE_PILL_GAP_X = 8
-DEVICE_PILL_GAP_Y = 6
-DEVICE_STRIP_PAD_TOP = 6
-DEVICE_STRIP_PAD_BOT = 10
+DEVICE_PILL_W = 156
+DEVICE_PILL_H = 36
+DEVICE_PILL_GAP_Y = 8
 DEVICE_STRIP_TITLE_H = 18
+DEVICE_COL_GAP = 28  # mezera mezi rámečky a sloupcem svítidel
 
 
 def render_device_pill(dev: dict, x: int, y: int) -> list[str]:
@@ -370,25 +378,21 @@ def render_device_pill(dev: dict, x: int, y: int) -> list[str]:
     parts = [
         f'<rect x="{x}" y="{y}" width="{DEVICE_PILL_W}" height="{DEVICE_PILL_H}" '
         f'fill="{fill}" stroke="{BORDER}" stroke-width="1" rx="14" ry="14"/>',
-        f'<text x="{x+10}" y="{y+12}" font-family="monospace" font-size="8" fill="{MUTED}">{esc(dev["id"])}</text>',
-        f'<text x="{x+10}" y="{y+24}" font-size="11" font-weight="600" fill="{TEXT}">{esc(dev["name"])}</text>',
+        f'<text x="{x+10}" y="{y+13}" font-family="monospace" font-size="8" fill="{MUTED}">{esc(dev["id"])}</text>',
+        f'<text x="{x+10}" y="{y+28}" font-size="11" font-weight="600" fill="{TEXT}">{esc(dev["name"])}</text>',
     ]
     if voltage:
         parts.extend(voltage_badge(x + DEVICE_PILL_W - 6, y + 4, voltage))
     return parts
 
 
-def device_strip_dims(devices: list[dict], max_w: int) -> tuple[int, int, list[list[dict]]]:
-    """Vrátí (width, height, layout_rows). Rozloží pilulky do řádků tak, aby se vešly do max_w."""
+def device_col_dims(devices: list[dict]) -> tuple[int, int]:
+    """Vrátí (w, h) sloupce svítidel: pillulky stackované vertikálně."""
     if not devices:
-        return 0, 0, []
-    per_row = max(1, (max_w + DEVICE_PILL_GAP_X) // (DEVICE_PILL_W + DEVICE_PILL_GAP_X))
-    rows: list[list[dict]] = []
-    for i in range(0, len(devices), per_row):
-        rows.append(devices[i : i + per_row])
-    w = min(max_w, max(len(r) for r in rows) * (DEVICE_PILL_W + DEVICE_PILL_GAP_X) - DEVICE_PILL_GAP_X)
-    h = DEVICE_STRIP_TITLE_H + len(rows) * (DEVICE_PILL_H + DEVICE_PILL_GAP_Y) - DEVICE_PILL_GAP_Y + DEVICE_STRIP_PAD_TOP + DEVICE_STRIP_PAD_BOT
-    return w, h, rows
+        return 0, 0
+    w = DEVICE_PILL_W
+    h = DEVICE_STRIP_TITLE_H + len(devices) * (DEVICE_PILL_H + DEVICE_PILL_GAP_Y) - DEVICE_PILL_GAP_Y
+    return w, h
 
 CONNECTION_PALETTE = [
     "#dc2626",  # red
@@ -404,11 +408,11 @@ CONNECTION_PALETTE = [
 ROOM_BOX_PAD = 16
 ROOM_TITLE_H = 26
 ROOM_GAP = 30
-OVERVIEW_TOP_PAD = 140  # prostor nad místnostmi na oblouky propojení
+OVERVIEW_TOP_PAD = 90  # prostor nad místnostmi (title + podtitle)
 
 
 def cell_anchors_in_plate(plate: dict, plate_x: float, plate_y: float):
-    """Yield (circuit_id, cell_center_x, cell_top_y) pro každou buňku s circuit v plate."""
+    """Yield (circuit_id, anchor_x, anchor_y) — střed buňky, pro kreslení čar vypínač→zařízení."""
     orientation = plate.get("orientation", "horizontal")
     pw, _ = plate_dims(plate)
     inner_w = pw - 2 * PADDING
@@ -427,7 +431,7 @@ def cell_anchors_in_plate(plate: dict, plate_x: float, plate_y: float):
                         ccx = cx_base + CELL_W * i + CELL_W / 2
                     else:
                         ccx = cx_base + CELL_W / 2
-                    yield circ, ccx, cell_y
+                    yield circ, ccx, cell_y + CELL_H / 2
             cell_y += CELL_H
     else:
         cx_base = plate_x + PADDING
@@ -437,13 +441,12 @@ def cell_anchors_in_plate(plate: dict, plate_x: float, plate_y: float):
                 for i, cell in enumerate(comp.get("cells", [])):
                     circ = cell.get("circuit")
                     if not circ:
-                        cx_base_next = cx_base
                         continue
                     if comp["type"] == "double_switch":
                         ccx = cx_base + CELL_W * i + CELL_W / 2
                     else:
                         ccx = cx_base + CELL_W / 2
-                    yield circ, ccx, cell_y
+                    yield circ, ccx, cell_y + CELL_H / 2
             cx_base += cw
 
 
@@ -485,20 +488,19 @@ def render_overview(plates: list[dict]) -> str:
             if loc_columns else 0
         )
 
-        # Device strip
+        # Device column (vpravo od rámečků, pilulky stackované vertikálně)
         devs = devices_per_room.get(room, [])
-        dev_max_w = max(plates_inner_w, DEVICE_PILL_W * 2 + DEVICE_PILL_GAP_X) if devs else 0
-        dev_w, dev_h, dev_rows = device_strip_dims(devs, dev_max_w if dev_max_w else DEVICE_PILL_W * 3)
+        dev_col_w, dev_col_h = device_col_dims(devs)
 
-        inner_w = max(plates_inner_w, dev_w)
-        inner_h = dev_h + plates_inner_h
-        box_w = max(inner_w, DEVICE_PILL_W + 2 * ROOM_BOX_PAD) + 2 * ROOM_BOX_PAD
+        inner_w = plates_inner_w + (DEVICE_COL_GAP + dev_col_w if devs else 0)
+        inner_h = max(plates_inner_h, dev_col_h)
+        box_w = inner_w + 2 * ROOM_BOX_PAD
         box_h = inner_h + ROOM_TITLE_H + 2 * ROOM_BOX_PAD
 
-        room_blocks.append((room, loc_columns, dev_rows, dev_h, box_w, box_h))
+        room_blocks.append((room, loc_columns, devs, plates_inner_w, box_w, box_h))
 
     # Arrange room boxes left-to-right, wrap if needed.
-    max_row_w = 1600
+    max_row_w = 1800
     rows: list[list[tuple]] = [[]]
     row_w = 0
     for block in room_blocks:
@@ -531,7 +533,7 @@ def render_overview(plates: list[dict]) -> str:
     for row in rows:
         row_h = max(b[5] for b in row)
         bx = 20
-        for room, loc_columns, dev_rows, dev_h, box_w, box_h in row:
+        for room, loc_columns, devs, plates_inner_w, box_w, box_h in row:
             # Room box
             parts.append(
                 f'<rect x="{bx}" y="{row_y}" width="{box_w}" height="{box_h}" '
@@ -543,29 +545,9 @@ def render_overview(plates: list[dict]) -> str:
             )
 
             inner_top = row_y + ROOM_BOX_PAD + ROOM_TITLE_H
+            plates_top = inner_top
 
-            # Device strip
-            if dev_rows:
-                parts.append(
-                    f'<text x="{bx + ROOM_BOX_PAD}" y="{inner_top + 11}" font-size="10" '
-                    f'font-style="italic" fill="{MUTED}">Svítidla</text>'
-                )
-                pill_y = inner_top + DEVICE_STRIP_TITLE_H + DEVICE_STRIP_PAD_TOP
-                for drow in dev_rows:
-                    pill_x = bx + ROOM_BOX_PAD
-                    for dev in drow:
-                        parts.extend(render_device_pill(dev, pill_x, pill_y))
-                        # Kotva čáry = spodní hrana pilulky (střed)
-                        device_positions[dev["id"]] = (
-                            pill_x + DEVICE_PILL_W / 2,
-                            pill_y + DEVICE_PILL_H,
-                        )
-                        pill_x += DEVICE_PILL_W + DEVICE_PILL_GAP_X
-                    pill_y += DEVICE_PILL_H + DEVICE_PILL_GAP_Y
-
-            plates_top = inner_top + dev_h
-
-            # Locations + plates inside
+            # Rámečky (vlevo)
             cx = bx + ROOM_BOX_PAD
             for loc, ps, col_w, _ in loc_columns:
                 if loc:
@@ -580,6 +562,24 @@ def render_overview(plates: list[dict]) -> str:
                     plate_positions[plate["id"]] = (cx, cy, pw, ph)
                     cy += ph + PLATE_GAP
                 cx += col_w + COLUMN_GAP
+
+            # Svítidla (vpravo, sloupec pilulek)
+            if devs:
+                dev_col_x = bx + ROOM_BOX_PAD + plates_inner_w + DEVICE_COL_GAP
+                parts.append(
+                    f'<text x="{dev_col_x}" y="{inner_top + 11}" font-size="10" '
+                    f'font-style="italic" fill="{MUTED}">Svítidla</text>'
+                )
+                pill_y = inner_top + DEVICE_STRIP_TITLE_H
+                for dev in devs:
+                    parts.extend(render_device_pill(dev, dev_col_x, pill_y))
+                    # Kotva čáry = levá hrana pilulky, svisle uprostřed
+                    device_positions[dev["id"]] = (
+                        dev_col_x,
+                        pill_y + DEVICE_PILL_H / 2,
+                    )
+                    pill_y += DEVICE_PILL_H + DEVICE_PILL_GAP_Y
+
             bx += box_w + ROOM_GAP
         row_y += row_h + ROOM_GAP
 
@@ -601,23 +601,19 @@ def render_overview(plates: list[dict]) -> str:
     }
 
     conn_svgs: list[str] = []
-    for circ, cx, ty, pid in all_anchors:
+    for circ, sx, sy, pid in all_anchors:
         if circ not in device_positions:
             continue
-        dx, dy = device_positions[circ]
+        ex, ey = device_positions[circ]
         color = color_map[circ]
-        # Křivka z buňky nahoru k zařízení. Buňka je níž než pilulka (větší Y).
-        # Kontrolní body: horizontálně rovnou cestu přes peak.
-        peak_y = min(ty, dy) - 24
-        path = (
-            f"M {cx} {ty} "
-            f"C {cx} {peak_y}, {dx} {peak_y}, {dx} {dy}"
-        )
+        # Horizontální S-křivka mezi buňkou (střed) a pilulkou (levá hrana).
+        mid_x = (sx + ex) / 2
+        path = f"M {sx} {sy} C {mid_x} {sy}, {mid_x} {ey}, {ex} {ey}"
         conn_svgs.append(
-            f'<path d="{path}" fill="none" stroke="{color}" stroke-width="1.5" opacity="0.7"/>'
+            f'<path d="{path}" fill="none" stroke="{color}" stroke-width="1.5" opacity="0.75"/>'
         )
-        conn_svgs.append(f'<circle cx="{cx}" cy="{ty}" r="2.5" fill="{color}"/>')
-        conn_svgs.append(f'<circle cx="{dx}" cy="{dy}" r="2.5" fill="{color}"/>')
+        conn_svgs.append(f'<circle cx="{sx}" cy="{sy}" r="2.5" fill="{color}"/>')
+        conn_svgs.append(f'<circle cx="{ex}" cy="{ey}" r="2.5" fill="{color}"/>')
 
     parts.extend(conn_svgs)
 

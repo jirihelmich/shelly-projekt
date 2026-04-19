@@ -86,5 +86,4 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 
 - [ ] Ověřit otevřené otázky z `open-questions.md`
 - [ ] Doplnit `rooms/*.md` s rozpisem per místnost pro elektrikáře
-- [ ] Doplnit `ha/automations.yaml` s HA automatizacemi (schodiště toggle, Hue mapping)
 - [ ] Případně vygenerovat schéma zapojení per krabice (svg nebo mermaid)

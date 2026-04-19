@@ -22,7 +22,6 @@ Osazení Shelly zařízení v domě pro ovládání osvětlení. Integrace s Hom
 - `devices/circuits.yaml` — světelné okruhy (co Shelly ovládá)
 - `devices/switches.yaml` — fyzické vypínače, tlačítka, zapojení
 - `rooms/` — rozpis per místnost (markdown, pro elektrikáře)
-- `ha/` — Home Assistant automatizace a entity mapping
 - `open-questions.md` — otevřené body k ověření
 - `changelog.md` — historie změn specifikace
 

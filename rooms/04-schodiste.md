@@ -22,25 +22,6 @@ Logika přes **Home Assistant** — obě tlačítka → events → HA automation
 | SW-A (obývák) | A | SH-07 IN1 | event → HA → SH-01 toggle |
 | SW-H1 (horní předsíň) | H1 | SH-09 IN1 | event → HA → SH-01 toggle |
 
-## HA automatizace
-
-```yaml
-alias: Schodiště — 2-cestný toggle
-description: Tlačítko schodiště v obýváku nebo horní předsíni přepne SH-01
-trigger:
-  - platform: state
-    entity_id:
-      - event.sh_07_input_1  # SW-A obývák
-      - event.sh_09_input_1  # SW-H1 horní předsíň
-    attribute: event_type
-    to: single_push
-action:
-  - service: switch.toggle
-    target:
-      entity_id: switch.sh_01_schodiste
-mode: single
-```
-
 ## Offline fallback
 
 **Žádný aktuálně.** Pokud HA spadne, žádný vypínač nefunguje. Schodiště je chodba → přijatelné riziko.

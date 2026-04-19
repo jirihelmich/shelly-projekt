@@ -138,7 +138,6 @@ shelly-projekt/
 │   ├── circuits.yaml            # Světelné okruhy (L-01..14)
 │   ├── switches.yaml            # Vypínače a tlačítka (SW-*)
 │   └── plates.yaml              # Fyzické rámečky na stěnách (P-*)
-├── ha/automations.md            # Home Assistant (HA) automatizace — draft
 ├── open-questions.md            # Otevřené body k ověření
 ├── changelog.md                 # Historie změn specifikace
 └── scripts/generate_plates.py   # Generátor SVG diagramů
