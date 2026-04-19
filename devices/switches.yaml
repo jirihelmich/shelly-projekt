@@ -50,10 +50,11 @@ switches:
         circuit: L-07  # Lišta 3
         wired_to: SH-06 SW1
         mode: attached
+        parallel_with: SW-KU-L3
       - button: D2
-        circuit: L-08  # Lustr K HUE
+        circuit: L-04  # Lustr jídelna (v nákresu "Lustr K" je nedorozumění)
         wired_to: SH-06 SW2
-        mode: detached
+        mode: detached  # event → HA → SH-04 toggle
 
   - id: SW-E
     room: Obývák
@@ -146,6 +147,20 @@ switches:
         circuit: L-04  # lustr jídelna
         wired_to: SH-04 SW1
         mode: attached
+        parallel_with: SW-D2  # event-based, přes HA (ne fyzicky paralelně)
+
+  # ============ KUCHYŇ (stávající rámeček, doplněno kvůli sdíleným okruhům) ============
+
+  - id: SW-KU-L3
+    room: Kuchyň
+    position: Stávající rámeček
+    hardware: Jednovypínač (stávající)
+    buttons:
+      - button: KU-L3
+        circuit: L-07  # Lišta 3 (sdíleno s obývákem)
+        wired_to: SH-06 SW1  # paralelka k SW-D1 přes stáv. schodišťákový drát
+        mode: parallel
+    notes: Paralelka k SW-D1 v obýváku pro Lišta 3. Ověřit drát Obývák→Kuchyň.
 
 # ============ SOUHRN KRABIC ============
 

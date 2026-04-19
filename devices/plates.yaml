@@ -44,7 +44,7 @@ plates:
         switch_ref: SW-D
         cells:
           - { label: "Lišta 3", circuit: L-07 }
-          - { label: "Lustr K", circuit: L-08 }
+          - { label: "Lustr jídelna", circuit: L-04, note: "v nákresu označeno 'Lustr K', ale ovládá L-04 jídelna" }
 
   # ============ DOLNÍ PŘEDSÍŇ — 2 rámečky: vertikální (2 jednovypínače) + samostatný dvojvypínač ============
 
@@ -122,14 +122,14 @@ plates:
     room: Kuchyň
     location: ""
     orientation: horizontal
-    note: "Celý rámeček je 24V systém (stávající). Každá LED = jiné svítidlo (doplnit specifické názvy)."
+    note: "Lišta 3 je 220V (sdíleno s obývákem, L-07); LED pásky jsou 24V. Každá LED = jiné svítidlo (doplnit specifické názvy)."
     components:
       - type: socket
         cells:
           - { label: "Z", voltage: "220V" }
       - type: single_switch
         cells:
-          - { label: "Lišta 3", voltage: "24V" }
+          - { label: "Lišta 3", circuit: L-07, note: "totéž svítidlo jako Lišta 3 v obýváku" }
       - type: double_switch
         cells:
           - { label: "LED A", voltage: "24V" }

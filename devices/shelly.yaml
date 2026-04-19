@@ -76,18 +76,19 @@ devices:
   - id: SH-06
     model: Shelly Plus 2PM
     location: Za vypínačem SW-D v obýváku
-    function: K1 spíná Lišta 3 (L-07); K2 čte tlačítko pro Lustr K Hue (L-08)
+    function: K1 spíná Lišta 3 (L-07); K2 čte tlačítko SW-D2 (event → HA → SH-04 toggle pro Lustr jídelna L-04)
     mode: mixed  # K1 attached, K2 detached
     inputs:
-      SW1: SW-D1  # attached
-      SW2: SW-D2  # detached
+      SW1: [SW-D1, SW-KU-L3]  # attached + paralelka s kuchyní přes stáv. drát
+      SW2: SW-D2  # detached (event pro L-04)
     outputs:
       O1: L-07 (Lišta 3)
-      O2: unused  # nezapojit, Hue žárovka Lustr K je trvale pod proudem
-    controlled_by: [SW-D1, SW-D2]
+      O2: unused  # nezapojit, L-04 spíná SH-04 v jídelně
+    controlled_by: [SW-D1, SW-D2, SW-KU-L3]
     notes: >
-      K2 detached: výstup O2 zůstává nezapojený. V HA disable entity
-      switch.sh_06_k2, použít jen event pro toggle Hue Lustr K (L-08).
+      K2 detached: výstup O2 zůstává nezapojený (L-04 spíná SH-04 v jídelně).
+      V HA disable entity switch.sh_06_k2, event.sh_06_input_2 → switch.toggle sh_04.
+      K1 má paralelku přes stáv. drát z kuchyňského tlačítka Lišta 3 (SW-KU-L3).
 
   - id: SH-07
     model: Shelly i4

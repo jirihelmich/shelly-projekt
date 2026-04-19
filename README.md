@@ -22,7 +22,7 @@ Pro referenci při instalaci:
 - **9 nových Shelly zařízení** (4× Plus 1PM, 2× Plus 2PM, 3× i4)
 - **9 krabic** s vypínači nebo Shelly (z toho 2 krabice bez Shelly — jen WAGO propojení)
 - **Odhad hardware:** ~7 000 Kč (viz kusovník níže)
-- **13 světelných okruhů** celkem (10 nových/upravených + 3 stávající beze změny)
+- **12 světelných okruhů** celkem (9 nových/upravených + 3 stávající beze změny)
 
 ### Stávající zařízení (beze změny)
 
@@ -59,7 +59,8 @@ Dvě tlačítka z různých krabic jsou připojena paralelně na **jeden** `SW` 
 Kde to je:
 - **L-02** LED pásek — SW-F1 + SW-G1 → SH-02 SW1
 - **L-03** horní předsíň lustr — SW-H2 (u schodů) + SW-CP (chodba u pokoje) → SH-03 SW1
-- **L-09** předsíň strop — SW-F2 + SW-G2 → SH-08 IN1
+- **L-07** Lišta 3 — SW-D1 (obývák) + SW-KU-L3 (kuchyň) → SH-06 SW1
+- **L-09** předsíň strop — SW-F2 + SW-G2 → SH-08 IN1 (přes HA pak i SW-B1 z obýváku)
 
 ### 5. 2-cestné schodiště (L-01)
 

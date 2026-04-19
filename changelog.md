@@ -54,6 +54,12 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 - **SH-10 i4 odstraněno** — krabice v Chodbě u pokoje je bez Shelly (paralelka stačí)
 - Nové Shelly: 4× Plus 1PM + 2× Plus 2PM + **3× i4** = **9 ks** (~7 000 Kč)
 
+### Topologické opravy: L-08 zrušeno, L-07 sdíleno s kuchyní
+
+- **L-08 Lustr K zrušeno.** V nákresu "Lustr K" u obývákového SW-D2 je ve skutečnosti Lustr jídelna (L-04). SW-D2 posílá event přes SH-06 SW2 do HA, HA toggluje SH-04 v jídelně. L-04 má nyní 2 ovladače (SW-J2 attached, SW-D2 detached).
+- **Lišta 3 v kuchyni = Lišta 3 v obýváku (L-07), 220V.** Kuchyňský stávající vypínač je paralelka k SW-D1 přes stávající schodišťákový drát do SH-06 SW1. Přidáno SW-KU-L3 do switches.yaml.
+- **Okruhů celkem: 13 → 12.**
+
 ### Další topologická oprava: L-11 sloučeno do L-09
 
 - `Předsíň strop` u obývákového vstupu (dříve L-11) je **totéž Hue svítidlo** jako `Předsíň strop` v dolní předsíni (L-09)

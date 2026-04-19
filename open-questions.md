@@ -10,6 +10,7 @@ Každá z nich může ovlivnit kusovník nebo zapojení.
 - [ ] **L-02 LED pásek dolní předsíň**: skutečně existují 2 volné vodiče mezi krabicí SW-F1 (pracovna) a krabicí SW-G (dveře)? Lze jeden použít jako signálový k SH-02 SW1?
 - [ ] **L-09 Předsíň strop (HUE)**: potvrzeno "schodišťák na obou okruzích". Ověřit fyzicky, že druhý volný drát existuje.
 - [ ] **L-03 Lustr horní předsíň**: 2 volné vodiče mezi SW-H2 (u schodů v horní předsíni) a SW-CP (chodba u pokoje)?
+- [ ] **L-07 Lišta 3**: existuje drát mezi SW-D v obýváku a kuchyňským rámečkem (paralelka pro Lišta 3)?
 
 **Fallback pokud dráty nejsou:** místo paralelního zapojení přes existující dráty použít i4 navíc za krabicí bez Shelly → přidá +2× i4 (+1200 Kč).
 
@@ -56,9 +57,10 @@ HA automatizace: 2 trigger entity (sh_07_input_2 + sh_08_input_1) → `light.tog
 
 ### 7. SH-06 K2 — zapojení výstupu O2
 
-- [ ] Lustr K je HUE (trvale pod proudem). SH-06 K2 čte tlačítko SW-D2, ale výstup O2 nespíná nic.
-- [ ] **Varianta A:** O2 nechat nezapojený (čistší, ale vypadá jako chyba pro elektrikáře)
-- [ ] **Varianta B:** O2 propojit paralelně s L (fáze vždy zapnutá) — Hue žárovka dostane trvalou fázi, O2 je "zbytečný ale bezpečný"
+- [ ] SW-D2 čte SH-06 SW2 jako event (detached). Tlačítko ve skutečnosti ovládá Lustr jídelna (L-04) přes HA → SH-04.
+- [ ] Výstup O2 SH-06 nespíná nic (L-04 se spíná v jídelně přes SH-04).
+- [ ] **Varianta A:** O2 nechat nezapojený (čistší)
+- [ ] **Varianta B:** O2 propojit s L (fáze trvalá) — zbytečné, ale bezpečné
 
 **Doporučení:** Varianta A + komentář v elektrotechnické dokumentaci.
 

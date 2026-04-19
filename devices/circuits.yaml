@@ -43,8 +43,13 @@ circuits:
     voltage: 230V
     dimmable: false
     switched_by: SH-04
-    controlled_from: [SW-J2]
+    controlled_from: [SW-J2, SW-D2]
+    control_mode: SW-J2 attached (SH-04 SW1), SW-D2 event → HA → SH-04 toggle
     ha_entity: switch.sh_04_lustr_jidelna
+    notes: >
+      Tlačítko "Lustr K" v obývákovém rámečku (SW-D2) je ve skutečnosti ovládání
+      téhož jídelního lustru. Wire SW-D2 jde do SH-06 SW2 (detached), event pak
+      přes HA na SH-04 toggle.
 
   - id: L-05
     name: Lišta 1
@@ -73,20 +78,13 @@ circuits:
     voltage: 230V
     dimmable: false
     switched_by: SH-06 K1
-    controlled_from: [SW-D1]
+    controlled_from: [SW-D1, SW-KU-L3]
+    control_mode: SW-D1 attached, SW-KU-L3 paralelka přes stáv. drát → SH-06 SW1
     ha_entity: switch.sh_06_lista_3
-
-  - id: L-08
-    name: Lustr K
-    room: Obývák
-    type: HUE
-    voltage: 230V (trvale)
-    dimmable: true (via Hue)
-    switched_by: null  # Hue, fáze trvalá
-    controlled_from: [SW-D2]  # tlačítko do SH-06 SW2 (detached)
-    control_mode: event → HA → Hue
-    ha_entity: light.obyvak_lustr_k  # Hue entity
-    notes: SH-06 K2 výstup O2 nezapojený. SW2 jen čte tlačítko.
+    notes: >
+      Druhé ovládací tlačítko "Lišta 3" je ve stávajícím kuchyňském rámečku
+      (SW-KU-L3). Paralelka přes stávající schodišťákový drát do SH-06 SW1.
+      Ověřit fyzickou existenci drátu mezi Obývákem (SW-D) a Kuchyní.
 
   - id: L-09
     name: Předsíň strop
