@@ -6,7 +6,7 @@
 
 - **Všechny nové Shelly jsou koncentrované do obývákové konzole** (plus 1 Mini ve stropě u LED driveru v dolní předsíni a 1 Mini v rámečku P-CP v horní předsíni). Důvod: jedno místo pro údržbu, jedno místo pro update firmwaru, známý pivot přístupu.
 - **Vypínače mimo obývák jsou paralelky** přes stávající schodišťákové dráty do Shelly v obýváku (nebo do lokálně blízkého Shelly). Krabice za těmito vypínači jsou většinou bez Shelly, jen WAGO.
-- **Úpravy v horní předsíni a kuchyni řešit zvlášť, nezávisle na obýváku.** Obývákový instal lze dokončit samostatně a horní předsíň / kuchyň doplnit kdykoli později (jsou to samostatné subprojekty).
+- **Topologie umožňuje úpravy v horní předsíni a kuchyni řešit nezávisle na obýváku** — nejsou přímo svázané s obývákovým instalem. Dělá se to společně, ale kdyby bylo potřeba, lze ty subprojekty oddělit v čase.
 - **HUE svítidla mají trvalou fázi** (⚡) — fáze nikdy neodpojovat. Shelly u těchto okruhů je detached (čte jen eventy, nespíná fázi).
 - **Offline fallback kdekoli to jde**: paralelky na attached SW vstup (ne přes HA), abychom se nespoléhali jen na funkční HA.
 
