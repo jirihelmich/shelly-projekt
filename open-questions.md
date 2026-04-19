@@ -12,6 +12,7 @@ Každá z nich může ovlivnit kusovník nebo zapojení.
 - [ ] **L-03 Lustr horní předsíň**: 2 volné vodiče mezi SW-H2 (u schodů v horní předsíni) a SW-CP (chodba u pokoje)?
 - [ ] **L-07 Lišta 3**: existuje drát mezi SW-D v obýváku a kuchyňským rámečkem (paralelka pro Lišta 3)?
 - [ ] **L-04 Lustr jídelna (HUE)**: existuje stávající schodišťákový drát Obývák (SW-D) ↔ Jídelna (SW-J) pro paralelní zapojení SW-D2 + SW-J2 na SH-06 SW2? Pokud ne, bude potřeba i4 v jídelně (+1× i4, +600 Kč).
+- [ ] **L-09 Předsíň strop (HUE)**: existuje stávající schodišťákový drát Obývák (SW-B) ↔ Dolní předsíň (SW-F2) pro paralelní zapojení SW-B1 + SW-F2 + SW-G2 na SH-07 IN2? Pokud ne, bude potřeba Plus 2PM místo Mini v dolní předsíni (+1× 2PM, vyšší cena).
 
 **Fallback pokud dráty nejsou:** místo paralelního zapojení přes existující dráty použít i4 navíc za krabicí bez Shelly → přidá +2× i4 (+1200 Kč).
 

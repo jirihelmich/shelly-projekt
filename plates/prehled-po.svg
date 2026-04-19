@@ -349,10 +349,8 @@
 <text x="88.5" y="569" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM [A] SH-06</text>
 <rect x="160.0" y="560" width="77" height="12" fill="#1f2937" rx="3" ry="3"/>
 <text x="198.5" y="569" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM [D] SH-06</text>
-<rect x="50.0" y="798" width="77" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="88.5" y="807" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM [A] SH-02</text>
-<rect x="50.0" y="890" width="77" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="88.5" y="899" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">2PM [D] SH-02</text>
+<rect x="50.0" y="798" width="62" height="12" fill="#1f2937" rx="3" ry="3"/>
+<text x="81.0" y="807" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">Mini SH-02</text>
 <rect x="1278" y="192" width="62" height="12" fill="#1f2937" rx="3" ry="3"/>
 <text x="1309.0" y="201" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">Mini SH-03</text>
 <rect x="466" y="337.0" width="86" height="14" fill="#1f2937" rx="3" ry="3"/>

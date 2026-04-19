@@ -27,9 +27,9 @@ Pro referenci při instalaci:
 
 ## Co se instaluje
 
-- **6 nových Shelly zařízení** (2× Shelly 1 Mini, 3× Plus 2PM, 1× i4). Mini už nakoupené (3 ks celkem, 1 zbude jako rezerva).
-- **9 krabic** s vypínači nebo Shelly (z toho 3 krabice bez Shelly — jen WAGO propojení)
-- **Odhad k nákupu:** ~4 000 Kč (3× 2PM + 1× i4 + rezerva; Mini už je)
+- **6 nových Shelly zařízení** (3× Shelly 1 Mini, 2× Plus 2PM, 1× i4). Mini už nakoupené (3 ks, všechny se použijí).
+- **9 krabic** s vypínači nebo Shelly (z toho 4 krabice bez Shelly — jen WAGO propojení)
+- **Odhad k nákupu:** ~3 000 Kč (2× 2PM + 1× i4 + rezerva; Mini už je)
 - **14 světelných okruhů** celkem (9 nových/upravených + 5 stávajících beze změny)
 
 ### Stávající zařízení (beze změny)
@@ -67,10 +67,10 @@ Dvě tlačítka z různých krabic jsou připojena paralelně na **jeden** `SW` 
 Kde to je:
 - **L-01** schodiště — SW-A (obývák) + SW-H1 (horní předsíň) → SH-01 SW1 (Mini v obývákové konzoli)
 - **L-02** LED pásek — SW-F1 + SW-G1 → SH-02 SW1 (Mini za SW-F1)
-- **L-03** horní předsíň lustr — SW-H2 (u schodů) + SW-CP (u pokoje) → SH-03 SW1 (Mini za SW-H2)
+- **L-03** horní předsíň lustr — SW-CP (u pokoje) + SW-H2 (u schodů) → SH-03 SW1 (Mini za SW-CP v P-CP)
 - **L-04** lustr jídelna (HUE) — SW-D2 (obývák) + SW-J2 (jídelna) → SH-06 SW2 (detached, event)
 - **L-07** Lišta 3 — SW-D1 (obývák) + SW-KU-L3 (kuchyň) → SH-06 SW1
-- **L-09** předsíň strop — SW-F2 + SW-G2 → SH-08 IN1 (přes HA pak i SW-B1 z obýváku)
+- **L-09** předsíň strop (HUE) — **SW-B1** (obývák) + **SW-F2** + **SW-G2** → všechna 3 paralelně na SH-07 IN2 (i4 v obývákové konzoli) přes stáv. schodišťák
 
 ### 5. 2-cestné schodiště (L-01) — attached paralelka
 
@@ -82,7 +82,7 @@ Krabice za vypínači jsou **mělké** → nutno prosekat hlouběji nebo použí
 
 Krabice, kde se bude sekat / KU68:
 - Obývák vstup, konzole (SH-01 Mini + SH-05/06 2PM + SH-07 i4 — 4 Shelly ve více krabicích za SW-A/B/C/D)
-- Dolní předsíň u pracovny (SH-02 Plus 2PM — za SW-F1/F2, K1 attached LED pásek + K2 detached Hue event)
+- Dolní předsíň u pracovny (SH-02 Mini za SW-F1; SW-F2 krabice bez Shelly)
 - Horní předsíň u pokoje (SH-03 Mini — za SW-CP, samostatný rámeček P-CP)
 
 ---
@@ -91,13 +91,12 @@ Krabice, kde se bude sekat / KU68:
 
 | Ks | Položka | Orient. cena/ks | Σ |
 |---:|---|---:|---:|
-| 2 | Shelly 1 Mini (použité) | — | **již nakoupeno** |
-| 1 | Shelly 1 Mini (rezerva) | — | **zbytek nákupu** |
-| 3 | Shelly Plus 2PM | 1 000 Kč | 3 000 Kč |
+| 3 | Shelly 1 Mini (všechny použité) | — | **již nakoupeno** |
+| 2 | Shelly Plus 2PM | 1 000 Kč | 2 000 Kč |
 | 1 | Shelly i4 (230V) | 600 Kč | 600 Kč |
 | — | KU68 prodlužovací kroužky | — | rezerva 400 Kč |
 | — | WAGO svorky | — | rezerva ~ |
-| | | **K nákupu** | **~4 000 Kč** |
+| | | **K nákupu** | **~3 000 Kč** |
 
 Vypínače ABB Tango (pružinkové tlačítkové moduly + rámečky) řeší zákazník samostatně.
 

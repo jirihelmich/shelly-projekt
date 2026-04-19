@@ -96,12 +96,13 @@ circuits:
     dimmable: true (via Hue)
     switched_by: null
     controlled_from: [SW-B1, SW-F2, SW-G2]
-    control_mode: event (3 tlačítka) → HA → Hue
+    control_mode: 3 tlačítka paralelně na SH-07 IN2 (i4 v obýváku) → event → HA → Hue
     ha_entity: light.dolni_predsin_strop
     notes: >
-      Jedno Hue svítidlo ovládané ze 3 míst:
-      SW-B1 obývák vstup (SH-07 IN2 → HA → Hue),
-      SW-F2 dolní předsíň pracovna + SW-G2 dveře (paralelně na SH-02 SW2 K2 detached → HA → Hue).
+      Jedno Hue svítidlo ovládané ze 3 míst, všechna 3 tlačítka vedou
+      paralelně na SH-07 IN2 v obývákové konzoli (přes stáv. schodišťákový
+      drát Obývák↔Dolní předsíň mezi SW-B a SW-F2).
+      HA vidí jediný event sh_07_input_2, toggluje Hue skupinu.
 
   - id: L-10
     name: Obývák strop

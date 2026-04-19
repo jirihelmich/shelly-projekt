@@ -22,21 +22,19 @@ devices:
       Funguje offline bez HA. Umístěno v obýváku (konzole) kvůli koncentraci instalace.
 
   - id: SH-02
-    model: Shelly Plus 2PM
-    location: Za vypínači SW-F1 + SW-F2 v dolní předsíni (u pracovny)
-    function: K1 spíná LED pásek (L-02, 220V); K2 čte tlačítko pro Hue Předsíň strop (L-09) event
-    mode: mixed  # K1 attached, K2 detached
+    model: Shelly 1 Mini
+    location: Za vypínačem SW-F1 v dolní předsíni (u pracovny)
+    function: Spíná 220V do LED driveru pásku (L-02)
+    mode: attached
     inputs:
-      SW1: [SW-F1, SW-G1]  # K1 attached paralelka přes stáv. drát
-      SW2: [SW-F2, SW-G2]  # K2 detached paralelka přes stáv. drát
+      SW1: [SW-F1, SW-G1]  # paralelně přes stáv. schodišťák Pracovna↔Dveře
     outputs:
       O1: L-02 (LED pásek 220V)
-      O2: unused  # L-09 je HUE (fáze trvalá), K2 jen event reader
-    controlled_by: [SW-F1, SW-G1, SW-F2, SW-G2]
+    controlled_by: [SW-F1, SW-G1]
     notes: >
-      Konsolidované do 1 Plus 2PM: K1 spíná LED pásek (attached, offline OK),
-      K2 čte event pro Hue Předsíň strop (detached, přes HA → light.toggle).
-      Nahrazuje dřívější Mini SH-02 + i4 SH-08. Jeden Shelly v krabici za SW-F1+F2.
+      Mini, K1 attached. SW-F2 + SW-G2 pro L-09 Předsíň strop jsou paralelkou
+      přes stáv. schodišťák Obývák↔Dolní předsíň do SH-07 IN2 (čte je i4 v obýváku),
+      ne přes tento Shelly.
 
   - id: SH-03
     model: Shelly 1 Mini
@@ -92,18 +90,19 @@ devices:
   - id: SH-07
     model: Shelly i4
     location: Za vypínači SW-A + SW-B v obýváku
-    function: Čte tlačítka B1 (předsíň strop HUE), B2 (obývák strop HUE). IN1 rezerva (SW-A teď attached na SH-01).
+    function: Čte IN2 pro L-09 Předsíň strop (3 tlačítka paralelka), IN3 pro L-10 Obývák strop
     mode: detached
     inputs:
       IN1: rezerva  # (dříve SW-A; ten je teď attached přímo na SH-01 Mini)
-      IN2: SW-B1  # → HA → Hue L-09 (sdíleno s SW-F2/SW-G2 v dolní předsíni)
+      IN2: [SW-B1, SW-F2, SW-G2]  # paralelka: B1 lokálně + F2/G2 přes stáv. schodišťák Obývák↔Dolní předsíň
       IN3: SW-B2  # → HA → Hue L-10
       IN4: rezerva
     outputs: []
-    controlled_by: [SW-B1, SW-B2]
+    controlled_by: [SW-B1, SW-B2, SW-F2, SW-G2]
     notes: >
-      IN1 uvolněno, protože SW-A je nyní attached na SH-01 (Mini v obýváku).
-      Scény na SW-A případně lze doplnit přidáním paralelního napojení na IN1.
+      IN2 čte 3 tlačítka paralelně (SW-B1 v obýváku + SW-F2/G2 v dolní předsíni
+      přes stáv. schodišťákový drát). Všechny 3 toggluje stejnou Hue skupinu L-09.
+      IN1 uvolněno (SW-A attached na SH-01).
 
   # (dříve zde bylo SH-08 i4 v dolní předsíni pro SW-F2+G2 event;
   # odstraněno — SH-02 Plus 2PM nyní pokrývá oba kanály: K1 attached pro LED pásek,
@@ -150,18 +149,16 @@ devices:
 
 summary:
   new:
-    shelly_1_mini: 2  # SH-01 (obývák schodiště), SH-03 (horní předsíň u pokoje) — nakoupené
-    plus_2pm: 3       # SH-05 obývák, SH-06 obývák, SH-02 dolní předsíň (konsolidace K1+K2)
-    i4: 1             # SH-07 obývák (SW-B1+B2 pro Hue eventy)
+    shelly_1_mini: 3  # SH-01, SH-02, SH-03 — všechny 3 nakoupené Mini se použijí
+    plus_2pm: 2       # SH-05 obývák, SH-06 obývák
+    i4: 1             # SH-07 obývák (čte B1/B2 + F2/G2 paralelka přes schodišťák)
     total_new_installed: 6
   existing:
     rgbw_pm: 2     # SH-E1 obývák, SH-E2 jídelna
     other: 1       # SH-E3 kuchyň (model neznámý)
   to_purchase:
-    plus_2pm: 3
+    plus_2pm: 2
     i4: 1
-    estimated_cost_czk: 4000  # 3*1000 + 1*600 + rezerva 400
-  spare_mini: 1   # 1× Shelly 1 Mini zbyde (SW-F1 nahrazeno Plus 2PM SH-02)
+    estimated_cost_czk: 3000  # 2*1000 + 1*600 + rezerva 400
   notes: >
-    Shelly 1 Mini už je zakoupené (3 ks) — 2 ks se použijí (SH-01, SH-03),
-    1 ks zbude jako rezerva pro jiné využití. K nákupu: 3× Plus 2PM + 1× i4.
+    Shelly 1 Mini už je zakoupené (3 ks) a všechny se použijí. K nákupu: 2× Plus 2PM + 1× i4.

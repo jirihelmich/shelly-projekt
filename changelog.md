@@ -54,6 +54,15 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 - **SH-10 i4 odstraněno** — krabice v Chodbě u pokoje je bez Shelly (paralelka stačí)
 - Nové Shelly: 4× Plus 1PM + 2× Plus 2PM + **3× i4** = **9 ks** (~7 000 Kč)
 
+### L-09 paralelka přes schodišťák do i4 v obýváku → SH-02 zpět na Mini
+
+- Uživatel si všiml redundance: SH-07 IN2 už čte SW-B1 pro L-09. Stačí přidat paralelku z SW-F2 + SW-G2 na stejný vstup přes stáv. schodišťákový drát Obývák↔Dolní předsíň.
+- **SH-02 vrácené na Shelly 1 Mini** (jen K1 pro LED pásek). Plus 2PM tam už není potřeba.
+- **SH-07 IN2 čte nyní 3 tlačítka paralelně**: SW-B1 lokálně + SW-F2 + SW-G2 přes schodišťák.
+- Krabice za SW-F2 je bez Shelly (jen WAGO paralelky).
+- **K nákupu: ~4 000 → ~3 000 Kč** (jen 2× Plus 2PM + 1× i4 + rezerva). Všechny 3 Mini se použijí (žádná rezerva).
+- **Podmínka:** drát Obývák (SW-B) ↔ Dolní předsíň (SW-F2) — flagováno v open-questions.
+
 ### Další konsolidace + voltage badge přesun
 
 - **SH-03 přesunuto** ze za SW-H2 (u schodů) na **za SW-CP (u pokoje, P-CP)** — víc místa v samostatném rámečku. SW-CP attached, SW-H2 paralelka přes stáv. schodišťák.
