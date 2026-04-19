@@ -17,13 +17,13 @@ circuits:
     name: LED pásek dolní předsíň
     room: Dolní předsíň
     type: LED-trafo
-    voltage: 24V
+    voltage: 220V
     dimmable: false
-    switched_by: SH-02  # spíná 230V primár trafa
+    switched_by: SH-02  # spíná 220V stranu (primár trafa nebo přímo)
     controlled_from: [SW-F1, SW-G1]
     control_mode: 2-way parallel to SW1
     ha_entity: switch.sh_02_led_pasek
-    notes: LED 24V přes trafo, Shelly Plus 1PM spíná 230V primár trafa. Ověřit toleranci trafa ke spínání primáru.
+    notes: LED pásek na 220V. Shelly Plus 1PM spíná 220V stranu. Ověřit kompatibilitu s driverem pásku.
 
   - id: L-03
     name: Lustr horní předsíň
@@ -130,4 +130,34 @@ circuits:
     switched_by: SH-E2
     controlled_from: [SW-J1]
     status: existing
+
+  - id: L-14
+    name: LED kuchyň A
+    room: Kuchyň
+    type: RGBW-PM
+    voltage: 24V
+    switched_by: SH-E3
+    controlled_from: [SW-KU-LEDA]
+    status: existing
+    notes: Stávající, součást kuchyňské 24V instalace.
+
+  - id: L-15
+    name: LED kuchyň B
+    room: Kuchyň
+    type: RGBW-PM
+    voltage: 24V
+    switched_by: SH-E3
+    controlled_from: [SW-KU-LEDB]
+    status: existing
+    notes: Druhý 24V LED okruh v kuchyni, stávající.
+
+  - id: L-16
+    name: LED digestoř
+    room: Kuchyň
+    type: RGBW-PM
+    voltage: 24V
+    switched_by: SH-E3
+    controlled_from: [SW-KU-DIG]
+    status: existing
+    notes: LED osvětlení digestoře, stávající.
 

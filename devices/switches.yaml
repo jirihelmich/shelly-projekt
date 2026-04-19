@@ -163,6 +163,32 @@ switches:
         mode: parallel
     notes: Paralelka k SW-D1 v obýváku pro Lišta 3. Ověřit drát Obývák→Kuchyň.
 
+  - id: SW-KU-LEDAB
+    room: Kuchyň
+    position: Stávající rámeček
+    hardware: Dvojvypínač (stávající)
+    buttons:
+      - button: KU-LEDA
+        circuit: L-14  # LED kuchyň A (24V)
+        wired_to: SH-E3 (stávající ovládání)
+        status: existing
+      - button: KU-LEDB
+        circuit: L-15  # LED kuchyň B (24V)
+        wired_to: SH-E3 (stávající ovládání)
+        status: existing
+    notes: Stávající zapojení kuchyňských 24V LED, beze změny.
+
+  - id: SW-KU-DIG
+    room: Kuchyň
+    position: Stávající rámeček
+    hardware: Jednovypínač (stávající)
+    buttons:
+      - button: KU-DIG
+        circuit: L-16  # LED digestoř
+        wired_to: SH-E3 (stávající ovládání)
+        status: existing
+    notes: Stávající ovládání LED digestoře, beze změny.
+
 # ============ SOUHRN KRABIC ============
 
 boxes_summary:

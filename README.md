@@ -22,12 +22,13 @@ Pro referenci při instalaci:
 - **9 nových Shelly zařízení** (3× Plus 1PM, 2× Plus 2PM, 4× i4)
 - **9 krabic** s vypínači nebo Shelly (z toho 2 krabice bez Shelly — jen WAGO propojení)
 - **Odhad hardware:** ~6 500 Kč (viz kusovník níže)
-- **12 světelných okruhů** celkem (9 nových/upravených + 2 stávající beze změny)
+- **14 světelných okruhů** celkem (9 nových/upravených + 5 stávajících beze změny)
 
 ### Stávající zařízení (beze změny)
 
 - **SH-E1** Shelly RGBW PM v obýváku (LED strop, L-12)
 - **SH-E2** Shelly RGBW PM v jídelně (LED 24V, L-13)
+- **SH-E3** kuchyň (model neznámý, ovládá L-14 LED A, L-15 LED B, L-16 LED digestoř)
 
 ---
 
@@ -107,7 +108,7 @@ Každý soubor obsahuje:
 | Horní předsíň (vč. vypínače u pokoje) | [rooms/03-horni-predsin.md](rooms/03-horni-predsin.md) | [plates/horni-predsin.svg](plates/horni-predsin.svg) |
 | Schodiště | [rooms/04-schodiste.md](rooms/04-schodiste.md) | (součást horní předsíně) |
 | Jídelna | [rooms/06-jidelna.md](rooms/06-jidelna.md) | [plates/jidelna.svg](plates/jidelna.svg) |
-| Kuchyň (jen sdílený vypínač Lišta 3) | [rooms/07-kuchyn.md](rooms/07-kuchyn.md) | [plates/kuchyn.svg](plates/kuchyn.svg) |
+| Kuchyň | [rooms/07-kuchyn.md](rooms/07-kuchyn.md) | [plates/kuchyn.svg](plates/kuchyn.svg) |
 
 **Přehled všech rámečků pohromadě:** [plates/README.md](plates/README.md)
 

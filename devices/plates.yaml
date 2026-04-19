@@ -122,14 +122,24 @@ plates:
     room: Kuchyň
     location: ""
     orientation: horizontal
-    note: "Z kuchyňského rámečku dokumentujeme jen to, co se týká nové instalace: zásuvka a tlačítko Lišta 3 (paralelka k obývákovému SW-D1, svítidlo L-07 v obýváku). Ostatní moduly v rámečku jsou mimo scope."
+    note: "Stávající rámeček. Lišta 3 je paralelka k obývákovému SW-D1 (L-07, 220V). Ostatní tlačítka ovládají kuchyňské 24V LED (L-14, L-15, L-16) přes stávající SH-E3."
     components:
       - type: socket
         cells:
           - { label: "Z", voltage: "220V" }
       - type: single_switch
+        switch_ref: SW-KU-L3
         cells:
           - { label: "Lišta 3", circuit: L-07, note: "totéž svítidlo jako Lišta 3 v obýváku" }
+      - type: double_switch
+        switch_ref: SW-KU-LEDAB
+        cells:
+          - { label: "LED A", circuit: L-14 }
+          - { label: "LED B", circuit: L-15 }
+      - type: single_switch
+        switch_ref: SW-KU-DIG
+        cells:
+          - { label: "LED digestoř", circuit: L-16 }
 
 # ============ LEGENDA ============
 legend:

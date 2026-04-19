@@ -167,6 +167,14 @@ devices:
     controlled_by: [SW-J1]
     notes: Stávající, beze změny.
 
+  - id: SH-E3
+    model: (neznámý, pravděpodobně Shelly RGBW PM)
+    location: Kuchyň
+    function: Ovládá 24V LED okruhy v kuchyni (L-14 LED A, L-15 LED B, L-16 LED digestoř)
+    status: existing
+    controlled_by: [SW-KU-LEDA, SW-KU-LEDB, SW-KU-DIG]
+    notes: Stávající, beze změny. Model není potvrzen — ověřit při kontrole.
+
 # ============ SOUHRN ============
 
 summary:
@@ -176,5 +184,6 @@ summary:
     i4: 4        # SH-04, SH-07, SH-08, SH-09
     total: 9
   existing:
-    rgbw_pm: 2   # SH-E1, SH-E2
+    rgbw_pm: 2     # SH-E1 obývák, SH-E2 jídelna
+    other: 1       # SH-E3 kuchyň (model neznámý)
   estimated_cost_czk: 6500  # 3*700 + 2*1000 + 4*600 + rezerva
