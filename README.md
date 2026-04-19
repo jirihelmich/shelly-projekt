@@ -86,8 +86,16 @@ Krabice za vypínači jsou **mělké** → nutno prosekat hlouběji nebo použí
 
 Krabice, kde se bude sekat / KU68:
 - Obývák vstup, konzole (SH-01 Mini + SH-05/06 2PM + SH-07 i4 — 4 Shelly ve více krabicích za SW-A/B/C/D)
-- Dolní předsíň u pracovny (SH-02 Mini za SW-F1; SW-F2 krabice bez Shelly)
 - Horní předsíň u pokoje (SH-03 Mini — za SW-CP, samostatný rámeček P-CP)
+
+Krabice bez Shelly (jen tlačítka + WAGO propoje):
+- Dolní předsíň u pracovny (SW-F1 + SW-F2) — SH-02 Mini je ve stropě u trafa/driveru pásku; SW-F2 paralelka přes schodišťák do SH-07 IN2 v obýváku
+- Dolní předsíň u dveří (SW-G) — paralelky přes schodišťák
+- Horní předsíň u schodů (SW-H1 + SW-H2) — paralelky do SH-01 (obývák) a SH-03 (P-CP)
+- Jídelna (SW-J1 + SW-J2) — paralelka do SH-06 SW2 v obýváku
+
+Shelly u svítidel (stropní krabice):
+- Dolní předsíň — SH-02 Mini u LED driveru/trafa pásku
 
 ---
 
