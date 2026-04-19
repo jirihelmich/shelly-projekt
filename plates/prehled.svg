@@ -1,62 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1470 1274" width="1470" height="1274" font-family="sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1494 1314" width="1494" height="1314" font-family="sans-serif">
 <rect width="100%" height="100%" fill="white"/>
 <text x="20" y="36" font-size="24" font-weight="700" fill="#111827">Přehled — svítidla, vypínače a okruhy mezi nimi</text>
 <text x="20" y="58" font-size="12" font-style="italic" fill="#6b7280">Každý vypínač je čarou propojen se zařízením, které ovládá. Více čar k jedné pilulce = víc vypínačů na stejný okruh (3-cestné nebo paralelka).</text>
-<rect x="20" y="90" width="456" height="544" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
+<rect x="20" y="90" width="456" height="576" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
 <text x="36" y="120" font-size="16" font-weight="700" fill="#111827">Obývák</text>
 <text x="36" y="144" font-size="11" font-style="italic" fill="#6b7280">Vstup</text>
-<rect x="36" y="160" width="240" height="458" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
-<rect x="101.0" y="188" width="110" height="84" fill="#dbeafe" stroke="#374151" stroke-width="1.5"/>
+<rect x="36" y="160" width="240" height="490" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="101.0" y="188" width="110" height="84" fill="#dbeafe"/>
+<rect x="101.0" y="188" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
 <rect x="115.0" y="200" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
 <text x="156.0" y="253" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Schodiště</text>
 <text x="156.0" y="267" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-01</text>
 <rect x="175.0" y="192" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
 <text x="191.0" y="201.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="46.0" y="272" width="110" height="84" fill="#ffedd5" stroke="#374151" stroke-width="1.5"/>
-<rect x="60.0" y="284" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="101.0" y="337" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Předsíň strop</text>
-<text x="101.0" y="351" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-09</text>
-<rect x="120.0" y="276" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="136.0" y="285.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="156.0" y="272" width="110" height="84" fill="#ffedd5" stroke="#374151" stroke-width="1.5"/>
-<rect x="170.0" y="284" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="211.0" y="337" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Obývák strop</text>
-<text x="211.0" y="351" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-10</text>
-<rect x="230.0" y="276" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="246.0" y="285.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<line x1="156.0" y1="278" x2="156.0" y2="350" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
-<rect x="101.0" y="356" width="110" height="84" fill="#dcfce7" stroke="#374151" stroke-width="1.5"/>
-<rect x="115.0" y="368" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="156.0" y="421" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED strop</text>
-<text x="156.0" y="435" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-12</text>
-<rect x="175.0" y="360" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="191.0" y="369.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<rect x="46.0" y="440" width="110" height="84" fill="#dbeafe" stroke="#374151" stroke-width="1.5"/>
-<rect x="60.0" y="452" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="101.0" y="505" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lišta 1</text>
-<text x="101.0" y="519" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-05</text>
-<rect x="120.0" y="444" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="136.0" y="453.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="156.0" y="440" width="110" height="84" fill="#dbeafe" stroke="#374151" stroke-width="1.5"/>
-<rect x="170.0" y="452" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="211.0" y="505" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lišta 2</text>
-<text x="211.0" y="519" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-06</text>
-<rect x="230.0" y="444" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="246.0" y="453.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<line x1="156.0" y1="446" x2="156.0" y2="518" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
-<rect x="46.0" y="524" width="110" height="84" fill="#dbeafe" stroke="#374151" stroke-width="1.5"/>
-<rect x="60.0" y="536" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="101.0" y="589" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lišta 3</text>
-<text x="101.0" y="603" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-07</text>
-<rect x="120.0" y="528" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="136.0" y="537.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="156.0" y="524" width="110" height="84" fill="#ffedd5" stroke="#374151" stroke-width="1.5"/>
-<rect x="170.0" y="536" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="211.0" y="589" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lustr jídelna</text>
-<text x="211.0" y="603" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-04</text>
-<rect x="230.0" y="528" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="246.0" y="537.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<line x1="156.0" y1="530" x2="156.0" y2="602" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="46.0" y="280" width="110" height="84" fill="#e9d5ff"/>
+<rect x="156.0" y="280" width="110" height="84" fill="#e9d5ff"/>
+<rect x="46.0" y="280" width="220" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<line x1="156.0" y1="286" x2="156.0" y2="358" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="60.0" y="292" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="101.0" y="345" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Předsíň strop</text>
+<text x="101.0" y="359" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-09</text>
+<rect x="120.0" y="284" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="136.0" y="293.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="170.0" y="292" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="211.0" y="345" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Obývák strop</text>
+<text x="211.0" y="359" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-10</text>
+<rect x="230.0" y="284" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="246.0" y="293.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="101.0" y="372" width="110" height="84" fill="#dcfce7"/>
+<rect x="101.0" y="372" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<rect x="115.0" y="384" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="156.0" y="437" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED strop</text>
+<text x="156.0" y="451" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-12</text>
+<rect x="175.0" y="376" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="191.0" y="385.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<rect x="46.0" y="464" width="110" height="84" fill="#dbeafe"/>
+<rect x="156.0" y="464" width="110" height="84" fill="#dbeafe"/>
+<rect x="46.0" y="464" width="220" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<line x1="156.0" y1="470" x2="156.0" y2="542" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="60.0" y="476" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="101.0" y="529" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lišta 1</text>
+<text x="101.0" y="543" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-05</text>
+<rect x="120.0" y="468" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="136.0" y="477.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="170.0" y="476" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="211.0" y="529" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lišta 2</text>
+<text x="211.0" y="543" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-06</text>
+<rect x="230.0" y="468" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="246.0" y="477.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="46.0" y="556" width="110" height="84" fill="#dbeafe"/>
+<rect x="156.0" y="556" width="110" height="84" fill="#e9d5ff"/>
+<rect x="46.0" y="556" width="220" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<line x1="156.0" y1="562" x2="156.0" y2="634" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="60.0" y="568" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="101.0" y="621" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lišta 3</text>
+<text x="101.0" y="635" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-07</text>
+<rect x="120.0" y="560" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="136.0" y="569.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="170.0" y="568" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="211.0" y="621" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lustr jídelna</text>
+<text x="211.0" y="635" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-04</text>
+<rect x="230.0" y="560" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="246.0" y="569.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
 <text x="46" y="180" font-family="monospace" font-size="9" fill="#6b7280">P-OB</text>
 <text x="304" y="143" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
 <rect x="304" y="150" width="156" height="36" fill="#dbeafe" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
@@ -74,7 +79,7 @@
 <text x="314" y="266" font-size="11" font-weight="600" fill="#111827">Lišta 3</text>
 <rect x="422" y="242" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
 <text x="438.0" y="251.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="304" y="282" width="156" height="36" fill="#ffedd5" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<rect x="304" y="282" width="156" height="36" fill="#e9d5ff" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
 <text x="314" y="295" font-family="monospace" font-size="8" fill="#6b7280">L-10</text>
 <text x="314" y="310" font-size="11" font-weight="600" fill="#111827">Obývák strop</text>
 <rect x="422" y="286" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
@@ -92,237 +97,247 @@
 <text x="560" y="178" font-size="11" font-weight="600" fill="#111827">Schodiště svítidlo</text>
 <rect x="668" y="154" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
 <text x="684.0" y="163.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="752" y="90" width="634" height="208" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
+<rect x="752" y="90" width="642" height="208" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
 <text x="768" y="120" font-size="16" font-weight="700" fill="#111827">Horní předsíň</text>
 <text x="768" y="144" font-size="11" font-style="italic" fill="#6b7280">U schodů</text>
-<rect x="768" y="160" width="240" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
-<rect x="778" y="188" width="110" height="84" fill="#dbeafe" stroke="#374151" stroke-width="1.5"/>
+<rect x="768" y="160" width="248" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="778" y="188" width="110" height="84" fill="#dbeafe"/>
+<rect x="778" y="188" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
 <rect x="792" y="200" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
 <text x="833.0" y="253" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Schodiště</text>
 <text x="833.0" y="267" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-01</text>
 <rect x="852" y="192" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
 <text x="868.0" y="201.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="888" y="188" width="110" height="84" fill="#dbeafe" stroke="#374151" stroke-width="1.5"/>
-<rect x="902" y="200" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="943.0" y="253" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Horní předsíň lustr</text>
-<text x="943.0" y="267" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-03</text>
-<rect x="962" y="192" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="978.0" y="201.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="896" y="188" width="110" height="84" fill="#dbeafe"/>
+<rect x="896" y="188" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<rect x="910" y="200" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="951.0" y="253" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Horní předsíň lustr</text>
+<text x="951.0" y="267" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-03</text>
+<rect x="970" y="192" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="986.0" y="201.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
 <text x="778" y="180" font-family="monospace" font-size="9" fill="#6b7280">P-HP</text>
-<text x="1056" y="144" font-size="11" font-style="italic" fill="#6b7280">U pokoje</text>
-<rect x="1056" y="160" width="130" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
-<rect x="1066" y="188" width="110" height="84" fill="#dbeafe" stroke="#374151" stroke-width="1.5"/>
-<rect x="1080" y="200" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="1121.0" y="253" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Horní předsíň lustr</text>
-<text x="1121.0" y="267" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-03</text>
-<rect x="1140" y="192" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="1156.0" y="201.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<text x="1066" y="180" font-family="monospace" font-size="9" fill="#6b7280">P-CP</text>
-<text x="1214" y="143" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
-<rect x="1214" y="150" width="156" height="36" fill="#dbeafe" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
-<text x="1224" y="163" font-family="monospace" font-size="8" fill="#6b7280">L-03</text>
-<text x="1224" y="178" font-size="11" font-weight="600" fill="#111827">Lustr horní předsíň</text>
-<rect x="1332" y="154" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="1348.0" y="163.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="20" y="664" width="634" height="292" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
-<text x="36" y="694" font-size="16" font-weight="700" fill="#111827">Dolní předsíň</text>
-<text x="36" y="718" font-size="11" font-style="italic" fill="#6b7280">U pracovny</text>
-<rect x="36" y="734" width="130" height="206" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
-<rect x="46.0" y="762" width="110" height="84" fill="#fef3c7" stroke="#374151" stroke-width="1.5"/>
-<rect x="60.0" y="774" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="101.0" y="827" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED pásek</text>
-<text x="101.0" y="841" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-02</text>
-<rect x="120.0" y="766" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="136.0" y="775.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="46.0" y="846" width="110" height="84" fill="#ffedd5" stroke="#374151" stroke-width="1.5"/>
-<rect x="60.0" y="858" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="101.0" y="911" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Předsíň strop</text>
-<text x="101.0" y="925" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-09</text>
-<rect x="120.0" y="850" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="136.0" y="859.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<text x="46" y="754" font-family="monospace" font-size="9" fill="#6b7280">P-DP-F</text>
-<text x="214" y="718" font-size="11" font-style="italic" fill="#6b7280">U dveří</text>
-<rect x="214" y="734" width="240" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
-<rect x="224" y="762" width="110" height="84" fill="#fef3c7" stroke="#374151" stroke-width="1.5"/>
-<rect x="238" y="774" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="279.0" y="827" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED pásek</text>
-<text x="279.0" y="841" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-02</text>
-<rect x="298" y="766" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="314.0" y="775.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="334" y="762" width="110" height="84" fill="#ffedd5" stroke="#374151" stroke-width="1.5"/>
-<rect x="348" y="774" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="389.0" y="827" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Předsíň strop</text>
-<text x="389.0" y="841" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-09</text>
-<rect x="408" y="766" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="424.0" y="775.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<line x1="334" y1="768" x2="334" y2="840" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
-<text x="224" y="754" font-family="monospace" font-size="9" fill="#6b7280">P-DP-G</text>
-<text x="482" y="717" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
-<rect x="482" y="724" width="156" height="36" fill="#fef3c7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
-<text x="492" y="737" font-family="monospace" font-size="8" fill="#6b7280">L-02</text>
-<text x="492" y="752" font-size="11" font-weight="600" fill="#111827">LED pásek dolní předsíň</text>
-<rect x="600" y="728" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="616.0" y="737.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="482" y="768" width="156" height="36" fill="#ffedd5" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
-<text x="492" y="781" font-family="monospace" font-size="8" fill="#6b7280">L-09</text>
-<text x="492" y="796" font-size="11" font-weight="600" fill="#111827">Předsíň strop</text>
-<rect x="600" y="772" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="616.0" y="781.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="684" y="664" width="766" height="208" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
-<text x="700" y="694" font-size="16" font-weight="700" fill="#111827">Kuchyň</text>
-<rect x="700" y="734" width="550" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
-<rect x="710" y="762" width="90" height="84" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
-<circle cx="755.0" cy="798.0" r="22" fill="white" stroke="#374151" stroke-width="1.5"/>
-<circle cx="748.0" cy="798.0" r="2.5" fill="#374151"/>
-<circle cx="762.0" cy="798.0" r="2.5" fill="#374151"/>
-<text x="755.0" y="838" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#111827">Z</text>
-<rect x="764" y="766" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="780.0" y="775.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="800" y="762" width="110" height="84" fill="#dbeafe" stroke="#374151" stroke-width="1.5"/>
-<rect x="814" y="774" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="855.0" y="827" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lišta 3</text>
-<text x="855.0" y="841" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-07</text>
-<rect x="874" y="766" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="890.0" y="775.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="910" y="762" width="110" height="84" fill="#dcfce7" stroke="#374151" stroke-width="1.5"/>
-<rect x="924" y="774" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="965.0" y="827" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED A</text>
-<text x="965.0" y="841" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-14</text>
-<rect x="984" y="766" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="1000.0" y="775.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<rect x="1020" y="762" width="110" height="84" fill="#dcfce7" stroke="#374151" stroke-width="1.5"/>
-<rect x="1034" y="774" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="1075.0" y="827" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED B</text>
-<text x="1075.0" y="841" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-15</text>
-<rect x="1094" y="766" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="1110.0" y="775.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<line x1="1020" y1="768" x2="1020" y2="840" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
-<rect x="1130" y="762" width="110" height="84" fill="#dcfce7" stroke="#374151" stroke-width="1.5"/>
-<rect x="1144" y="774" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="1185.0" y="827" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED digestoř</text>
-<text x="1185.0" y="841" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-16</text>
-<rect x="1204" y="766" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="1220.0" y="775.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<text x="710" y="754" font-family="monospace" font-size="9" fill="#6b7280">P-KU</text>
-<text x="1278" y="717" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
-<rect x="1278" y="724" width="156" height="36" fill="#dcfce7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
-<text x="1288" y="737" font-family="monospace" font-size="8" fill="#6b7280">L-14</text>
-<text x="1288" y="752" font-size="11" font-weight="600" fill="#111827">LED kuchyň A</text>
-<rect x="1396" y="728" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="1412.0" y="737.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<rect x="1278" y="768" width="156" height="36" fill="#dcfce7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
-<text x="1288" y="781" font-family="monospace" font-size="8" fill="#6b7280">L-15</text>
-<text x="1288" y="796" font-size="11" font-weight="600" fill="#111827">LED kuchyň B</text>
-<rect x="1396" y="772" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="1412.0" y="781.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<rect x="1278" y="812" width="156" height="36" fill="#dcfce7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
-<text x="1288" y="825" font-family="monospace" font-size="8" fill="#6b7280">L-16</text>
-<text x="1288" y="840" font-size="11" font-weight="600" fill="#111827">LED digestoř</text>
-<rect x="1396" y="816" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="1412.0" y="825.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<rect x="20" y="986" width="456" height="208" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
-<text x="36" y="1016" font-size="16" font-weight="700" fill="#111827">Jídelna</text>
-<rect x="36" y="1056" width="240" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
-<rect x="46" y="1084" width="110" height="84" fill="#dcfce7" stroke="#374151" stroke-width="1.5"/>
-<rect x="60" y="1096" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="101.0" y="1149" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED</text>
-<text x="101.0" y="1163" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-13</text>
-<rect x="120" y="1088" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="136.0" y="1097.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<rect x="156" y="1084" width="110" height="84" fill="#ffedd5" stroke="#374151" stroke-width="1.5"/>
-<rect x="170" y="1096" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
-<text x="211.0" y="1149" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lustr</text>
-<text x="211.0" y="1163" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-04</text>
-<rect x="230" y="1088" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="246.0" y="1097.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<line x1="156" y1="1090" x2="156" y2="1162" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
-<text x="46" y="1076" font-family="monospace" font-size="9" fill="#6b7280">P-JI</text>
-<text x="304" y="1039" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
-<rect x="304" y="1046" width="156" height="36" fill="#ffedd5" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
-<text x="314" y="1059" font-family="monospace" font-size="8" fill="#6b7280">L-04</text>
-<text x="314" y="1074" font-size="11" font-weight="600" fill="#111827">Lustr jídelna</text>
-<rect x="422" y="1050" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="438.0" y="1059.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<rect x="304" y="1090" width="156" height="36" fill="#dcfce7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
-<text x="314" y="1103" font-family="monospace" font-size="8" fill="#6b7280">L-13</text>
-<text x="314" y="1118" font-size="11" font-weight="600" fill="#111827">LED 24V jídelna</text>
-<rect x="422" y="1094" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="438.0" y="1103.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<text x="1064" y="144" font-size="11" font-style="italic" fill="#6b7280">U pokoje</text>
+<rect x="1064" y="160" width="130" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="1074" y="188" width="110" height="84" fill="#dbeafe"/>
+<rect x="1074" y="188" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<rect x="1088" y="200" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="1129.0" y="253" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Horní předsíň lustr</text>
+<text x="1129.0" y="267" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-03</text>
+<rect x="1148" y="192" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="1164.0" y="201.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<text x="1074" y="180" font-family="monospace" font-size="9" fill="#6b7280">P-CP</text>
+<text x="1222" y="143" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
+<rect x="1222" y="150" width="156" height="36" fill="#dbeafe" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<text x="1232" y="163" font-family="monospace" font-size="8" fill="#6b7280">L-03</text>
+<text x="1232" y="178" font-size="11" font-weight="600" fill="#111827">Lustr horní předsíň</text>
+<rect x="1340" y="154" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="1356.0" y="163.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="20" y="696" width="634" height="300" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
+<text x="36" y="726" font-size="16" font-weight="700" fill="#111827">Dolní předsíň</text>
+<text x="36" y="750" font-size="11" font-style="italic" fill="#6b7280">U pracovny</text>
+<rect x="36" y="766" width="130" height="214" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="46.0" y="794" width="110" height="84" fill="#fef3c7"/>
+<rect x="46.0" y="794" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<rect x="60.0" y="806" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="101.0" y="859" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED pásek</text>
+<text x="101.0" y="873" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-02</text>
+<rect x="120.0" y="798" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="136.0" y="807.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="46.0" y="886" width="110" height="84" fill="#e9d5ff"/>
+<rect x="46.0" y="886" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<rect x="60.0" y="898" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="101.0" y="951" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Předsíň strop</text>
+<text x="101.0" y="965" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-09</text>
+<rect x="120.0" y="890" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="136.0" y="899.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<text x="46" y="786" font-family="monospace" font-size="9" fill="#6b7280">P-DP-F</text>
+<text x="214" y="750" font-size="11" font-style="italic" fill="#6b7280">U dveří</text>
+<rect x="214" y="766" width="240" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="224" y="794" width="110" height="84" fill="#fef3c7"/>
+<rect x="334" y="794" width="110" height="84" fill="#e9d5ff"/>
+<rect x="224" y="794" width="220" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<line x1="334" y1="800" x2="334" y2="872" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="238" y="806" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="279.0" y="859" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED pásek</text>
+<text x="279.0" y="873" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-02</text>
+<rect x="298" y="798" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="314.0" y="807.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="348" y="806" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="389.0" y="859" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Předsíň strop</text>
+<text x="389.0" y="873" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-09</text>
+<rect x="408" y="798" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="424.0" y="807.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<text x="224" y="786" font-family="monospace" font-size="9" fill="#6b7280">P-DP-G</text>
+<text x="482" y="749" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
+<rect x="482" y="756" width="156" height="36" fill="#fef3c7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<text x="492" y="769" font-family="monospace" font-size="8" fill="#6b7280">L-02</text>
+<text x="492" y="784" font-size="11" font-weight="600" fill="#111827">LED pásek dolní předsíň</text>
+<rect x="600" y="760" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="616.0" y="769.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="482" y="800" width="156" height="36" fill="#e9d5ff" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<text x="492" y="813" font-family="monospace" font-size="8" fill="#6b7280">L-09</text>
+<text x="492" y="828" font-size="11" font-weight="600" fill="#111827">Předsíň strop</text>
+<rect x="600" y="804" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="616.0" y="813.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="684" y="696" width="790" height="208" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
+<text x="700" y="726" font-size="16" font-weight="700" fill="#111827">Kuchyň</text>
+<rect x="700" y="766" width="574" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="710" y="794" width="90" height="84" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+<circle cx="755.0" cy="830.0" r="22" fill="white" stroke="#374151" stroke-width="1.5"/>
+<circle cx="748.0" cy="830.0" r="2.5" fill="#374151"/>
+<circle cx="762.0" cy="830.0" r="2.5" fill="#374151"/>
+<text x="755.0" y="870" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#111827">Z</text>
+<rect x="764" y="798" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="780.0" y="807.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="808" y="794" width="110" height="84" fill="#dbeafe"/>
+<rect x="808" y="794" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<rect x="822" y="806" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="863.0" y="859" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lišta 3</text>
+<text x="863.0" y="873" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-07</text>
+<rect x="882" y="798" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="898.0" y="807.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="926" y="794" width="110" height="84" fill="#dcfce7"/>
+<rect x="1036" y="794" width="110" height="84" fill="#dcfce7"/>
+<rect x="926" y="794" width="220" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<line x1="1036" y1="800" x2="1036" y2="872" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="940" y="806" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="981.0" y="859" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED A</text>
+<text x="981.0" y="873" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-14</text>
+<rect x="1000" y="798" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="1016.0" y="807.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<rect x="1050" y="806" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="1091.0" y="859" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED B</text>
+<text x="1091.0" y="873" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-15</text>
+<rect x="1110" y="798" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="1126.0" y="807.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<rect x="1154" y="794" width="110" height="84" fill="#dcfce7"/>
+<rect x="1154" y="794" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<rect x="1168" y="806" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="1209.0" y="859" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED digestoř</text>
+<text x="1209.0" y="873" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-16</text>
+<rect x="1228" y="798" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="1244.0" y="807.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<text x="710" y="786" font-family="monospace" font-size="9" fill="#6b7280">P-KU</text>
+<text x="1302" y="749" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
+<rect x="1302" y="756" width="156" height="36" fill="#dcfce7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<text x="1312" y="769" font-family="monospace" font-size="8" fill="#6b7280">L-14</text>
+<text x="1312" y="784" font-size="11" font-weight="600" fill="#111827">LED kuchyň A</text>
+<rect x="1420" y="760" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="1436.0" y="769.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<rect x="1302" y="800" width="156" height="36" fill="#dcfce7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<text x="1312" y="813" font-family="monospace" font-size="8" fill="#6b7280">L-15</text>
+<text x="1312" y="828" font-size="11" font-weight="600" fill="#111827">LED kuchyň B</text>
+<rect x="1420" y="804" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="1436.0" y="813.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<rect x="1302" y="844" width="156" height="36" fill="#dcfce7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<text x="1312" y="857" font-family="monospace" font-size="8" fill="#6b7280">L-16</text>
+<text x="1312" y="872" font-size="11" font-weight="600" fill="#111827">LED digestoř</text>
+<rect x="1420" y="848" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="1436.0" y="857.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<rect x="20" y="1026" width="456" height="208" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
+<text x="36" y="1056" font-size="16" font-weight="700" fill="#111827">Jídelna</text>
+<rect x="36" y="1096" width="240" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="46" y="1124" width="110" height="84" fill="#dcfce7"/>
+<rect x="156" y="1124" width="110" height="84" fill="#e9d5ff"/>
+<rect x="46" y="1124" width="220" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<line x1="156" y1="1130" x2="156" y2="1202" stroke="#374151" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="60" y="1136" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="101.0" y="1189" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">LED</text>
+<text x="101.0" y="1203" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-13</text>
+<rect x="120" y="1128" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="136.0" y="1137.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<rect x="170" y="1136" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="211.0" y="1189" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Lustr</text>
+<text x="211.0" y="1203" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-04</text>
+<rect x="230" y="1128" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="246.0" y="1137.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<text x="46" y="1116" font-family="monospace" font-size="9" fill="#6b7280">P-JI</text>
+<text x="304" y="1079" font-size="10" font-style="italic" fill="#6b7280">Svítidla</text>
+<rect x="304" y="1086" width="156" height="36" fill="#e9d5ff" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<text x="314" y="1099" font-family="monospace" font-size="8" fill="#6b7280">L-04</text>
+<text x="314" y="1114" font-size="11" font-weight="600" fill="#111827">Lustr jídelna</text>
+<rect x="422" y="1090" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="438.0" y="1099.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<rect x="304" y="1130" width="156" height="36" fill="#dcfce7" stroke="#374151" stroke-width="1" rx="14" ry="14"/>
+<text x="314" y="1143" font-family="monospace" font-size="8" fill="#6b7280">L-13</text>
+<text x="314" y="1158" font-size="11" font-weight="600" fill="#111827">LED 24V jídelna</text>
+<rect x="422" y="1134" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="438.0" y="1143.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
 <path d="M 156.0 230.0 C 353.0 230.0, 353.0 168.0, 550 168.0" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.75"/>
 <circle cx="156.0" cy="230.0" r="2.5" fill="#dc2626"/>
 <circle cx="550" cy="168.0" r="2.5" fill="#dc2626"/>
-<path d="M 101.0 314.0 C 291.5 314.0, 291.5 786.0, 482 786.0" fill="none" stroke="#be185d" stroke-width="1.5" opacity="0.75"/>
-<circle cx="101.0" cy="314.0" r="2.5" fill="#be185d"/>
-<circle cx="482" cy="786.0" r="2.5" fill="#be185d"/>
-<path d="M 211.0 314.0 C 257.5 314.0, 257.5 300.0, 304 300.0" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.75"/>
-<circle cx="211.0" cy="314.0" r="2.5" fill="#dc2626"/>
+<path d="M 101.0 322.0 C 291.5 322.0, 291.5 818.0, 482 818.0" fill="none" stroke="#be185d" stroke-width="1.5" opacity="0.75"/>
+<circle cx="101.0" cy="322.0" r="2.5" fill="#be185d"/>
+<circle cx="482" cy="818.0" r="2.5" fill="#be185d"/>
+<path d="M 211.0 322.0 C 257.5 322.0, 257.5 300.0, 304 300.0" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.75"/>
+<circle cx="211.0" cy="322.0" r="2.5" fill="#dc2626"/>
 <circle cx="304" cy="300.0" r="2.5" fill="#dc2626"/>
-<path d="M 156.0 398.0 C 230.0 398.0, 230.0 344.0, 304 344.0" fill="none" stroke="#2563eb" stroke-width="1.5" opacity="0.75"/>
-<circle cx="156.0" cy="398.0" r="2.5" fill="#2563eb"/>
+<path d="M 156.0 414.0 C 230.0 414.0, 230.0 344.0, 304 344.0" fill="none" stroke="#2563eb" stroke-width="1.5" opacity="0.75"/>
+<circle cx="156.0" cy="414.0" r="2.5" fill="#2563eb"/>
 <circle cx="304" cy="344.0" r="2.5" fill="#2563eb"/>
-<path d="M 101.0 482.0 C 202.5 482.0, 202.5 168.0, 304 168.0" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.75"/>
-<circle cx="101.0" cy="482.0" r="2.5" fill="#ea580c"/>
+<path d="M 101.0 506.0 C 202.5 506.0, 202.5 168.0, 304 168.0" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.75"/>
+<circle cx="101.0" cy="506.0" r="2.5" fill="#ea580c"/>
 <circle cx="304" cy="168.0" r="2.5" fill="#ea580c"/>
-<path d="M 211.0 482.0 C 257.5 482.0, 257.5 212.0, 304 212.0" fill="none" stroke="#0891b2" stroke-width="1.5" opacity="0.75"/>
-<circle cx="211.0" cy="482.0" r="2.5" fill="#0891b2"/>
+<path d="M 211.0 506.0 C 257.5 506.0, 257.5 212.0, 304 212.0" fill="none" stroke="#0891b2" stroke-width="1.5" opacity="0.75"/>
+<circle cx="211.0" cy="506.0" r="2.5" fill="#0891b2"/>
 <circle cx="304" cy="212.0" r="2.5" fill="#0891b2"/>
-<path d="M 101.0 566.0 C 202.5 566.0, 202.5 256.0, 304 256.0" fill="none" stroke="#ca8a04" stroke-width="1.5" opacity="0.75"/>
-<circle cx="101.0" cy="566.0" r="2.5" fill="#ca8a04"/>
+<path d="M 101.0 598.0 C 202.5 598.0, 202.5 256.0, 304 256.0" fill="none" stroke="#ca8a04" stroke-width="1.5" opacity="0.75"/>
+<circle cx="101.0" cy="598.0" r="2.5" fill="#ca8a04"/>
 <circle cx="304" cy="256.0" r="2.5" fill="#ca8a04"/>
-<path d="M 211.0 566.0 C 257.5 566.0, 257.5 1064.0, 304 1064.0" fill="none" stroke="#c026d3" stroke-width="1.5" opacity="0.75"/>
-<circle cx="211.0" cy="566.0" r="2.5" fill="#c026d3"/>
-<circle cx="304" cy="1064.0" r="2.5" fill="#c026d3"/>
-<path d="M 101.0 804.0 C 291.5 804.0, 291.5 742.0, 482 742.0" fill="none" stroke="#2563eb" stroke-width="1.5" opacity="0.75"/>
-<circle cx="101.0" cy="804.0" r="2.5" fill="#2563eb"/>
-<circle cx="482" cy="742.0" r="2.5" fill="#2563eb"/>
-<path d="M 101.0 888.0 C 291.5 888.0, 291.5 786.0, 482 786.0" fill="none" stroke="#be185d" stroke-width="1.5" opacity="0.75"/>
-<circle cx="101.0" cy="888.0" r="2.5" fill="#be185d"/>
-<circle cx="482" cy="786.0" r="2.5" fill="#be185d"/>
-<path d="M 279.0 804.0 C 380.5 804.0, 380.5 742.0, 482 742.0" fill="none" stroke="#2563eb" stroke-width="1.5" opacity="0.75"/>
-<circle cx="279.0" cy="804.0" r="2.5" fill="#2563eb"/>
-<circle cx="482" cy="742.0" r="2.5" fill="#2563eb"/>
-<path d="M 389.0 804.0 C 435.5 804.0, 435.5 786.0, 482 786.0" fill="none" stroke="#be185d" stroke-width="1.5" opacity="0.75"/>
-<circle cx="389.0" cy="804.0" r="2.5" fill="#be185d"/>
-<circle cx="482" cy="786.0" r="2.5" fill="#be185d"/>
+<path d="M 211.0 598.0 C 257.5 598.0, 257.5 1104.0, 304 1104.0" fill="none" stroke="#c026d3" stroke-width="1.5" opacity="0.75"/>
+<circle cx="211.0" cy="598.0" r="2.5" fill="#c026d3"/>
+<circle cx="304" cy="1104.0" r="2.5" fill="#c026d3"/>
+<path d="M 101.0 836.0 C 291.5 836.0, 291.5 774.0, 482 774.0" fill="none" stroke="#2563eb" stroke-width="1.5" opacity="0.75"/>
+<circle cx="101.0" cy="836.0" r="2.5" fill="#2563eb"/>
+<circle cx="482" cy="774.0" r="2.5" fill="#2563eb"/>
+<path d="M 101.0 928.0 C 291.5 928.0, 291.5 818.0, 482 818.0" fill="none" stroke="#be185d" stroke-width="1.5" opacity="0.75"/>
+<circle cx="101.0" cy="928.0" r="2.5" fill="#be185d"/>
+<circle cx="482" cy="818.0" r="2.5" fill="#be185d"/>
+<path d="M 279.0 836.0 C 380.5 836.0, 380.5 774.0, 482 774.0" fill="none" stroke="#2563eb" stroke-width="1.5" opacity="0.75"/>
+<circle cx="279.0" cy="836.0" r="2.5" fill="#2563eb"/>
+<circle cx="482" cy="774.0" r="2.5" fill="#2563eb"/>
+<path d="M 389.0 836.0 C 435.5 836.0, 435.5 818.0, 482 818.0" fill="none" stroke="#be185d" stroke-width="1.5" opacity="0.75"/>
+<circle cx="389.0" cy="836.0" r="2.5" fill="#be185d"/>
+<circle cx="482" cy="818.0" r="2.5" fill="#be185d"/>
 <path d="M 833.0 230.0 C 691.5 230.0, 691.5 168.0, 550 168.0" fill="none" stroke="#dc2626" stroke-width="1.5" opacity="0.75"/>
 <circle cx="833.0" cy="230.0" r="2.5" fill="#dc2626"/>
 <circle cx="550" cy="168.0" r="2.5" fill="#dc2626"/>
-<path d="M 943.0 230.0 C 1078.5 230.0, 1078.5 168.0, 1214 168.0" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.75"/>
-<circle cx="943.0" cy="230.0" r="2.5" fill="#16a34a"/>
-<circle cx="1214" cy="168.0" r="2.5" fill="#16a34a"/>
-<path d="M 1121.0 230.0 C 1167.5 230.0, 1167.5 168.0, 1214 168.0" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.75"/>
-<circle cx="1121.0" cy="230.0" r="2.5" fill="#16a34a"/>
-<circle cx="1214" cy="168.0" r="2.5" fill="#16a34a"/>
-<path d="M 101.0 1126.0 C 202.5 1126.0, 202.5 1108.0, 304 1108.0" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.75"/>
-<circle cx="101.0" cy="1126.0" r="2.5" fill="#16a34a"/>
-<circle cx="304" cy="1108.0" r="2.5" fill="#16a34a"/>
-<path d="M 211.0 1126.0 C 257.5 1126.0, 257.5 1064.0, 304 1064.0" fill="none" stroke="#c026d3" stroke-width="1.5" opacity="0.75"/>
-<circle cx="211.0" cy="1126.0" r="2.5" fill="#c026d3"/>
-<circle cx="304" cy="1064.0" r="2.5" fill="#c026d3"/>
-<path d="M 855.0 804.0 C 579.5 804.0, 579.5 256.0, 304 256.0" fill="none" stroke="#ca8a04" stroke-width="1.5" opacity="0.75"/>
-<circle cx="855.0" cy="804.0" r="2.5" fill="#ca8a04"/>
+<path d="M 951.0 230.0 C 1086.5 230.0, 1086.5 168.0, 1222 168.0" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.75"/>
+<circle cx="951.0" cy="230.0" r="2.5" fill="#16a34a"/>
+<circle cx="1222" cy="168.0" r="2.5" fill="#16a34a"/>
+<path d="M 1129.0 230.0 C 1175.5 230.0, 1175.5 168.0, 1222 168.0" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.75"/>
+<circle cx="1129.0" cy="230.0" r="2.5" fill="#16a34a"/>
+<circle cx="1222" cy="168.0" r="2.5" fill="#16a34a"/>
+<path d="M 101.0 1166.0 C 202.5 1166.0, 202.5 1148.0, 304 1148.0" fill="none" stroke="#16a34a" stroke-width="1.5" opacity="0.75"/>
+<circle cx="101.0" cy="1166.0" r="2.5" fill="#16a34a"/>
+<circle cx="304" cy="1148.0" r="2.5" fill="#16a34a"/>
+<path d="M 211.0 1166.0 C 257.5 1166.0, 257.5 1104.0, 304 1104.0" fill="none" stroke="#c026d3" stroke-width="1.5" opacity="0.75"/>
+<circle cx="211.0" cy="1166.0" r="2.5" fill="#c026d3"/>
+<circle cx="304" cy="1104.0" r="2.5" fill="#c026d3"/>
+<path d="M 863.0 836.0 C 583.5 836.0, 583.5 256.0, 304 256.0" fill="none" stroke="#ca8a04" stroke-width="1.5" opacity="0.75"/>
+<circle cx="863.0" cy="836.0" r="2.5" fill="#ca8a04"/>
 <circle cx="304" cy="256.0" r="2.5" fill="#ca8a04"/>
-<path d="M 965.0 804.0 C 1121.5 804.0, 1121.5 742.0, 1278 742.0" fill="none" stroke="#c026d3" stroke-width="1.5" opacity="0.75"/>
-<circle cx="965.0" cy="804.0" r="2.5" fill="#c026d3"/>
-<circle cx="1278" cy="742.0" r="2.5" fill="#c026d3"/>
-<path d="M 1075.0 804.0 C 1176.5 804.0, 1176.5 786.0, 1278 786.0" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.75"/>
-<circle cx="1075.0" cy="804.0" r="2.5" fill="#ea580c"/>
-<circle cx="1278" cy="786.0" r="2.5" fill="#ea580c"/>
-<path d="M 1185.0 804.0 C 1231.5 804.0, 1231.5 830.0, 1278 830.0" fill="none" stroke="#0891b2" stroke-width="1.5" opacity="0.75"/>
-<circle cx="1185.0" cy="804.0" r="2.5" fill="#0891b2"/>
-<circle cx="1278" cy="830.0" r="2.5" fill="#0891b2"/>
-<rect x="20" y="1233" width="14" height="14" fill="#ffedd5" stroke="#374151" stroke-width="1"/>
-<text x="40" y="1244" font-size="11" fill="#111827">HUE</text>
-<rect x="130" y="1233" width="14" height="14" fill="#dbeafe" stroke="#374151" stroke-width="1"/>
-<text x="150" y="1244" font-size="11" fill="#111827">non-HUE</text>
-<rect x="240" y="1233" width="14" height="14" fill="#fef3c7" stroke="#374151" stroke-width="1"/>
-<text x="260" y="1244" font-size="11" fill="#111827">LED-trafo</text>
-<rect x="350" y="1233" width="14" height="14" fill="#dcfce7" stroke="#374151" stroke-width="1"/>
-<text x="370" y="1244" font-size="11" fill="#111827">RGBW-PM</text>
-<rect x="460" y="1233" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
-<text x="476.0" y="1242.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
-<text x="498" y="1244" font-size="11" fill="#111827">220V</text>
-<rect x="560" y="1233" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
-<text x="576.0" y="1242.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
-<text x="598" y="1244" font-size="11" fill="#111827">24V</text>
+<path d="M 981.0 836.0 C 1141.5 836.0, 1141.5 774.0, 1302 774.0" fill="none" stroke="#c026d3" stroke-width="1.5" opacity="0.75"/>
+<circle cx="981.0" cy="836.0" r="2.5" fill="#c026d3"/>
+<circle cx="1302" cy="774.0" r="2.5" fill="#c026d3"/>
+<path d="M 1091.0 836.0 C 1196.5 836.0, 1196.5 818.0, 1302 818.0" fill="none" stroke="#ea580c" stroke-width="1.5" opacity="0.75"/>
+<circle cx="1091.0" cy="836.0" r="2.5" fill="#ea580c"/>
+<circle cx="1302" cy="818.0" r="2.5" fill="#ea580c"/>
+<path d="M 1209.0 836.0 C 1255.5 836.0, 1255.5 862.0, 1302 862.0" fill="none" stroke="#0891b2" stroke-width="1.5" opacity="0.75"/>
+<circle cx="1209.0" cy="836.0" r="2.5" fill="#0891b2"/>
+<circle cx="1302" cy="862.0" r="2.5" fill="#0891b2"/>
+<rect x="20" y="1273" width="14" height="14" fill="#e9d5ff" stroke="#374151" stroke-width="1"/>
+<text x="40" y="1284" font-size="11" fill="#111827">HUE</text>
+<rect x="130" y="1273" width="14" height="14" fill="#dbeafe" stroke="#374151" stroke-width="1"/>
+<text x="150" y="1284" font-size="11" fill="#111827">non-HUE</text>
+<rect x="240" y="1273" width="14" height="14" fill="#fef3c7" stroke="#374151" stroke-width="1"/>
+<text x="260" y="1284" font-size="11" fill="#111827">LED-trafo</text>
+<rect x="350" y="1273" width="14" height="14" fill="#dcfce7" stroke="#374151" stroke-width="1"/>
+<text x="370" y="1284" font-size="11" fill="#111827">RGBW-PM</text>
+<rect x="460" y="1273" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="476.0" y="1282.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<text x="498" y="1284" font-size="11" fill="#111827">220V</text>
+<rect x="560" y="1273" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="576.0" y="1282.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<text x="598" y="1284" font-size="11" fill="#111827">24V</text>
 </svg>

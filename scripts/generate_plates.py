@@ -20,9 +20,9 @@ CIRCUITS_YAML = PROJECT / "devices" / "circuits.yaml"
 OUTPUT_DIR = PROJECT / "plates"
 
 COLORS = {
-    "HUE": "#ffedd5",       # teplá oranžová = Hue (fáze trvalá)
+    "HUE": "#e9d5ff",       # fialová = Hue (fáze trvalá) — odlišně od trafo
     "non-HUE": "#dbeafe",   # chladná modrá = klasický spínaný 230V okruh
-    "LED-trafo": "#fef3c7", # žlutá = LED 24V přes 230V→24V trafo (Shelly spíná primár)
+    "LED-trafo": "#fef3c7", # žlutá = LED přes driver/trafo (Shelly spíná 220V)
     "RGBW-PM": "#dcfce7",   # zelená = LED 24V přímo přes Shelly RGBW PM
     "neutral": "#f3f4f6",   # šedá = zásuvka / neklasifikovaný modul
 }
@@ -80,6 +80,7 @@ SOCKET_W = 90
 PADDING = 10
 LABEL_H = 18  # prostor nahoře pro ID a tag badge
 PLATE_GAP = 18
+MODULE_GAP = 8  # mezera mezi moduly (jednotlivými mechanismy) v rámečku
 COLUMN_GAP = 48
 TITLE_H = 54
 LOC_HEADER_H = 28
@@ -114,11 +115,12 @@ def component_width(c: dict) -> int:
 def plate_dims(plate: dict) -> tuple[int, int]:
     orientation = plate.get("orientation", "horizontal")
     comps = plate["components"]
+    gap_total = MODULE_GAP * max(0, len(comps) - 1)
     if orientation == "vertical":
         w = max(component_width(c) for c in comps) + 2 * PADDING
-        h = len(comps) * CELL_H + LABEL_H + 2 * PADDING
+        h = len(comps) * CELL_H + gap_total + LABEL_H + 2 * PADDING
     else:
-        w = sum(component_width(c) for c in comps) + 2 * PADDING
+        w = sum(component_width(c) for c in comps) + gap_total + 2 * PADDING
         h = CELL_H + LABEL_H + 2 * PADDING
     return w, h
 
@@ -153,21 +155,26 @@ def render_socket(c: dict, x: int, y: int) -> list[str]:
     return parts
 
 
-def render_cell(cell: dict, x: int, y: int, w: int) -> list[str]:
-    parts: list[str] = []
+def cell_tag_voltage(cell: dict) -> tuple[str, str | None]:
     circ = cell.get("circuit")
     info = CIRCUITS.get(circ) if circ else None
     tag = info["tag"] if info else "neutral"
     voltage = cell.get("voltage") or (info["voltage"] if info else None)
+    return tag, voltage
+
+
+def render_cell_bg(cell: dict, x: int, y: int, w: int) -> list[str]:
+    tag, _ = cell_tag_voltage(cell)
     bg = COLORS.get(tag, COLORS["neutral"])
+    return [f'<rect x="{x}" y="{y}" width="{w}" height="{CELL_H}" fill="{bg}"/>']
 
-    # Buňkové pozadí (barva dle HUE/non-HUE)
-    parts.append(
-        f'<rect x="{x}" y="{y}" width="{w}" height="{CELL_H}" fill="{bg}" '
-        f'stroke="{BORDER}" stroke-width="1.5"/>'
-    )
 
-    # Klapka (tlačítko)
+def render_cell_content(cell: dict, x: int, y: int, w: int) -> list[str]:
+    """Klapka + label + circuit + voltage badge (bez vnějšího borderu)."""
+    parts: list[str] = []
+    _, voltage = cell_tag_voltage(cell)
+    circ = cell.get("circuit")
+
     inner_x = x + 14
     inner_y = y + 12
     inner_w = w - 28
@@ -183,25 +190,29 @@ def render_cell(cell: dict, x: int, y: int, w: int) -> list[str]:
             f'<text x="{x + w/2}" y="{inner_y + inner_h/2 + 3}" text-anchor="middle" '
             f'font-family="sans-serif" font-size="10" font-style="italic" fill="{MUTED}">neobsazeno</text>'
         )
-
-    # Label
     label = esc(cell["label"])
     parts.append(
         f'<text x="{x + w/2}" y="{y + CELL_H - 19}" text-anchor="middle" '
         f'font-family="sans-serif" font-size="11" font-weight="600" fill="{TEXT}">{label}</text>'
     )
-
-    # Circuit ID
     if circ:
         parts.append(
             f'<text x="{x + w/2}" y="{y + CELL_H - 5}" text-anchor="middle" '
             f'font-family="monospace" font-size="9" fill="{MUTED}">{esc(circ)}</text>'
         )
-
-    # Voltage badge (vpravo nahoře)
     if voltage:
         parts.extend(voltage_badge(x + w - 4, y + 4, voltage))
+    return parts
 
+
+def render_cell(cell: dict, x: int, y: int, w: int) -> list[str]:
+    """Kompletní buňka samostatného modulu: pozadí + border + obsah."""
+    parts = render_cell_bg(cell, x, y, w)
+    parts.append(
+        f'<rect x="{x}" y="{y}" width="{w}" height="{CELL_H}" fill="none" '
+        f'stroke="{BORDER}" stroke-width="1.5"/>'
+    )
+    parts.extend(render_cell_content(cell, x, y, w))
     return parts
 
 
@@ -214,12 +225,22 @@ def render_component(c: dict, x: int, y: int) -> tuple[list[str], int]:
     if t == "double_switch":
         w = CELL_W * 2
         parts: list[str] = []
+        # Pozadí per buňka (různé tagy možné)
         for i, cell in enumerate(c["cells"]):
-            parts += render_cell(cell, x + CELL_W * i, y, CELL_W)
+            parts.extend(render_cell_bg(cell, x + CELL_W * i, y, CELL_W))
+        # Jeden vnější border kolem celého modulu — vizuálně JEDEN mechanismus
+        parts.append(
+            f'<rect x="{x}" y="{y}" width="{w}" height="{CELL_H}" fill="none" '
+            f'stroke="{BORDER}" stroke-width="1.5"/>'
+        )
+        # Vnitřní čárkovaný předěl mezi 2 tlačítky
         parts.append(
             f'<line x1="{x + CELL_W}" y1="{y+6}" x2="{x + CELL_W}" y2="{y+CELL_H-6}" '
             f'stroke="{BORDER}" stroke-width="1" stroke-dasharray="3,3"/>'
         )
+        # Obsah per buňka
+        for i, cell in enumerate(c["cells"]):
+            parts.extend(render_cell_content(cell, x + CELL_W * i, y, CELL_W))
         return parts, w
     return [], 0
 
@@ -240,13 +261,13 @@ def render_plate(plate: dict, x: int, y: int) -> tuple[list[str], int, int]:
             cx = x + PADDING + (inner_w - cw) / 2
             comp_parts, _ = render_component(c, cx, cell_y)
             parts.extend(comp_parts)
-            cell_y += CELL_H
+            cell_y += CELL_H + MODULE_GAP
     else:
         cx = x + PADDING
         for c in plate["components"]:
             comp_parts, cw = render_component(c, cx, cell_y)
             parts.extend(comp_parts)
-            cx += cw
+            cx += cw + MODULE_GAP
 
     parts.append(
         f'<text x="{x+10}" y="{y + PADDING + 10}" font-family="monospace" font-size="9" fill="{MUTED}">{esc(plate["id"])}</text>'
@@ -432,7 +453,7 @@ def cell_anchors_in_plate(plate: dict, plate_x: float, plate_y: float):
                     else:
                         ccx = cx_base + CELL_W / 2
                     yield circ, ccx, cell_y + CELL_H / 2
-            cell_y += CELL_H
+            cell_y += CELL_H + MODULE_GAP
     else:
         cx_base = plate_x + PADDING
         for comp in plate["components"]:
@@ -447,7 +468,7 @@ def cell_anchors_in_plate(plate: dict, plate_x: float, plate_y: float):
                     else:
                         ccx = cx_base + CELL_W / 2
                     yield circ, ccx, cell_y + CELL_H / 2
-            cx_base += cw
+            cx_base += cw + MODULE_GAP
 
 
 def render_overview(plates: list[dict]) -> str:
