@@ -15,7 +15,6 @@
 | SH-07 | — | event.sh_07_input_1/2/3 (pro A, B1, B2) |
 | SH-08 | — | event.sh_08_input_1 (F2+G2 paralelně) |
 | SH-09 | — | event.sh_09_input_1 (H1) |
-| SH-10 | — | event.sh_10_input_1 (CP) |
 
 ## Hue entity mapping
 
@@ -26,17 +25,16 @@
 | L-10 Obývák strop | light.obyvak_strop | event.sh_07_input_3 |
 | L-11 Předsíň strop (vstup obývák) | light.obyvak_predsin_strop | event.sh_07_input_2 |
 
-## Automatizace — schodiště (3-cestné toggle)
+## Automatizace — schodiště (2-cestné toggle)
 
 ```yaml
-alias: Schodiště — 3-cestný toggle
-description: Jakékoli tlačítko schodiště přepne SH-01
+alias: Schodiště — 2-cestný toggle
+description: Tlačítko schodiště v obýváku nebo horní předsíni přepne SH-01
 trigger:
   - platform: state
     entity_id:
       - event.sh_07_input_1  # SW-A obývák
       - event.sh_09_input_1  # SW-H1 horní předsíň
-      - event.sh_10_input_1  # SW-CP chodba u pokoje
     attribute: event_type
     to: single_push
 action:
@@ -69,7 +67,6 @@ Konkrétní instance doplnit pro L-08, L-09, L-10, L-11.
 **Long press:** TBD — návrhy:
 - Obývák (SW-A, SW-B, SW-C, SW-D long): scéna "kino" (ztlumit strop, zapnout lišty na 30 %)
 - Horní předsíň (SW-H long): zhasnout celé patro
-- Chodba u pokoje (SW-CP long): zhasnout celé patro
 
 **Double click:** TBD — návrhy:
 - Obývák: scéna "čtení"

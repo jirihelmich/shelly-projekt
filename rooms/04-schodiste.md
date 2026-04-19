@@ -2,13 +2,12 @@
 
 ## Princip
 
-3-cestné ovládání jednoho svítidla (L-01) ze tří míst:
+2-cestné ovládání jednoho svítidla (L-01) ze dvou míst:
 - Obývák (SW-A)
 - Horní předsíň u schodů (SW-H1)
-- Chodba u pokoje (SW-CP)
 
 Spínání fáze: **SH-01 (Plus 1PM) u svítidla**.
-Logika přes **Home Assistant** — všechna tlačítka → events → HA automation → `switch.toggle SH-01`.
+Logika přes **Home Assistant** — obě tlačítka → events → HA automation → `switch.toggle SH-01`.
 
 ## Shelly v této místnosti
 
@@ -22,19 +21,17 @@ Logika přes **Home Assistant** — všechna tlačítka → events → HA automa
 |---|---|---|---|
 | SW-A (obývák) | A | SH-07 IN1 | event → HA → SH-01 toggle |
 | SW-H1 (horní předsíň) | H1 | SH-09 IN1 | event → HA → SH-01 toggle |
-| SW-CP (chodba u pokoje) | CP | SH-10 IN1 | event → HA → SH-01 toggle |
 
 ## HA automatizace
 
 ```yaml
-alias: Schodiště — 3-cestný toggle
-description: Jakékoli tlačítko schodiště přepne SH-01
+alias: Schodiště — 2-cestný toggle
+description: Tlačítko schodiště v obýváku nebo horní předsíni přepne SH-01
 trigger:
   - platform: state
     entity_id:
       - event.sh_07_input_1  # SW-A obývák
       - event.sh_09_input_1  # SW-H1 horní předsíň
-      - event.sh_10_input_1  # SW-CP chodba u pokoje
     attribute: event_type
     to: single_push
 action:

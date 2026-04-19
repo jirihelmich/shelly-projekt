@@ -9,8 +9,8 @@ circuits:
     voltage: 230V
     dimmable: false
     switched_by: SH-01
-    controlled_from: [SW-A, SW-H1, SW-CP]
-    control_mode: 3-way via HA
+    controlled_from: [SW-A, SW-H1]
+    control_mode: 2-way via HA
     ha_entity: switch.sh_01_schodiste
 
   - id: L-02
@@ -32,7 +32,7 @@ circuits:
     voltage: 230V
     dimmable: false
     switched_by: SH-03
-    controlled_from: [SW-H2, SW-H3]
+    controlled_from: [SW-H2, SW-CP]
     control_mode: 2-way parallel to SW1
     ha_entity: switch.sh_03_lustr_horni_predsin
 

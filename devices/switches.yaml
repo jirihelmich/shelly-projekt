@@ -121,28 +121,18 @@ switches:
         circuit: L-03  # lustr horní předsíň
         wired_to: SH-03 SW1  # signálový vodič
         mode: attached
-        parallel_with: SW-H3
-
-  - id: SW-H3
-    room: Horní předsíň
-    position: Samostatný (jinde v prostoru)
-    hardware: Jednovypínač
-    shelly_in_box: NONE  # žádná Shelly v této krabici
-    buttons:
-      - button: H3
-        circuit: L-03  # lustr horní předsíň
-        wired_to: SH-03 SW1  # přes stávající schodišťákový drát, paralelně s SW-H2
-        mode: parallel
-    notes: Krabice bez Shelly — jen tlačítko a propojení přes stávající schodišťákový drát.
+        parallel_with: SW-CP
 
   - id: SW-CP
     room: Chodba u pokoje
     hardware: Jednovypínač
+    shelly_in_box: NONE  # žádná Shelly v této krabici
     buttons:
       - button: CP
-        circuit: L-01  # schodiště
-        wired_to: SH-10 IN1
-        mode: detached
+        circuit: L-03  # lustr horní předsíň
+        wired_to: SH-03 SW1  # přes stávající schodišťákový drát, paralelně s SW-H2
+        mode: parallel
+    notes: Krabice bez Shelly — jen tlačítko a propojení přes stávající schodišťákový drát do SH-03.
 
   - id: SW-J
     room: Jídelna
@@ -164,7 +154,6 @@ boxes_summary:
     - {location: "Obývák vstup", devices: [SH-05, SH-06, SH-07]}
     - {location: "Dolní předsíň, pracovna (SW-F2)", devices: [SH-08]}
     - {location: "Horní předsíň, u schodů", devices: [SH-09]}
-    - {location: "Chodba u pokoje", devices: [SH-10]}
     - {location: "U trafa LED pásku", devices: [SH-02]}
     - {location: "U svítidla schodiště", devices: [SH-01]}
     - {location: "U lustru horní předsíně", devices: [SH-03]}
@@ -172,4 +161,4 @@ boxes_summary:
 
   without_shelly:
     - {location: "Dolní předsíň, u dveří (SW-G)", reason: "Stáv. schodišťákové dráty vedou signál do SH-02 SW1 a SH-08 IN1"}
-    - {location: "Horní předsíň, samostatný (SW-H3)", reason: "Stáv. schodišťákový drát vede signál do SH-03 SW1"}
+    - {location: "Chodba u pokoje (SW-CP)", reason: "Stáv. schodišťákový drát vede signál do SH-03 SW1 (paralelka k SW-H2)"}

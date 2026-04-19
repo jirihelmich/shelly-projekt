@@ -9,7 +9,7 @@ Každá z nich může ovlivnit kusovník nebo zapojení.
 
 - [ ] **L-02 LED pásek dolní předsíň**: skutečně existují 2 volné vodiče mezi krabicí SW-F1 (pracovna) a krabicí SW-G (dveře)? Lze jeden použít jako signálový k SH-02 SW1?
 - [ ] **L-09 Předsíň strop (HUE)**: potvrzeno "schodišťák na obou okruzích". Ověřit fyzicky, že druhý volný drát existuje.
-- [ ] **L-03 Lustr horní předsíň**: 2 volné vodiče mezi SW-H2 (u schodů) a SW-H3 (samostatný)?
+- [ ] **L-03 Lustr horní předsíň**: 2 volné vodiče mezi SW-H2 (u schodů v horní předsíni) a SW-CP (chodba u pokoje)?
 
 **Fallback pokud dráty nejsou:** místo paralelního zapojení přes existující dráty použít i4 navíc za krabicí bez Shelly → přidá +2× i4 (+1200 Kč).
 
@@ -63,7 +63,7 @@ Každá z nich může ovlivnit kusovník nebo zapojení.
 
 ### 8. Offline fallback pro schodiště
 
-- [ ] Schodiště je 3-cestné přes HA. Pokud HA spadne, žádný vypínač nefunguje.
+- [ ] Schodiště je 2-cestné přes HA (SW-A obývák, SW-H1 horní předsíň). Pokud HA spadne, žádný vypínač nefunguje.
 - [ ] Stojí za to zapojit jedno tlačítko (nejbližší k SH-01) přímo do SH-01 SW1 jako fallback?
 
 **Rozhodnutí:** ne, schodiště je chodba, v nouzi bez světla se projde.

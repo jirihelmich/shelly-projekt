@@ -84,35 +84,24 @@ plates:
       - type: single_switch
         switch_ref: SW-H1
         cells:
-          - { label: "Schodiště", circuit: L-01, note: "3-cestné se SW-A, SW-CP" }
+          - { label: "Schodiště", circuit: L-01, note: "2-cestné se SW-A" }
       - type: single_switch
         switch_ref: SW-H2
         cells:
           - { label: "Horní předsíň lustr", circuit: L-03 }
 
-  - id: P-HP-H3
-    room: Horní předsíň
-    location: Samostatný (paralelka)
-    orientation: horizontal
-    note: "Paralelka k SW-H2 přes stávající schodišťákový drát"
-    components:
-      - type: single_switch
-        switch_ref: SW-H3
-        cells:
-          - { label: "Horní předsíň lustr", circuit: L-03 }
-
-  # ============ CHODBA U POKOJE (3-cestné schodiště) ============
+  # ============ CHODBA U POKOJE (paralelka k SW-H2 pro lustr) ============
 
   - id: P-CP
     room: Chodba u pokoje
     location: ""
     orientation: horizontal
-    note: "3-cestné se SW-A, SW-H1"
+    note: "Paralelka k SW-H2 přes stávající schodišťákový drát → SH-03 SW1"
     components:
       - type: single_switch
         switch_ref: SW-CP
         cells:
-          - { label: "Schodiště", circuit: L-01 }
+          - { label: "Horní předsíň lustr", circuit: L-03 }
 
   # ============ JÍDELNA ============
 

@@ -14,9 +14,10 @@ devices:
       SW1: unused  # volitelně: nejbližší tlačítko pro offline fallback
     outputs:
       O1: L-01 (schodiště)
-    controlled_by: [SW-A, SW-H1, SW-CP]  # přes HA
+    controlled_by: [SW-A, SW-H1]  # přes HA
     notes: >
-      3-cestné ovládání přes HA. Umístit do stropní krabice, ne za vypínač.
+      2-cestné ovládání přes HA (SW-A v obýváku, SW-H1 v horní předsíni).
+      Umístit do stropní krabice, ne za vypínač.
       Napájení: trvalé L+N z jističe schodiště.
 
   - id: SH-02
@@ -39,13 +40,13 @@ devices:
     function: Spíná fázi lustru horní předsíně (L-03)
     mode: attached
     inputs:
-      SW1: [SW-H2, SW-H3]  # paralelně, přes stávající schodišťákový drát
+      SW1: [SW-H2, SW-CP]  # paralelně, přes stávající schodišťákový drát
     outputs:
       O1: L-03 (lustr horní předsíň)
-    controlled_by: [SW-H2, SW-H3]  # přímo, paralelně
+    controlled_by: [SW-H2, SW-CP]  # přímo, paralelně
     notes: >
-      Obě tlačítka paralelně na SW1 (přes stáv. schodišťákový drát mezi SW-H2 a SW-H3).
-      Funguje offline bez HA.
+      Obě tlačítka paralelně na SW1 (přes stáv. schodišťákový drát mezi SW-H2 v horní předsíni
+      a SW-CP v chodbě u pokoje). Funguje offline bez HA.
 
   - id: SH-04
     model: Shelly Plus 1PM
@@ -136,19 +137,9 @@ devices:
       Tlačítko H2 (lustr) jde přímo do SH-03 SW1, ne do této i4.
       SW-H1 a SW-H2 jsou dva jednovypínače vedle sebe u schodů.
 
-  - id: SH-10
-    model: Shelly i4
-    location: Za vypínačem chodby u pokoje
-    function: Čte tlačítko SW-CP (schodiště)
-    mode: detached
-    inputs:
-      IN1: SW-CP  # → HA → SH-01
-      IN2: rezerva
-      IN3: rezerva
-      IN4: rezerva
-    outputs: []
-    controlled_by: [SW-CP]
-    notes: 3 rezervní vstupy pro budoucí scény.
+  # (dříve zde bylo SH-10 i4 za SW-CP pro 3-cestné schodiště;
+  # odstraněno po úpravě: SW-CP = paralelka k SW-H2 pro lustr přes stáv. schodišťákový drát,
+  # krabice Chodba u pokoje je bez Shelly.)
 
   # ============ STÁVAJÍCÍ (beze změny) ============
 
@@ -183,9 +174,9 @@ summary:
   new:
     plus_1pm: 4  # SH-01, SH-02, SH-03, SH-04
     plus_2pm: 2  # SH-05, SH-06
-    i4: 4        # SH-07, SH-08, SH-09, SH-10
-    total: 10
+    i4: 3        # SH-07, SH-08, SH-09
+    total: 9
   existing:
     rgbw_pm: 2   # SH-E1, SH-E2
     other: 1     # SH-E3
-  estimated_cost_czk: 7600  # 4*700 + 2*1000 + 4*600 + rezerva
+  estimated_cost_czk: 7000  # 4*700 + 2*1000 + 3*600 + rezerva

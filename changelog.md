@@ -33,6 +33,33 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 6. Samostatný vypínač horní předsíně (SW-H3) původně měl i4 — odstraněno, je to krabice bez Shelly
 7. Dvojvypínač u dveří dolní předsíně (SW-G) původně měl i4 — odstraněno, je to krabice bez Shelly
 
+## DRAFT v0.2 — 2026-04-19
+
+### Korekce struktury rámečků (dle foto nákresu + zpětné vazby)
+
+- **Obývák vstup** — sjednoceno do **1 vertikálního rámečku** (5 modulů shora dolů):
+  jednovypínač → dvojvypínač → jednovypínač → dvojvypínač → dvojvypínač
+  (SW-A byl dříve chybně označen jako dvojvypínač)
+- **Dolní předsíň** — 2 rámečky:
+  - vertikální rámeček u pracovny (SW-F1 + SW-F2)
+  - samostatný dvojvypínač u dveří (SW-G)
+- **Horní předsíň u schodů** — 1 rámeček se 2 jednovypínači (SW-H1 + SW-H2)
+- **Kuchyň** — labely upraveny: `dřezák` → `LED digestoř`, 2× LED rozlišeno jako `LED A` / `LED B` (sloučení zrušeno)
+
+### Topologická korekce: SW-CP = SW-H3 (dříve mylně 2 samostatné)
+
+- **SW-H3 odstraněn** — byl duplicita SW-CP
+- **SW-CP** nyní ovládá **L-03 Lustr horní předsíň** (ne L-01 schodiště), paralelka k SW-H2 přes stávající schodišťákový drát → SH-03 SW1
+- **L-01 Schodiště** je nyní **2-cestné** (SW-A obývák + SW-H1 horní předsíň), ne 3-cestné
+- **SH-10 i4 odstraněno** — krabice v Chodbě u pokoje je bez Shelly (paralelka stačí)
+- Nové Shelly: 4× Plus 1PM + 2× Plus 2PM + **3× i4** = **9 ks** (~7 000 Kč)
+
+### Vizualizace
+
+- Přidán digitální nákres: `plates/prehled.svg` — svítidla (HUE/non-HUE + napětí 220V/24V) + rámečky + čáry vypínač→zařízení
+- Per-místnost SVG: `plates/<room>.svg`
+- `scripts/generate_plates.py` generátor z `devices/plates.yaml` + `devices/circuits.yaml`
+
 ## Další plánované iterace
 
 - [ ] Ověřit otevřené otázky z `open-questions.md`

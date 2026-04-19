@@ -6,10 +6,10 @@
 
 ![Přehled — propojení okruhů napříč místnostmi](plates/prehled.svg)
 
-Čáry v přehledu spojují rámečky, které ovládají stejný okruh:
-- **L-01** — 3-cestné ovládání schodiště (3 tlačítka v různých místnostech, propojeno přes HA)
+Čáry v přehledu spojují každý vypínač se zařízením, které ovládá:
+- **L-01** — 2-cestné ovládání schodiště (SW-A v obýváku + SW-H1 v horní předsíni, přes HA)
 - **L-02**, **L-09** — paralelky v dolní předsíni (přes stávající schodišťákové dráty)
-- **L-03** — paralelka horní předsíň lustr
+- **L-03** — paralelka horní předsíň lustr (SW-H2 + SW-CP přes schodišťákový drát do SH-03)
 
 ## Původní ručně psaný nákres
 
@@ -19,9 +19,9 @@ Pro referenci při instalaci:
 
 ## Co se instaluje
 
-- **10 nových Shelly zařízení** (4× Plus 1PM, 2× Plus 2PM, 4× i4)
-- **11 krabic** s vypínači nebo Shelly (z toho 2 krabice bez Shelly — jen WAGO propojení)
-- **Odhad hardware:** ~7 600 Kč (viz kusovník níže)
+- **9 nových Shelly zařízení** (4× Plus 1PM, 2× Plus 2PM, 3× i4)
+- **9 krabic** s vypínači nebo Shelly (z toho 2 krabice bez Shelly — jen WAGO propojení)
+- **Odhad hardware:** ~7 000 Kč (viz kusovník níže)
 - **14 světelných okruhů** celkem (11 nových/upravených + 3 stávající beze změny)
 
 ### Stávající zařízení (beze změny)
@@ -58,12 +58,12 @@ Dvě tlačítka z různých krabic jsou připojena paralelně na **jeden** `SW` 
 
 Kde to je:
 - **L-02** LED pásek — SW-F1 + SW-G1 → SH-02 SW1
-- **L-03** horní předsíň lustr — SW-H2 + SW-H3 → SH-03 SW1
+- **L-03** horní předsíň lustr — SW-H2 (u schodů) + SW-CP (chodba u pokoje) → SH-03 SW1
 - **L-09** předsíň strop — SW-F2 + SW-G2 → SH-08 IN1
 
-### 5. 3-cestné schodiště (L-01)
+### 5. 2-cestné schodiště (L-01)
 
-Tři tlačítka ve třech místnostech (obývák SW-A, horní předsíň SW-H1, chodba u pokoje SW-CP). Každé jde do lokální `i4` (SH-07/SH-09/SH-10) v **detached** režimu → HA → SH-01 přepne fázi. **Vyžaduje HA.**
+Dvě tlačítka ve dvou místnostech (obývák SW-A, horní předsíň SW-H1). Každé jde do lokální `i4` (SH-07, SH-09) v **detached** režimu → HA → SH-01 přepne fázi. **Vyžaduje HA.**
 
 ### 6. Umístění Shelly — preferenčně u svítidel
 
@@ -73,7 +73,6 @@ Krabice, kde se bude sekat / KU68:
 - Obývák vstup (SH-05, SH-06, SH-07 — 3 Shelly ve dvou krabicích za SW-C, SW-D, SW-A+SW-B)
 - Dolní předsíň u pracovny (SH-08)
 - Horní předsíň u schodů (SH-09)
-- Chodba u pokoje (SH-10)
 
 ---
 
@@ -83,10 +82,10 @@ Krabice, kde se bude sekat / KU68:
 |---:|---|---:|---:|
 | 4 | Shelly Plus 1PM | 700 Kč | 2 800 Kč |
 | 2 | Shelly Plus 2PM | 1 000 Kč | 2 000 Kč |
-| 4 | Shelly i4 (230V) | 600 Kč | 2 400 Kč |
+| 3 | Shelly i4 (230V) | 600 Kč | 1 800 Kč |
 | — | KU68 prodlužovací kroužky | — | rezerva 400 Kč |
 | — | WAGO svorky | — | rezerva ~ |
-| | | **Celkem** | **~7 600 Kč** |
+| | | **Celkem** | **~7 000 Kč** |
 
 Vypínače ABB Tango (pružinkové tlačítkové moduly + rámečky) řeší zákazník samostatně.
 
