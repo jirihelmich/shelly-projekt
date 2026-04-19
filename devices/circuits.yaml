@@ -39,17 +39,17 @@ circuits:
   - id: L-04
     name: Lustr jídelna
     room: Jídelna
-    type: non-HUE
-    voltage: 230V
-    dimmable: false
-    switched_by: SH-04
+    type: HUE
+    voltage: 230V (trvale)
+    dimmable: true (via Hue)
+    switched_by: null  # Hue, fáze trvalá
     controlled_from: [SW-J2, SW-D2]
-    control_mode: SW-J2 attached (SH-04 SW1), SW-D2 event → HA → SH-04 toggle
-    ha_entity: switch.sh_04_lustr_jidelna
+    control_mode: event (2 tlačítka) → HA → Hue
+    ha_entity: light.jidelna_lustr
     notes: >
-      Tlačítko "Lustr K" v obývákovém rámečku (SW-D2) je ve skutečnosti ovládání
-      téhož jídelního lustru. Wire SW-D2 jde do SH-06 SW2 (detached), event pak
-      přes HA na SH-04 toggle.
+      HUE lustr — fáze trvale pod proudem, žádná Shelly fázi nespíná.
+      SW-J2 (jídelna) → SH-04 i4 IN1 → event → HA → Hue toggle.
+      SW-D2 (obývák rámeček, v nákresu chybně "Lustr K") → SH-06 SW2 → event → HA → Hue toggle.
 
   - id: L-05
     name: Lišta 1
@@ -131,8 +131,3 @@ circuits:
     controlled_from: [SW-J1]
     status: existing
 
-  - id: L-14
-    name: Kuchyň okruhy
-    room: Kuchyně
-    status: existing
-    notes: Vyřešeno dle nákresu, stávající instalace.

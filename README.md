@@ -19,16 +19,15 @@ Pro referenci při instalaci:
 
 ## Co se instaluje
 
-- **9 nových Shelly zařízení** (4× Plus 1PM, 2× Plus 2PM, 3× i4)
+- **9 nových Shelly zařízení** (3× Plus 1PM, 2× Plus 2PM, 4× i4)
 - **9 krabic** s vypínači nebo Shelly (z toho 2 krabice bez Shelly — jen WAGO propojení)
-- **Odhad hardware:** ~7 000 Kč (viz kusovník níže)
-- **12 světelných okruhů** celkem (9 nových/upravených + 3 stávající beze změny)
+- **Odhad hardware:** ~6 500 Kč (viz kusovník níže)
+- **12 světelných okruhů** celkem (9 nových/upravených + 2 stávající beze změny)
 
 ### Stávající zařízení (beze změny)
 
 - **SH-E1** Shelly RGBW PM v obýváku (LED strop, L-12)
 - **SH-E2** Shelly RGBW PM v jídelně (LED 24V, L-13)
-- **SH-E3** kuchyně (24V systém, L-14) — v původním nákresu označeno _„vyřešeno"_, neřeší se
 
 ---
 
@@ -74,6 +73,7 @@ Krabice, kde se bude sekat / KU68:
 - Obývák vstup (SH-05, SH-06, SH-07 — 3 Shelly ve dvou krabicích za SW-C, SW-D, SW-A+SW-B)
 - Dolní předsíň u pracovny (SH-08)
 - Horní předsíň u schodů (SH-09)
+- Jídelna za SW-J (SH-04)
 
 ---
 
@@ -81,12 +81,12 @@ Krabice, kde se bude sekat / KU68:
 
 | Ks | Položka | Orient. cena/ks | Σ |
 |---:|---|---:|---:|
-| 4 | Shelly Plus 1PM | 700 Kč | 2 800 Kč |
+| 3 | Shelly Plus 1PM | 700 Kč | 2 100 Kč |
 | 2 | Shelly Plus 2PM | 1 000 Kč | 2 000 Kč |
-| 3 | Shelly i4 (230V) | 600 Kč | 1 800 Kč |
+| 4 | Shelly i4 (230V) | 600 Kč | 2 400 Kč |
 | — | KU68 prodlužovací kroužky | — | rezerva 400 Kč |
 | — | WAGO svorky | — | rezerva ~ |
-| | | **Celkem** | **~7 000 Kč** |
+| | | **Celkem** | **~6 500 Kč** |
 
 Vypínače ABB Tango (pružinkové tlačítkové moduly + rámečky) řeší zákazník samostatně.
 
@@ -104,11 +104,10 @@ Každý soubor obsahuje:
 |---|---|---|
 | Obývák | [rooms/01-obyvak.md](rooms/01-obyvak.md) | [plates/obyvak.svg](plates/obyvak.svg) |
 | Dolní předsíň | [rooms/02-dolni-predsin.md](rooms/02-dolni-predsin.md) | [plates/dolni-predsin.svg](plates/dolni-predsin.svg) |
-| Horní předsíň | [rooms/03-horni-predsin.md](rooms/03-horni-predsin.md) | [plates/horni-predsin.svg](plates/horni-predsin.svg) |
-| Schodiště | [rooms/04-schodiste.md](rooms/04-schodiste.md) | (součást chodba/předsíň) |
-| Chodba u pokoje | [rooms/05-chodba-u-pokoje.md](rooms/05-chodba-u-pokoje.md) | [plates/chodba-u-pokoje.svg](plates/chodba-u-pokoje.svg) |
+| Horní předsíň (vč. vypínače u pokoje) | [rooms/03-horni-predsin.md](rooms/03-horni-predsin.md) | [plates/horni-predsin.svg](plates/horni-predsin.svg) |
+| Schodiště | [rooms/04-schodiste.md](rooms/04-schodiste.md) | (součást horní předsíně) |
 | Jídelna | [rooms/06-jidelna.md](rooms/06-jidelna.md) | [plates/jidelna.svg](plates/jidelna.svg) |
-| Kuchyň | [rooms/07-kuchyn.md](rooms/07-kuchyn.md) | [plates/kuchyn.svg](plates/kuchyn.svg) |
+| Kuchyň (jen sdílený vypínač Lišta 3) | [rooms/07-kuchyn.md](rooms/07-kuchyn.md) | [plates/kuchyn.svg](plates/kuchyn.svg) |
 
 **Přehled všech rámečků pohromadě:** [plates/README.md](plates/README.md)
 

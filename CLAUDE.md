@@ -47,8 +47,8 @@ Osazení Shelly zařízení v domě pro ovládání osvětlení. Integrace s Hom
 ## Aktuální stav
 
 **Verze specifikace:** DRAFT v0.1
-**Celkový počet nových Shelly:** 9 ks (4× Plus 1PM, 2× Plus 2PM, 3× i4)
-**Odhad hardware:** ~7 000 Kč
+**Celkový počet nových Shelly:** 9 ks (3× Plus 1PM, 2× Plus 2PM, 4× i4)
+**Odhad hardware:** ~6 500 Kč
 
 Viz `open-questions.md` pro seznam věcí k ověření.
 

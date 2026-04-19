@@ -2,29 +2,29 @@
 
 ## Stav
 
-Stávající rámeček obsahuje zásuvku + 4 vypínače. 24V LED systém je stávající ("vyřešeno"). Jediný dotyk s novou instalací:
+Ze stávajícího kuchyňského rámečku se nové instalace dotýká **jen tlačítko Lišta 3** — je to paralelka k SW-D1 v obýváku (ovládá totéž svítidlo L-07 Lišta 3 v obýváku, 220V).
 
-- Tlačítko **Lišta 3** v kuchyni ovládá **totéž svítidlo** jako obývákova Lišta 3 (L-07) — tj. **220V okruh**, ne 24V. Zapojeno paralelně k SW-D1 přes stávající schodišťákový drát do SH-06 SW1 v obýváku.
+Ostatní moduly v kuchyňském rámečku (LED pásky, digestoř, zásuvka) jsou **mimo scope** tohoto projektu.
 
-## Rámeček P-KU (5 modulů)
+## Rámeček (dokumentovaná část)
 
 | Modul | Typ | Ovládá | Napětí | Poznámka |
 |---|---|---|---|---|
-| 1 | Zásuvka | — | 220V | |
-| 2 | Jednovypínač | L-07 Lišta 3 | **220V** | paralelka k SW-D1 obývák, SH-06 SW1 |
-| 3+4 | Dvojvypínač | 2× LED (A, B) | 24V | stávající, jiná svítidla |
-| 5 | Jednovypínač | LED digestoř | 24V | stávající |
+| Zásuvka (Z) | socket | — | 220V | stávající, pro úplnost |
+| Jednovypínač „Lišta 3" | single | L-07 Lišta 3 (obývák) | **220V** | paralelka k SW-D1, SH-06 SW1 přes stáv. schodišťákový drát |
 
 ## Shelly v této místnosti
 
-Žádný nový. Stávající SH-E3 (model neznámý) ovládá 24V okruhy — beze změny.
+Žádná nová. Stávající kuchyňské řízení 24V LED neřešíme.
+
+## Zapojení SW-KU-L3
+
+- Tlačítko SW-KU-L3 v kuchyňském rámečku má jeden pól připojený přes stávající schodišťákový drát k **SH-06 SW1** (Plus 2PM za SW-D v obýváku).
+- Druhý pól na signálovém potenciálu (L nebo N).
+- Stisk → krátké zkratování SW1 → SH-06 toggle → L-07 on/off.
+- **Funguje offline bez HA** (attached paralelka).
 
 ## Ověřit
 
 - [ ] Existuje stávající schodišťákový drát Obývák (SW-D) → Kuchyň (SW-KU-L3)?
-- [ ] Pokud ne: Lišta 3 v kuchyni ztratí funkci, nebo doplnit i4 za kuchyňský vypínač (+1× i4)
-
-## Poznámky
-
-- 24V okruhy (LED A, LED B, LED digestoř) neřešíme — beze změny
-- Pokud by se v budoucnu něco měnilo, přidat sem
+- [ ] Pokud ne: Lišta 3 z kuchyně ztratí funkci, nebo doplnit i4 za kuchyňský vypínač (+1× i4)

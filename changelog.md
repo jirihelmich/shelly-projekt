@@ -54,6 +54,14 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 - **SH-10 i4 odstraněno** — krabice v Chodbě u pokoje je bez Shelly (paralelka stačí)
 - Nové Shelly: 4× Plus 1PM + 2× Plus 2PM + **3× i4** = **9 ks** (~7 000 Kč)
 
+### Další opravy: L-04 HUE, kuchyň zjednodušena, Chodba u pokoje není místnost
+
+- **L-04 Lustr jídelna je HUE** (ne non-HUE). Fáze trvalá, žádná Shelly fázi nespíná.
+  SH-04 přetypováno z Plus 1PM na **Shelly i4** (čte event ze SW-J2). Obě tlačítka (SW-J2 jídelna + SW-D2 obývák) → detached → HA → Hue toggle.
+  Cena: 3× Plus 1PM + 2× Plus 2PM + 4× i4 = **~6 500 Kč** (bylo ~7 000).
+- **Kuchyň P-KU zjednodušena** — z rámečku dokumentujeme už jen zásuvku a tlačítko Lišta 3 (sdíleno s obývákem). LED A/B/digestoř odstraněny jako mimo scope. L-14 „Kuchyň okruhy" zrušeno (neexistující okruh). SH-E3 odstraněno z inventáře.
+- **„Chodba u pokoje" není samostatná místnost** — je to jen umístění vypínače SW-CP v rámci **Horní předsíně**. P-CP zmigrováno do Horní předsíně s `location: U pokoje`. `rooms/05-chodba-u-pokoje.md` smazáno. ROOM_ORDER v generátoru upraveno.
+
 ### Topologické opravy: L-08 zrušeno, L-07 sdíleno s kuchyní
 
 - **L-08 Lustr K zrušeno.** V nákresu "Lustr K" u obývákového SW-D2 je ve skutečnosti Lustr jídelna (L-04). SW-D2 posílá event přes SH-06 SW2 do HA, HA toggluje SH-04 v jídelně. L-04 má nyní 2 ovladače (SW-J2 attached, SW-D2 detached).

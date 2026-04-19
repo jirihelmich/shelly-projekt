@@ -323,7 +323,6 @@ ROOM_ORDER = [
     "Obývák",
     "Schodiště",
     "Horní předsíň",
-    "Chodba u pokoje",
     "Dolní předsíň",
     "Kuchyň",
     "Jídelna",

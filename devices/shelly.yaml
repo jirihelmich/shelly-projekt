@@ -49,15 +49,20 @@ devices:
       a SW-CP v chodbě u pokoje). Funguje offline bez HA.
 
   - id: SH-04
-    model: Shelly Plus 1PM
-    location: U lustru jídelny (stropní krabice)
-    function: Spíná fázi lustru jídelny (L-04)
-    mode: attached
+    model: Shelly i4
+    location: Za vypínačem SW-J v jídelně
+    function: Čte tlačítko SW-J2 (event → HA → Hue toggle pro Lustr jídelna L-04)
+    mode: detached
     inputs:
-      SW1: SW-J2
-    outputs:
-      O1: L-04 (lustr jídelna)
+      IN1: SW-J2  # → HA → Hue L-04
+      IN2: rezerva
+      IN3: rezerva
+      IN4: rezerva
+    outputs: []
     controlled_by: [SW-J2]
+    notes: >
+      Lustr jídelny je HUE (fáze trvalá), žádná Shelly fázi nespíná.
+      Dřívější plán spínat přes Plus 1PM zrušen po upřesnění, že jde o Hue.
 
   - id: SH-05
     model: Shelly Plus 2PM
@@ -76,18 +81,18 @@ devices:
   - id: SH-06
     model: Shelly Plus 2PM
     location: Za vypínačem SW-D v obýváku
-    function: K1 spíná Lišta 3 (L-07); K2 čte tlačítko SW-D2 (event → HA → SH-04 toggle pro Lustr jídelna L-04)
+    function: K1 spíná Lišta 3 (L-07); K2 čte tlačítko SW-D2 (event → HA → Hue toggle L-04)
     mode: mixed  # K1 attached, K2 detached
     inputs:
       SW1: [SW-D1, SW-KU-L3]  # attached + paralelka s kuchyní přes stáv. drát
-      SW2: SW-D2  # detached (event pro L-04)
+      SW2: SW-D2  # detached (event pro HUE L-04)
     outputs:
       O1: L-07 (Lišta 3)
-      O2: unused  # nezapojit, L-04 spíná SH-04 v jídelně
+      O2: unused  # L-04 je HUE — fáze trvalá
     controlled_by: [SW-D1, SW-D2, SW-KU-L3]
     notes: >
-      K2 detached: výstup O2 zůstává nezapojený (L-04 spíná SH-04 v jídelně).
-      V HA disable entity switch.sh_06_k2, event.sh_06_input_2 → switch.toggle sh_04.
+      K2 detached: výstup O2 zůstává nezapojený (L-04 je HUE — Hue žárovka je trvale pod proudem).
+      V HA: disable entity switch.sh_06_k2, event.sh_06_input_2 → light.toggle L-04.
       K1 má paralelku přes stáv. drát z kuchyňského tlačítka Lišta 3 (SW-KU-L3).
 
   - id: SH-07
@@ -162,22 +167,14 @@ devices:
     controlled_by: [SW-J1]
     notes: Stávající, beze změny.
 
-  - id: SH-E3
-    model: (neznámý)
-    location: Kuchyň
-    function: Stávající instalace (kuchyňské okruhy)
-    status: existing
-    notes: "Vyřešeno" dle původního nákresu, neřeší se.
-
 # ============ SOUHRN ============
 
 summary:
   new:
-    plus_1pm: 4  # SH-01, SH-02, SH-03, SH-04
+    plus_1pm: 3  # SH-01, SH-02, SH-03
     plus_2pm: 2  # SH-05, SH-06
-    i4: 3        # SH-07, SH-08, SH-09
+    i4: 4        # SH-04, SH-07, SH-08, SH-09
     total: 9
   existing:
     rgbw_pm: 2   # SH-E1, SH-E2
-    other: 1     # SH-E3
-  estimated_cost_czk: 7000  # 4*700 + 2*1000 + 3*600 + rezerva
+  estimated_cost_czk: 6500  # 3*700 + 2*1000 + 4*600 + rezerva

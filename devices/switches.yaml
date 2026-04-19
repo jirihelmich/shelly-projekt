@@ -125,7 +125,8 @@ switches:
         parallel_with: SW-CP
 
   - id: SW-CP
-    room: Chodba u pokoje
+    room: Horní předsíň
+    position: U pokoje (samostatný vypínač v horní předsíni)
     hardware: Jednovypínač
     shelly_in_box: NONE  # žádná Shelly v této krabici
     buttons:
@@ -144,10 +145,10 @@ switches:
         wired_to: SH-E2 SW
         status: existing
       - button: J2
-        circuit: L-04  # lustr jídelna
-        wired_to: SH-04 SW1
-        mode: attached
-        parallel_with: SW-D2  # event-based, přes HA (ne fyzicky paralelně)
+        circuit: L-04  # lustr jídelna (HUE)
+        wired_to: SH-04 IN1  # i4 event → HA → Hue
+        mode: detached
+        parallel_with: SW-D2  # oba jsou event-based, sbíhají se v HA na Hue toggle
 
   # ============ KUCHYŇ (stávající rámeček, doplněno kvůli sdíleným okruhům) ============
 
@@ -169,11 +170,11 @@ boxes_summary:
     - {location: "Obývák vstup", devices: [SH-05, SH-06, SH-07]}
     - {location: "Dolní předsíň, pracovna (SW-F2)", devices: [SH-08]}
     - {location: "Horní předsíň, u schodů", devices: [SH-09]}
+    - {location: "Jídelna, za SW-J", devices: [SH-04]}
     - {location: "U trafa LED pásku", devices: [SH-02]}
     - {location: "U svítidla schodiště", devices: [SH-01]}
     - {location: "U lustru horní předsíně", devices: [SH-03]}
-    - {location: "U lustru jídelny", devices: [SH-04]}
 
   without_shelly:
     - {location: "Dolní předsíň, u dveří (SW-G)", reason: "Stáv. schodišťákové dráty vedou signál do SH-02 SW1 a SH-08 IN1"}
-    - {location: "Chodba u pokoje (SW-CP)", reason: "Stáv. schodišťákový drát vede signál do SH-03 SW1 (paralelka k SW-H2)"}
+    - {location: "Horní předsíň, u pokoje (SW-CP)", reason: "Stáv. schodišťákový drát vede signál do SH-03 SW1 (paralelka k SW-H2)"}

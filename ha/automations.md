@@ -9,9 +9,9 @@
 | SH-01 | switch.sh_01_schodiste | — |
 | SH-02 | switch.sh_02_led_pasek | — |
 | SH-03 | switch.sh_03_lustr_horni_predsin | — |
-| SH-04 | switch.sh_04_lustr_jidelna | — |
+| SH-04 | — | event.sh_04_input_1 (pro Lustr jídelna HUE) |
 | SH-05 | switch.sh_05_lista_1, switch.sh_05_lista_2 | — |
-| SH-06 | switch.sh_06_lista_3 | event.sh_06_input_2 (pro Lustr jídelna L-04) |
+| SH-06 | switch.sh_06_lista_3 | event.sh_06_input_2 (pro Lustr jídelna L-04 HUE) |
 | SH-07 | — | event.sh_07_input_1/2/3 (pro A, B1, B2) |
 | SH-08 | — | event.sh_08_input_1 (F2+G2 paralelně) |
 | SH-09 | — | event.sh_09_input_1 (H1) |
@@ -20,6 +20,7 @@
 
 | Okruh | HA entity | Ovládáno tlačítky |
 |---|---|---|
+| L-04 Lustr jídelna | light.jidelna_lustr | event.sh_04_input_1 (J2 jídelna), event.sh_06_input_2 (D2 obývák) |
 | L-09 Předsíň strop | light.dolni_predsin_strop | event.sh_07_input_2 (B1 obývák), event.sh_08_input_1 (F2+G2 paralelně) |
 | L-10 Obývák strop | light.obyvak_strop | event.sh_07_input_3 |
 
@@ -57,25 +58,10 @@ action:
       entity_id: light.<hue_entity>
 ```
 
-Konkrétní instance doplnit pro L-09, L-10. L-09 má 2 trigger entity (event.sh_07_input_2 + event.sh_08_input_1) → stejný toggle.
-
-### Cross-room non-HUE toggle — Lustr jídelna přes obývákové tlačítko
-
-```yaml
-alias: Lustr jídelna — toggle z obývákového SW-D2
-trigger:
-  - platform: state
-    entity_id: event.sh_06_input_2  # SW-D2 v obýváku
-    attribute: event_type
-    to: single_push
-action:
-  - service: switch.toggle
-    target:
-      entity_id: switch.sh_04_lustr_jidelna
-mode: single
-```
-
-Přímé tlačítko v jídelně (SW-J2) je attached — SH-04 SW1 → O1 → L-04, nevyžaduje HA.
+Konkrétní instance doplnit pro L-04, L-09, L-10. Některé mají více trigger entit:
+- **L-04 Lustr jídelna** (HUE, 2 tlačítka): `event.sh_04_input_1` (SW-J2) + `event.sh_06_input_2` (SW-D2)
+- **L-09 Předsíň strop** (HUE, 3 tlačítka): `event.sh_07_input_2` (SW-B1) + `event.sh_08_input_1` (SW-F2/G2 paralelně)
+- **L-10 Obývák strop** (HUE, 1 tlačítko): `event.sh_07_input_3` (SW-B2)
 
 ## Scény (short / long / double)
 

@@ -8,10 +8,6 @@ Generováno z `devices/plates.yaml` skriptem `scripts/generate_plates.py`.
 
 ## Detail per místnost
 
-### Chodba u pokoje
-
-![Chodba u pokoje](chodba-u-pokoje.svg)
-
 ### Dolní předsíň
 
 ![Dolní předsíň](dolni-predsin.svg)

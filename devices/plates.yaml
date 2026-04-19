@@ -90,11 +90,11 @@ plates:
         cells:
           - { label: "Horní předsíň lustr", circuit: L-03 }
 
-  # ============ CHODBA U POKOJE (paralelka k SW-H2 pro lustr) ============
+  # ============ HORNÍ PŘEDSÍŇ — samostatný vypínač u pokoje (paralelka k SW-H2) ============
 
   - id: P-CP
-    room: Chodba u pokoje
-    location: ""
+    room: Horní předsíň
+    location: U pokoje
     orientation: horizontal
     note: "Paralelka k SW-H2 přes stávající schodišťákový drát → SH-03 SW1"
     components:
@@ -122,7 +122,7 @@ plates:
     room: Kuchyň
     location: ""
     orientation: horizontal
-    note: "Lišta 3 je 220V (sdíleno s obývákem, L-07); LED pásky jsou 24V. Každá LED = jiné svítidlo (doplnit specifické názvy)."
+    note: "Z kuchyňského rámečku dokumentujeme jen to, co se týká nové instalace: zásuvka a tlačítko Lišta 3 (paralelka k obývákovému SW-D1, svítidlo L-07 v obýváku). Ostatní moduly v rámečku jsou mimo scope."
     components:
       - type: socket
         cells:
@@ -130,13 +130,6 @@ plates:
       - type: single_switch
         cells:
           - { label: "Lišta 3", circuit: L-07, note: "totéž svítidlo jako Lišta 3 v obýváku" }
-      - type: double_switch
-        cells:
-          - { label: "LED A", voltage: "24V" }
-          - { label: "LED B", voltage: "24V" }
-      - type: single_switch
-        cells:
-          - { label: "LED digestoř", voltage: "24V" }
 
 # ============ LEGENDA ============
 legend:
