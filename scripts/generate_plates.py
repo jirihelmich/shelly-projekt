@@ -408,21 +408,44 @@ ROOM_GAP = 30
 OVERVIEW_TOP_PAD = 140  # prostor nad místnostmi na oblouky propojení
 
 
-def collect_circuits(plates_in_order: list[dict]) -> dict[str, list[tuple[str, int]]]:
-    """Map circuit_id -> list of (plate_id, cell_index_in_plate)."""
-    out: dict[str, list[tuple[str, int]]] = defaultdict(list)
-    for p in plates_in_order:
-        idx = 0  # global cell index within this plate (across components)
-        for comp in p["components"]:
-            if comp["type"] == "socket":
-                idx += 1
-                continue
-            for cell in comp.get("cells", []):
-                circ = cell.get("circuit")
-                if circ:
-                    out[circ].append((p["id"], idx))
-                idx += 1
-    return out
+def cell_anchors_in_plate(plate: dict, plate_x: float, plate_y: float):
+    """Yield (circuit_id, cell_center_x, cell_top_y) pro každou buňku s circuit v plate."""
+    orientation = plate.get("orientation", "horizontal")
+    pw, _ = plate_dims(plate)
+    inner_w = pw - 2 * PADDING
+    cell_y = plate_y + PADDING + LABEL_H
+
+    if orientation == "vertical":
+        for comp in plate["components"]:
+            cw = component_width(comp)
+            cx_base = plate_x + PADDING + (inner_w - cw) / 2
+            if comp["type"] != "socket":
+                for i, cell in enumerate(comp.get("cells", [])):
+                    circ = cell.get("circuit")
+                    if not circ:
+                        continue
+                    if comp["type"] == "double_switch":
+                        ccx = cx_base + CELL_W * i + CELL_W / 2
+                    else:
+                        ccx = cx_base + CELL_W / 2
+                    yield circ, ccx, cell_y
+            cell_y += CELL_H
+    else:
+        cx_base = plate_x + PADDING
+        for comp in plate["components"]:
+            cw = component_width(comp)
+            if comp["type"] != "socket":
+                for i, cell in enumerate(comp.get("cells", [])):
+                    circ = cell.get("circuit")
+                    if not circ:
+                        cx_base_next = cx_base
+                        continue
+                    if comp["type"] == "double_switch":
+                        ccx = cx_base + CELL_W * i + CELL_W / 2
+                    else:
+                        ccx = cx_base + CELL_W / 2
+                    yield circ, ccx, cell_y
+            cx_base += cw
 
 
 def render_overview(plates: list[dict]) -> str:
@@ -492,15 +515,17 @@ def render_overview(plates: list[dict]) -> str:
     total_h = OVERVIEW_TOP_PAD + sum(max(b[5] for b in row) for row in rows) + ROOM_GAP * (len(rows) - 1) + 80
 
     plate_positions: dict[str, tuple[int, int, int, int]] = {}
+    # device_positions[circuit_id] = (cx, bottom_y) — kotva čáry na spodní hraně pilulky
+    device_positions: dict[str, tuple[float, float]] = {}
 
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {int(total_w)} {int(total_h)}" '
         f'width="{int(total_w)}" height="{int(total_h)}" font-family="sans-serif">',
         '<rect width="100%" height="100%" fill="white"/>',
-        f'<text x="20" y="36" font-size="24" font-weight="700" fill="{TEXT}">Přehled — svítidla, rámečky a propojení okruhů</text>',
+        f'<text x="20" y="36" font-size="24" font-weight="700" fill="{TEXT}">Přehled — svítidla, vypínače a okruhy mezi nimi</text>',
         f'<text x="20" y="58" font-size="12" font-style="italic" fill="{MUTED}">'
-        f'Svítidla (pilulky nahoře) jsou barvou odlišená HUE vs non-HUE; '
-        f'badge ukazuje napětí (220V / 24V). Čáry spojují rámečky sdílející okruh.</text>',
+        f'Každý vypínač je čarou propojen se zařízením, které ovládá. '
+        f'Více čar k jedné pilulce = víc vypínačů na stejný okruh (3-cestné nebo paralelka).</text>',
     ]
 
     row_y = OVERVIEW_TOP_PAD
@@ -531,6 +556,11 @@ def render_overview(plates: list[dict]) -> str:
                     pill_x = bx + ROOM_BOX_PAD
                     for dev in drow:
                         parts.extend(render_device_pill(dev, pill_x, pill_y))
+                        # Kotva čáry = spodní hrana pilulky (střed)
+                        device_positions[dev["id"]] = (
+                            pill_x + DEVICE_PILL_W / 2,
+                            pill_y + DEVICE_PILL_H,
+                        )
                         pill_x += DEVICE_PILL_W + DEVICE_PILL_GAP_X
                     pill_y += DEVICE_PILL_H + DEVICE_PILL_GAP_Y
 
@@ -554,52 +584,41 @@ def render_overview(plates: list[dict]) -> str:
             bx += box_w + ROOM_GAP
         row_y += row_h + ROOM_GAP
 
-    # Connection lines for circuits spanning multiple plates
-    circuits = collect_circuits(plates)
-    multi = {c: ps for c, ps in circuits.items() if len({pid for pid, _ in ps}) > 1}
+    # Čáry: vypínač → zařízení
+    # Pro každou buňku s circuit najdi pilulku zařízení a nakresli čáru.
+    all_anchors: list[tuple[str, float, float, str]] = []
+    for p in plates:
+        if p["id"] not in plate_positions:
+            continue
+        px, py, _, _ = plate_positions[p["id"]]
+        for circ, cx, ty in cell_anchors_in_plate(p, px, py):
+            all_anchors.append((circ, cx, ty, p["id"]))
 
-    # Assign colors per circuit
-    conn_svgs = []
-    for i, (circ, refs) in enumerate(sorted(multi.items())):
-        color = CONNECTION_PALETTE[i % len(CONNECTION_PALETTE)]
-        # Unique plates for this circuit (preserve order of first occurrence)
-        seen = []
-        for pid, _ in refs:
-            if pid not in seen:
-                seen.append(pid)
-        # Arch height is spaced per circuit so arcs don't fully overlap
-        arch_offset = 30 + (i * 14) % 90
-        # Draw arcs between consecutive plates in `seen`
-        for a_id, b_id in zip(seen, seen[1:]):
-            ax, ay, aw, _ = plate_positions[a_id]
-            bx, by, bw, _ = plate_positions[b_id]
-            ax_c = ax + aw / 2
-            bx_c = bx + bw / 2
-            ay_top = ay
-            by_top = by
-            # Peak of arc: average y minus offset
-            peak_y = min(ay_top, by_top) - arch_offset
-            mid_x = (ax_c + bx_c) / 2
-            path = (
-                f"M {ax_c} {ay_top} "
-                f"Q {ax_c} {peak_y}, {mid_x} {peak_y} "
-                f"T {bx_c} {by_top}"
-            )
-            conn_svgs.append(
-                f'<path d="{path}" fill="none" stroke="{color}" stroke-width="2" opacity="0.85"/>'
-            )
-            # Dot at both ends
-            conn_svgs.append(f'<circle cx="{ax_c}" cy="{ay_top}" r="3" fill="{color}"/>')
-            conn_svgs.append(f'<circle cx="{bx_c}" cy="{by_top}" r="3" fill="{color}"/>')
-            # Circuit label at peak
-            conn_svgs.append(
-                f'<rect x="{mid_x-24}" y="{peak_y-10}" width="48" height="14" '
-                f'fill="white" stroke="{color}" stroke-width="1" rx="3" ry="3"/>'
-            )
-            conn_svgs.append(
-                f'<text x="{mid_x}" y="{peak_y+1}" text-anchor="middle" '
-                f'font-family="monospace" font-size="10" font-weight="700" fill="{color}">{esc(circ)}</text>'
-            )
+    # Stabilní barva per okruh
+    seen_circuits = sorted({c for c, *_ in all_anchors})
+    color_map = {
+        c: CONNECTION_PALETTE[i % len(CONNECTION_PALETTE)]
+        for i, c in enumerate(seen_circuits)
+    }
+
+    conn_svgs: list[str] = []
+    for circ, cx, ty, pid in all_anchors:
+        if circ not in device_positions:
+            continue
+        dx, dy = device_positions[circ]
+        color = color_map[circ]
+        # Křivka z buňky nahoru k zařízení. Buňka je níž než pilulka (větší Y).
+        # Kontrolní body: horizontálně rovnou cestu přes peak.
+        peak_y = min(ty, dy) - 24
+        path = (
+            f"M {cx} {ty} "
+            f"C {cx} {peak_y}, {dx} {peak_y}, {dx} {dy}"
+        )
+        conn_svgs.append(
+            f'<path d="{path}" fill="none" stroke="{color}" stroke-width="1.5" opacity="0.7"/>'
+        )
+        conn_svgs.append(f'<circle cx="{cx}" cy="{ty}" r="2.5" fill="{color}"/>')
+        conn_svgs.append(f'<circle cx="{dx}" cy="{dy}" r="2.5" fill="{color}"/>')
 
     parts.extend(conn_svgs)
 
