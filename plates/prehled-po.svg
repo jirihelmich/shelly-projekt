@@ -353,8 +353,6 @@
 <text x="76.0" y="899" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">i4 SH-08</text>
 <rect x="982" y="192" width="52" height="12" fill="#1f2937" rx="3" ry="3"/>
 <text x="1008.0" y="201" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">i4 SH-09</text>
-<rect x="168" y="1128" width="52" height="12" fill="#1f2937" rx="3" ry="3"/>
-<text x="194.0" y="1137" text-anchor="middle" font-family="monospace" font-size="8" font-weight="700" fill="#f9fafb">i4 SH-04</text>
 <rect x="466" y="337.0" width="86" height="14" fill="#1f2937" rx="3" ry="3"/>
 <text x="509.0" y="347.0" text-anchor="middle" font-family="monospace" font-size="9" font-weight="700" fill="#f9fafb">RGBW PM SH-E1</text>
 <rect x="812" y="161.0" width="64" height="14" fill="#1f2937" rx="3" ry="3"/>

@@ -54,6 +54,12 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 - **SH-10 i4 odstraněno** — krabice v Chodbě u pokoje je bez Shelly (paralelka stačí)
 - Nové Shelly: 4× Plus 1PM + 2× Plus 2PM + **3× i4** = **9 ks** (~7 000 Kč)
 
+### Zjednodušení: SH-04 odstraněno, SW-J2 paralelka přes schodišťákový drát
+
+- **SH-04 zrušeno.** Původně i4 v jídelně (event reader pro SW-J2). Nahrazeno paralelkou: SW-J2 připojen paralelně k SW-D2 přes stávající schodišťákový drát Obývák↔Jídelna do SH-06 SW2 (Plus 2PM v obýváku, detached kanál K2). Jeden vstup čte obě tlačítka.
+- **Nové Shelly: 9 → 8** (3× Plus 1PM + 2× Plus 2PM + **3× i4**). Odhad: ~6 500 → **~5 900 Kč**.
+- Krabice v jídelně je teď bez Shelly (jen WAGO svorky pro paralelní drát).
+
 ### Další opravy: L-04 HUE, kuchyň zjednodušena, Chodba u pokoje není místnost
 
 - **L-04 Lustr jídelna je HUE** (ne non-HUE). Fáze trvalá, žádná Shelly fázi nespíná.

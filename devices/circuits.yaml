@@ -44,12 +44,13 @@ circuits:
     dimmable: true (via Hue)
     switched_by: null  # Hue, fáze trvalá
     controlled_from: [SW-J2, SW-D2]
-    control_mode: event (2 tlačítka) → HA → Hue
+    control_mode: 2 tlačítka paralelně → SH-06 SW2 (detached) → event → HA → Hue
     ha_entity: light.jidelna_lustr
     notes: >
       HUE lustr — fáze trvale pod proudem, žádná Shelly fázi nespíná.
-      SW-J2 (jídelna) → SH-04 i4 IN1 → event → HA → Hue toggle.
-      SW-D2 (obývák rámeček, v nákresu chybně "Lustr K") → SH-06 SW2 → event → HA → Hue toggle.
+      SW-D2 (obývák rámeček) a SW-J2 (jídelna) paralelně přes stávající schodišťákový drát
+      do SH-06 SW2 (Plus 2PM v obýváku, detached kanál K2). Jeden event pro obě tlačítka.
+      Žádná Shelly v jídelně není potřeba.
 
   - id: L-05
     name: Lišta 1

@@ -54,7 +54,8 @@ switches:
       - button: D2
         circuit: L-04  # Lustr jídelna (v nákresu "Lustr K" je nedorozumění)
         wired_to: SH-06 SW2
-        mode: detached  # event → HA → SH-04 toggle
+        mode: detached  # event → HA → Hue toggle; paralelně s SW-J2 přes stáv. schodišťák
+        parallel_with: SW-J2
 
   - id: SW-E
     room: Obývák
@@ -153,9 +154,8 @@ switches:
     buttons:
       - button: J2
         circuit: L-04  # lustr jídelna (HUE)
-        wired_to: SH-04 IN1  # i4 event → HA → Hue
-        mode: detached
-        parallel_with: SW-D2  # oba jsou event-based, sbíhají se v HA na Hue toggle
+        wired_to: SH-06 SW2  # paralelka k SW-D2 přes stáv. schodišťákový drát do SH-06 (v obýváku)
+        mode: parallel
 
   # ============ KUCHYŇ (stávající rámeček, doplněno kvůli sdíleným okruhům) ============
 
@@ -203,7 +203,6 @@ boxes_summary:
     - {location: "Obývák vstup", devices: [SH-05, SH-06, SH-07]}
     - {location: "Dolní předsíň, pracovna (SW-F2)", devices: [SH-08]}
     - {location: "Horní předsíň, u schodů", devices: [SH-09]}
-    - {location: "Jídelna, za SW-J", devices: [SH-04]}
     - {location: "U trafa LED pásku", devices: [SH-02]}
     - {location: "U svítidla schodiště", devices: [SH-01]}
     - {location: "U lustru horní předsíně", devices: [SH-03]}
@@ -211,3 +210,4 @@ boxes_summary:
   without_shelly:
     - {location: "Dolní předsíň, u dveří (SW-G)", reason: "Stáv. schodišťákové dráty vedou signál do SH-02 SW1 a SH-08 IN1"}
     - {location: "Horní předsíň, u pokoje (SW-CP)", reason: "Stáv. schodišťákový drát vede signál do SH-03 SW1 (paralelka k SW-H2)"}
+    - {location: "Jídelna (SW-J1 + SW-J2)", reason: "SW-J1 na stáv. SH-E2; SW-J2 paralelka k SW-D2 přes stáv. schodišťákový drát do SH-06 SW2 v obýváku"}

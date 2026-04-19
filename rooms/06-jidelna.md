@@ -2,41 +2,37 @@
 
 ## Vypínače
 
-1× dvojvypínač (SW-J) ovládá LED pásek 24V (stávající) a lustr Hue (L-04).
-
-L-04 (Lustr jídelna) je **HUE** — fáze trvale pod proudem, žádná Shelly fázi nespíná. Tlačítka jen posílají eventy přes HA do Hue bridge.
+2 jednovypínače v jednom rámečku (SW-J1 + SW-J2):
 
 | ID | Tlačítko | Okruh | Typ | Shelly vstup | Režim |
 |---|---|---|---|---|---|
-| SW-J | J1 | L-13 LED 24V | stávající RGBW | SH-E2 SW | stávající (attached) |
-| SW-J | J2 | L-04 Lustr jídelna | HUE | SH-04 IN1 | detached → HA → Hue |
-| SW-D2 (obývák) | D2 | L-04 Lustr jídelna | HUE | SH-06 SW2 | detached → HA → Hue |
+| SW-J1 | J1 | L-13 LED 24V | stávající RGBW | SH-E2 SW | stávající (attached) |
+| SW-J2 | J2 | L-04 Lustr jídelna | HUE | SH-06 SW2 (v obýváku) | paralelně s SW-D2 přes stáv. schodišťák |
+
+L-04 (Lustr jídelna) je **HUE** — fáze trvale pod proudem. Tlačítka jen posílají event přes HA do Hue bridge.
 
 ## Shelly v této místnosti
 
-| ID | Model | Umístění | Vstupy / Výstup | Status |
-|---|---|---|---|---|
-| SH-04 | Shelly i4 | Za vypínačem SW-J | IN1 = SW-J2 (event), IN2-4 rezerva | nová |
-| SH-E2 | Shelly RGBW PM | Stávající | L-13 | stávající |
+**Žádný nový Shelly v jídelně.**
 
-## Důležité (HUE princip)
+- L-13: stávající SH-E2 (RGBW PM, beze změny)
+- L-04: spíná Hue bridge (ne Shelly), event přichází z SH-06 v obýváku
 
-- L-04 Hue žárovka/pásek má **trvalou fázi** — **nikdy neodpojovat**.
-- SH-04 je i4 (čte tlačítko), ne Plus 1PM (nespíná). Dřívější plán s Plus 1PM byl chybný.
-- V HA automatizaci: `event.sh_04_input_1` → `light.toggle` na Hue skupinu.
+## Cross-room paralelka (L-04)
 
-## Cross-room paralelka
+Stisk SW-J2 v jídelně → přes stáv. schodišťákový drát → SH-06 SW2 v obýváku → event `sh_06_input_2` → HA → `light.toggle` na Hue skupinu.
 
-L-04 má druhé tlačítko v obývákovém rámečku (SW-D2 — v nákresu označeno „Lustr K", což je ale chybné). Oba eventy sbíhají se v HA na jednu Hue akci.
+Stisk SW-D2 v obývákovém rámečku → stejný vstup SH-06 SW2 → stejný event → stejná akce.
+
+Oba stisky jsou z pohledu Shelly nerozlišitelné (jeden vstup), HA nemusí řešit dva zdroje.
 
 ## Instalační poznámky
 
-- Krabice za SW-J: **prosekat** nebo KU68 kroužek (pro SH-04 i4)
-- Trvalá fáze k L-04 — z jističe přes stropní krabici k Hue žárovce
-- Krabice u SW-J: tlačítkový vypínač, i4 za ním
+- Krabice za SW-J: **pouze tlačítkový vypínač a WAGO svorky** (žádná Shelly → plochá krabice stačí)
+- Stávající schodišťákový drát Obývák (SW-D2) ↔ Jídelna (SW-J2) musí existovat — typicky 2 vodiče volně k dispozici
+- L-04 Hue lustr: trvalá fáze, nikdy neodpojovat
 
 ## Ověřit
 
-- [ ] Fyzická hloubka krabice za SW-J (pro i4)
-- [ ] Trvalá fáze k lustru — existuje, nebo je třeba protáhnout?
-- [ ] Konfigurace Hue entity v HA (Hue skupina pro L-04)
+- [ ] Stávající schodišťákový drát Obývák (SW-D) → Jídelna (SW-J) existuje (2 volné vodiče)?
+- [ ] Hue setup pro Lustr jídelna (skupina, adresace)
