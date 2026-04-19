@@ -287,6 +287,8 @@ def render_cell_content(cell: dict, x: int, y: int, w: int) -> list[str]:
     parts: list[str] = []
     _, voltage = cell_tag_voltage(cell)
     circ = cell.get("circuit")
+    note = cell.get("note") or ""
+    has_relay = "relé" in note.lower() or "rele" in note.lower()
 
     inner_x = x + 14
     inner_y = y + 12
@@ -315,6 +317,20 @@ def render_cell_content(cell: dict, x: int, y: int, w: int) -> list[str]:
         )
     if voltage:
         parts.extend(voltage_badge(x + w - 4, y + 4, voltage))
+    if has_relay:
+        # Oranžová pilulka uvnitř klapky: '↯ relé 220→24V'
+        r_w = 84
+        r_h = 13
+        r_x = x + (w - r_w) / 2
+        r_y = inner_y + inner_h - r_h - 2
+        parts.append(
+            f'<rect x="{r_x}" y="{r_y}" width="{r_w}" height="{r_h}" '
+            f'fill="#fef3c7" stroke="#d97706" stroke-width="1" rx="3" ry="3"/>'
+        )
+        parts.append(
+            f'<text x="{r_x + r_w/2}" y="{r_y + r_h - 3}" text-anchor="middle" '
+            f'font-family="sans-serif" font-size="9" font-weight="700" fill="#92400e">↯ relé 220→24V</text>'
+        )
     return parts
 
 
@@ -700,7 +716,13 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
         devs = devices_per_room.get(room, [])
         dev_col_w, dev_col_h = device_col_dims(devs)
 
-        inner_w = plates_inner_w + (DEVICE_COL_GAP + dev_col_w if devs else 0)
+        # Reserve vpravo od svítidel na Shelly badge (jen v after módu, kde mají badges device-level)
+        shelly_reserve_w = 0
+        if mode == "after" and devs:
+            # Odhad max šířky Shelly badge: 'RGBW PM SH-XX' ≈ 90px + margin
+            shelly_reserve_w = 100
+
+        inner_w = plates_inner_w + (DEVICE_COL_GAP + dev_col_w if devs else 0) + shelly_reserve_w
         inner_h = max(plates_inner_h, dev_col_h)
         box_w = inner_w + 2 * ROOM_BOX_PAD
         box_h = inner_h + ROOM_TITLE_H + 2 * ROOM_BOX_PAD
@@ -719,9 +741,10 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
         rows[-1].append(block)
         row_w += bw + ROOM_GAP
 
-    # Compute overall canvas
+    # Compute overall canvas (extra bottom padding pro legendu; více pokud mode=after)
+    legend_pad = 110 if mode == "after" else 80
     total_w = max(sum(b[4] for b in row) + ROOM_GAP * (len(row) - 1) for row in rows) + 40
-    total_h = OVERVIEW_TOP_PAD + sum(max(b[5] for b in row) for row in rows) + ROOM_GAP * (len(rows) - 1) + 80
+    total_h = OVERVIEW_TOP_PAD + sum(max(b[5] for b in row) for row in rows) + ROOM_GAP * (len(rows) - 1) + legend_pad
 
     plate_positions: dict[str, tuple[int, int, int, int]] = {}
     # device_positions[circuit_id] = (cx, bottom_y) — kotva čáry na spodní hraně pilulky
@@ -862,18 +885,35 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
                 badge_parts, _ = render_shelly_badge(sh, badge_x, badge_y)
                 parts.extend(badge_parts)
 
-    # Legend
-    parts.extend(render_legend(20, total_h - 30))
+    # Legend — 2 řádky když je mode=after (barvy/napětí nahoře, Shelly dole), jinak 1 řádek
     if mode == "after":
-        lg_x = 20
-        lg_y = total_h - 52
+        color_legend_y = total_h - 70
+        shelly_legend_y = total_h - 35
+        parts.extend(render_legend(20, color_legend_y))
         sample_sh = {"id": "SH-XX", "model": "Shelly i4"}
-        sample_parts, sample_w = render_shelly_badge(sample_sh, lg_x, lg_y)
+        sample_parts, sample_w = render_shelly_badge(sample_sh, 20, shelly_legend_y - 10)
         parts.extend(sample_parts)
         parts.append(
-            f'<text x="{lg_x + sample_w + 8}" y="{lg_y + 10}" '
+            f'<text x="{20 + sample_w + 8}" y="{shelly_legend_y}" '
             f'font-size="11" fill="{TEXT}">namontovaný Shelly (na buňce = pod vypínačem; u svítidla = u spotřebiče)</text>'
         )
+        # Legend: relé
+        relay_x = 20
+        relay_y = shelly_legend_y + 18
+        parts.append(
+            f'<rect x="{relay_x}" y="{relay_y-10}" width="84" height="13" '
+            f'fill="#fef3c7" stroke="#d97706" stroke-width="1" rx="3" ry="3"/>'
+        )
+        parts.append(
+            f'<text x="{relay_x + 42}" y="{relay_y}" text-anchor="middle" '
+            f'font-family="sans-serif" font-size="9" font-weight="700" fill="#92400e">↯ relé 220→24V</text>'
+        )
+        parts.append(
+            f'<text x="{relay_x + 92}" y="{relay_y}" '
+            f'font-size="11" fill="{TEXT}">předsazené relé (konverze 220V signálu na 24V pro Shelly vstup)</text>'
+        )
+    else:
+        parts.extend(render_legend(20, total_h - 30))
     parts.append("</svg>")
     return "\n".join(parts)
 
