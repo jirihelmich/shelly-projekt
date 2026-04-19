@@ -1,0 +1,147 @@
+# Světelné okruhy
+# Co Shelly ovládá. Source of truth pro mapování okruh → Shelly → vypínač.
+
+circuits:
+  - id: L-01
+    name: Schodiště svítidlo
+    room: Schodiště
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-01
+    controlled_from: [SW-A, SW-H1, SW-CP]
+    control_mode: 3-way via HA
+    ha_entity: switch.sh_01_schodiste
+
+  - id: L-02
+    name: LED pásek dolní předsíň
+    room: Dolní předsíň
+    type: non-HUE
+    voltage: 24V (přes 230V trafo)
+    dimmable: false
+    switched_by: SH-02  # spíná 230V primár trafa
+    controlled_from: [SW-F1, SW-G1]
+    control_mode: 2-way parallel to SW1
+    ha_entity: switch.sh_02_led_pasek
+    notes: Ověřit toleranci trafa ke spínání 230V primáru.
+
+  - id: L-03
+    name: Lustr horní předsíň
+    room: Horní předsíň
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-03
+    controlled_from: [SW-H2, SW-H3]
+    control_mode: 2-way parallel to SW1
+    ha_entity: switch.sh_03_lustr_horni_predsin
+
+  - id: L-04
+    name: Lustr jídelna
+    room: Jídelna
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-04
+    controlled_from: [SW-J2]
+    ha_entity: switch.sh_04_lustr_jidelna
+
+  - id: L-05
+    name: Lišta 1
+    room: Obývák
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-05 K1
+    controlled_from: [SW-C1]
+    ha_entity: switch.sh_05_lista_1
+
+  - id: L-06
+    name: Lišta 2
+    room: Obývák
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-05 K2
+    controlled_from: [SW-C2]
+    ha_entity: switch.sh_05_lista_2
+
+  - id: L-07
+    name: Lišta 3
+    room: Obývák
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-06 K1
+    controlled_from: [SW-D1]
+    ha_entity: switch.sh_06_lista_3
+
+  - id: L-08
+    name: Lustr K
+    room: Obývák
+    type: HUE
+    voltage: 230V (trvale)
+    dimmable: true (via Hue)
+    switched_by: null  # Hue, fáze trvalá
+    controlled_from: [SW-D2]  # tlačítko do SH-06 SW2 (detached)
+    control_mode: event → HA → Hue
+    ha_entity: light.obyvak_lustr_k  # Hue entity
+    notes: SH-06 K2 výstup O2 nezapojený. SW2 jen čte tlačítko.
+
+  - id: L-09
+    name: Předsíň strop (dolní)
+    room: Dolní předsíň
+    type: HUE
+    voltage: 230V (trvale)
+    dimmable: true (via Hue)
+    switched_by: null
+    controlled_from: [SW-F2, SW-G2]
+    control_mode: event (parallel) → HA → Hue
+    ha_entity: light.dolni_predsin_strop
+
+  - id: L-10
+    name: Obývák strop
+    room: Obývák
+    type: HUE
+    voltage: 230V (trvale)
+    dimmable: true (via Hue)
+    switched_by: null
+    controlled_from: [SW-B2]
+    ha_entity: light.obyvak_strop
+
+  - id: L-11
+    name: Předsíň strop (vstup obývák)
+    room: Obývák / vstup
+    type: HUE
+    voltage: 230V (trvale)
+    dimmable: true (via Hue)
+    switched_by: null
+    controlled_from: [SW-B1]
+    ha_entity: light.obyvak_predsin_strop
+    notes: >
+      Pozor — "předsíň strop" je v nákresu u obývákového vypínače, ale jedná se o
+      jiné svítidlo než L-09 (dolní předsíň strop u pracovny/dveří). Ověřit!
+
+  - id: L-12
+    name: LED strop obývák
+    room: Obývák
+    type: RGBW (stávající)
+    switched_by: SH-E1
+    controlled_from: [SW-E]
+    status: existing
+    notes: Stávající Shelly RGBW PM, beze změny.
+
+  - id: L-13
+    name: LED 24V jídelna
+    room: Jídelna
+    type: RGBW 24V (stávající)
+    voltage: 24V
+    switched_by: SH-E2
+    controlled_from: [SW-J1]
+    status: existing
+
+  - id: L-14
+    name: Kuchyň okruhy
+    room: Kuchyně
+    status: existing
+    notes: "Vyřešeno" dle nákresu, stávající instalace.
