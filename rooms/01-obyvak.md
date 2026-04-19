@@ -7,7 +7,7 @@ U vstupu do obýváku: 4× dvojvypínač v řadě + 1× stávající vypínač p
 | ID | Tlačítko | Okruh | Typ | Shelly vstup | Režim |
 |---|---|---|---|---|---|
 | SW-A | A | L-01 Schodiště | non-HUE | SH-07 IN1 | detached |
-| SW-B | B1 | L-11 Předsíň strop | HUE | SH-07 IN2 | detached |
+| SW-B | B1 | L-09 Předsíň strop (sdíleno) | HUE | SH-07 IN2 | detached |
 | SW-B | B2 | L-10 Obývák strop | HUE | SH-07 IN3 | detached |
 | SW-C | C1 | L-05 Lišta 1 | non-HUE | SH-05 SW1 | attached |
 | SW-C | C2 | L-06 Lišta 2 | non-HUE | SH-05 SW2 | attached |
@@ -43,4 +43,3 @@ U vstupu do obýváku: 4× dvojvypínač v řadě + 1× stávající vypínač p
 ## Ověřit
 
 - [ ] Fyzické rozmístění SW-A, SW-B, SW-C, SW-D (stejný rámeček?)
-- [ ] L-11 "předsíň strop" — je to totéž svítidlo jako L-09, nebo jiné?

@@ -21,9 +21,8 @@
 | Okruh | HA entity | Ovládáno tlačítky |
 |---|---|---|
 | L-08 Lustr K | light.obyvak_lustr_k | event.sh_06_input_2 |
-| L-09 Předsíň strop (dolní) | light.dolni_predsin_strop | event.sh_08_input_1 |
+| L-09 Předsíň strop | light.dolni_predsin_strop | event.sh_07_input_2 (B1 obývák), event.sh_08_input_1 (F2+G2 paralelně) |
 | L-10 Obývák strop | light.obyvak_strop | event.sh_07_input_3 |
-| L-11 Předsíň strop (vstup obývák) | light.obyvak_predsin_strop | event.sh_07_input_2 |
 
 ## Automatizace — schodiště (2-cestné toggle)
 
@@ -59,7 +58,7 @@ action:
       entity_id: light.<hue_entity>
 ```
 
-Konkrétní instance doplnit pro L-08, L-09, L-10, L-11.
+Konkrétní instance doplnit pro L-08, L-09, L-10. L-09 má 2 trigger entity (event.sh_07_input_2 + event.sh_08_input_1) → stejný toggle.
 
 ## Scény (short / long / double)
 

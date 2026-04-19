@@ -54,6 +54,14 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 - **SH-10 i4 odstraněno** — krabice v Chodbě u pokoje je bez Shelly (paralelka stačí)
 - Nové Shelly: 4× Plus 1PM + 2× Plus 2PM + **3× i4** = **9 ks** (~7 000 Kč)
 
+### Další topologická oprava: L-11 sloučeno do L-09
+
+- `Předsíň strop` u obývákového vstupu (dříve L-11) je **totéž Hue svítidlo** jako `Předsíň strop` v dolní předsíni (L-09)
+- L-11 odstraněno z circuits.yaml; SW-B1 přidán do L-09 controlled_from
+- L-09 má nyní 3 ovládací tlačítka: SW-B1 (obývák) + SW-F2 (pracovna) + SW-G2 (dveře)
+- HA toggle musí reagovat na 2 trigger entity: `event.sh_07_input_2` + `event.sh_08_input_1`
+- **Okruhů celkem: 14 → 13**
+
 ### Vizualizace
 
 - Přidán digitální nákres: `plates/prehled.svg` — svítidla (HUE/non-HUE + napětí 220V/24V) + rámečky + čáry vypínač→zařízení

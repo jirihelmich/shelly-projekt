@@ -8,6 +8,8 @@ Dvě ovládací místa:
 
 Stávající schodišťákové zapojení existuje pro oba okruhy (LED pásek i předsíň strop) mezi pracovnou a dveřmi.
 
+**Pozor:** _Předsíň strop_ (L-09) je **totéž HUE svítidlo** jako _Předsíň strop_ v rámečku obýváku (tlačítko SW-B1). Tj. L-09 má **3 ovládací tlačítka** v různých místnostech (B1 obývák, F2 pracovna, G2 dveře) — synchronizace přes HA.
+
 | ID | Tlačítko | Okruh | Typ | Shelly vstup | Režim |
 |---|---|---|---|---|---|
 | SW-F1 | F1 | L-02 LED pásek | non-HUE | SH-02 SW1 (u trafa) | attached, přes signálový vodič |

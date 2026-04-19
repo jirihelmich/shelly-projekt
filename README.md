@@ -22,7 +22,7 @@ Pro referenci při instalaci:
 - **9 nových Shelly zařízení** (4× Plus 1PM, 2× Plus 2PM, 3× i4)
 - **9 krabic** s vypínači nebo Shelly (z toho 2 krabice bez Shelly — jen WAGO propojení)
 - **Odhad hardware:** ~7 000 Kč (viz kusovník níže)
-- **14 světelných okruhů** celkem (11 nových/upravených + 3 stávající beze změny)
+- **13 světelných okruhů** celkem (10 nových/upravených + 3 stávající beze změny)
 
 ### Stávající zařízení (beze změny)
 

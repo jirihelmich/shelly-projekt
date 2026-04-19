@@ -89,15 +89,19 @@ circuits:
     notes: SH-06 K2 výstup O2 nezapojený. SW2 jen čte tlačítko.
 
   - id: L-09
-    name: Předsíň strop (dolní)
+    name: Předsíň strop
     room: Dolní předsíň
     type: HUE
     voltage: 230V (trvale)
     dimmable: true (via Hue)
     switched_by: null
-    controlled_from: [SW-F2, SW-G2]
-    control_mode: event (parallel) → HA → Hue
+    controlled_from: [SW-B1, SW-F2, SW-G2]
+    control_mode: event (3 tlačítka) → HA → Hue
     ha_entity: light.dolni_predsin_strop
+    notes: >
+      Jedno Hue svítidlo ovládané ze 3 míst:
+      SW-B1 obývák vstup (SH-07 IN2 → HA → Hue),
+      SW-F2 dolní předsíň pracovna + SW-G2 dveře (paralelně na SH-08 IN1 → HA → Hue).
 
   - id: L-10
     name: Obývák strop
@@ -108,19 +112,6 @@ circuits:
     switched_by: null
     controlled_from: [SW-B2]
     ha_entity: light.obyvak_strop
-
-  - id: L-11
-    name: Předsíň strop (vstup obývák)
-    room: Obývák / vstup
-    type: HUE
-    voltage: 230V (trvale)
-    dimmable: true (via Hue)
-    switched_by: null
-    controlled_from: [SW-B1]
-    ha_entity: light.obyvak_predsin_strop
-    notes: >
-      Pozor — "předsíň strop" je v nákresu u obývákového vypínače, ale jedná se o
-      jiné svítidlo než L-09 (dolní předsíň strop u pracovny/dveří). Ověřit!
 
   - id: L-12
     name: LED strop obývák

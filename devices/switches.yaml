@@ -19,7 +19,7 @@ switches:
     hardware: Dvojvypínač #2
     buttons:
       - button: B1
-        circuit: L-11  # předsíň strop HUE
+        circuit: L-09  # předsíň strop HUE (sdíleno s SW-F2, SW-G2)
         wired_to: SH-07 IN2
         mode: detached
       - button: B2

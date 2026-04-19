@@ -96,7 +96,7 @@ devices:
     mode: detached
     inputs:
       IN1: SW-A  # → HA → SH-01 (schodiště)
-      IN2: SW-B1  # → HA → Hue L-11
+      IN2: SW-B1  # → HA → Hue L-09 (sdíleno s SW-F2/SW-G2 v dolní předsíni)
       IN3: SW-B2  # → HA → Hue L-10
       IN4: rezerva
     outputs: []

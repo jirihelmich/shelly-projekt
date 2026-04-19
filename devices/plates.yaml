@@ -28,7 +28,7 @@ plates:
       - type: double_switch
         switch_ref: SW-B
         cells:
-          - { label: "Předsíň strop", circuit: L-11 }
+          - { label: "Předsíň strop", circuit: L-09, note: "sdíleno s ovládáním v dolní předsíni" }
           - { label: "Obývák strop", circuit: L-10 }
       - type: single_switch
         switch_ref: SW-E

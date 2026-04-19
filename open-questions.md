@@ -43,13 +43,14 @@ Každá z nich může ovlivnit kusovník nebo zapojení.
 - [ ] SW-A, SW-B, SW-C, SW-D jsou v jednom rámečku (4× dvojvypínač v řadě)? Nebo rozdělené?
 - [ ] SH-07 (i4) má pokrýt tlačítka A, B1, B2 (3 vstupy). Pokud SW-A je v samostatné krabici daleko od SW-B, potřeba +1× i4.
 
-### 6. L-11 vs. L-09 — dvě různá "předsíň strop"?
+### 6. ~~L-11 vs. L-09 — dvě různá "předsíň strop"?~~ — VYŘEŠENO (2026-04-19)
 
-- [ ] V původním nákresu je "předsíň strop" u dvou různých vypínačů:
-  - v obýváku u vstupu (B1) — to je L-11
-  - u dveří dolní předsíně (F2, G2) — to je L-09
-- [ ] Jsou to **dvě různá svítidla** v dolní předsíni, nebo **totéž svítidlo ovládané odjinud**?
-- [ ] Pokud totéž → je potřeba sjednotit ovládání přes HA (všechna tlačítka B1, F2, G2 → jedna Hue skupina)
+**Výsledek:** je to totéž svítidlo (L-11 bylo sloučeno do L-09). Ovládá se ze 3 míst:
+- SW-B1 obývák vstup (SH-07 IN2 → HA → Hue)
+- SW-F2 dolní předsíň u pracovny (SH-08 IN1 → HA → Hue, paralelně s G2)
+- SW-G2 dolní předsíň u dveří (SH-08 IN1 → HA → Hue, paralelně s F2)
+
+HA automatizace: 2 trigger entity (sh_07_input_2 + sh_08_input_1) → `light.toggle` na Hue skupinu.
 
 ## P3 — optimalizace, není blokující
 
