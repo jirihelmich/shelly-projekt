@@ -119,6 +119,7 @@ plates:
   # ============ KUCHYŇ (smíšený rámeček, 24V) ============
 
   - id: P-KU
+    state: before_only
     room: Kuchyň
     location: ""
     orientation: horizontal
@@ -140,6 +141,35 @@ plates:
         switch_ref: SW-KU-DIG
         cells:
           - { label: "LED digestoř", circuit: L-16 }
+
+  # ============ KUCHYŇ — STAV PO ÚPRAVĚ ============
+  # Sloučení 2 jednovypínačů (Lišta 3 + LED digestoř) do 1 dvojvypínače
+  # uvolní místo pro 2. zásuvku. Oba moduly v novém dvojvypínači jsou 220V.
+  # LED digestoř potřebuje předsazené relé 220→24V před SH-E3.
+
+  - id: P-KU-AFTER
+    state: after_only
+    room: Kuchyň
+    location: ""
+    orientation: horizontal
+    note: "Stav po úpravě: 2× zásuvka + dvojvypínač (Lišta 3 + LED digestoř, obě 220V — LED digestoř má předsazené relé 220→24V) + dvojvypínač (LED A + LED B, 24V)."
+    components:
+      - type: socket
+        cells:
+          - { label: "Z", voltage: "220V" }
+      - type: socket
+        cells:
+          - { label: "Z", voltage: "220V" }
+      - type: double_switch
+        switch_ref: SW-KU-L3-DIG
+        cells:
+          - { label: "Lišta 3", circuit: L-07, voltage: "220V" }
+          - { label: "LED digestoř", circuit: L-16, voltage: "220V", note: "předsazené relé 220→24V" }
+      - type: double_switch
+        switch_ref: SW-KU-LEDAB
+        cells:
+          - { label: "LED A", circuit: L-14 }
+          - { label: "LED B", circuit: L-15 }
 
 # ============ LEGENDA ============
 legend:

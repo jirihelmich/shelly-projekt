@@ -2,9 +2,13 @@
 
 Generováno z `devices/plates.yaml` skriptem `scripts/generate_plates.py`.
 
-## Přehled (všechny místnosti + propojení okruhů)
+## Přehled (plánovaný stav)
 
 ![Přehled](prehled.svg)
+
+## Stav po úpravě (s namontovanými Shelly)
+
+![Stav po](prehled-po.svg)
 
 ## Detail per místnost
 

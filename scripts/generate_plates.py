@@ -17,6 +17,7 @@ import yaml
 PROJECT = Path(__file__).resolve().parent.parent
 PLATES_YAML = PROJECT / "devices" / "plates.yaml"
 CIRCUITS_YAML = PROJECT / "devices" / "circuits.yaml"
+SHELLY_YAML = PROJECT / "devices" / "shelly.yaml"
 OUTPUT_DIR = PROJECT / "plates"
 
 COLORS = {
@@ -73,6 +74,27 @@ def load_circuits() -> dict[str, dict]:
 
 
 CIRCUITS: dict[str, dict] = {}
+
+
+def shelly_mount_type(sh: dict) -> str:
+    """Heuristika: 'at_switch' pokud je Shelly za vypínačem, jinak 'at_device'."""
+    loc = (sh.get("location") or "").lower()
+    if "za vypínač" in loc:
+        return "at_switch"
+    return "at_device"
+
+
+def load_shelly() -> list[dict]:
+    data = yaml.safe_load(SHELLY_YAML.read_text(encoding="utf-8"))
+    out: list[dict] = []
+    for s in data.get("devices", []):
+        s = dict(s)
+        s["mount"] = shelly_mount_type(s)
+        out.append(s)
+    return out
+
+
+SHELLY: list[dict] = []
 
 CELL_W = 110
 CELL_H = 84
@@ -385,6 +407,60 @@ def devices_by_room() -> dict[str, list[dict]]:
     return out
 
 
+def shelly_for_plate(plate: dict) -> list[dict]:
+    """Vrátí seznam Shelly umístěných 'za' tímto rámečkem (at_switch mount)."""
+    plate_switch_refs = set()
+    for comp in plate.get("components", []):
+        sr = comp.get("switch_ref")
+        if sr:
+            plate_switch_refs.add(sr)
+    out = []
+    for sh in SHELLY:
+        if sh.get("mount") != "at_switch":
+            continue
+        ctrl = sh.get("controlled_by") or []
+        # Shelly.controlled_by zahrnuje konkrétní buttony (SW-A, SW-C1 atd.);
+        # sjednotit na prefix "SW-X" pro porovnání.
+        ctrl_roots = {c.split("-")[0] + "-" + c.split("-")[1][0] if "-" in c and len(c.split("-")[1]) > 1 and c.split("-")[1][1:].isdigit() else c for c in ctrl}
+        # jednodušší: kontrola, zda jakýkoliv controlled_by začíná s některým switch_ref
+        for sw_ref in plate_switch_refs:
+            if any(c == sw_ref or c.startswith(sw_ref) for c in ctrl):
+                out.append(sh)
+                break
+    return out
+
+
+def shelly_for_circuit(circuit_id: str) -> list[dict]:
+    """Vrátí Shelly, která ovládají / jsou u tohoto svítidla (at_device mount)."""
+    info = CIRCUITS.get(circuit_id, {})
+    raw = info.get("raw", {})
+    switched_by = raw.get("switched_by")
+    if not switched_by:
+        return []
+    # switched_by může být 'SH-01' nebo 'SH-05 K1' — vezmeme první token
+    sh_id = switched_by.split()[0] if isinstance(switched_by, str) else None
+    if not sh_id:
+        return []
+    return [sh for sh in SHELLY if sh["id"] == sh_id and sh.get("mount") == "at_device"]
+
+
+SHELLY_BADGE_W = 58
+SHELLY_BADGE_H = 16
+SHELLY_BG = "#1f2937"  # tmavě šedá
+SHELLY_FG = "#f9fafb"
+
+
+def render_shelly_badge(sh_id: str, model: str, x: float, y: float) -> list[str]:
+    """Malá tmavá pilulka 'SH-XX' — na rámečku nebo u svítidla."""
+    label = f"📦 {sh_id}"
+    return [
+        f'<rect x="{x}" y="{y}" width="{SHELLY_BADGE_W}" height="{SHELLY_BADGE_H}" '
+        f'fill="{SHELLY_BG}" rx="3" ry="3"/>',
+        f'<text x="{x + SHELLY_BADGE_W/2}" y="{y + SHELLY_BADGE_H - 4}" text-anchor="middle" '
+        f'font-family="monospace" font-size="10" font-weight="700" fill="{SHELLY_FG}">{esc(sh_id)}</text>',
+    ]
+
+
 DEVICE_PILL_W = 156
 DEVICE_PILL_H = 36
 DEVICE_PILL_GAP_Y = 8
@@ -471,7 +547,21 @@ def cell_anchors_in_plate(plate: dict, plate_x: float, plate_y: float):
             cx_base += cw + MODULE_GAP
 
 
-def render_overview(plates: list[dict]) -> str:
+def plates_for_mode(plates: list[dict], mode: str) -> list[dict]:
+    """Filtruje plates pro daný mode ('before' nebo 'after')."""
+    out = []
+    for p in plates:
+        state = p.get("state", "both")
+        if mode == "before" and state == "after_only":
+            continue
+        if mode == "after" and state == "before_only":
+            continue
+        out.append(p)
+    return out
+
+
+def render_overview(plates: list[dict], mode: str = "before") -> str:
+    plates = plates_for_mode(plates, mode)
     by_room: dict[str, list[dict]] = defaultdict(list)
     for p in plates:
         by_room[p["room"]].append(p)
@@ -540,14 +630,25 @@ def render_overview(plates: list[dict]) -> str:
     # device_positions[circuit_id] = (cx, bottom_y) — kotva čáry na spodní hraně pilulky
     device_positions: dict[str, tuple[float, float]] = {}
 
+    if mode == "after":
+        title = "Stav po úpravě — svítidla, vypínače a namontované Shelly"
+        subtitle = (
+            "Shelly (tmavá pilulka) je na rámečku (za vypínačem) nebo u svítidla podle umístění. "
+            "Kuchyňský rámeček upravený: 2× zásuvka + dvojvypínač Lišta 3/LED digestoř (220V, s relé) + dvojvypínač LED A/B."
+        )
+    else:
+        title = "Přehled — svítidla, vypínače a okruhy mezi nimi"
+        subtitle = (
+            "Každý vypínač je čarou propojen se zařízením, které ovládá. "
+            "Více čar k jedné pilulce = víc vypínačů na stejný okruh (3-cestné nebo paralelka)."
+        )
+
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {int(total_w)} {int(total_h)}" '
         f'width="{int(total_w)}" height="{int(total_h)}" font-family="sans-serif">',
         '<rect width="100%" height="100%" fill="white"/>',
-        f'<text x="20" y="36" font-size="24" font-weight="700" fill="{TEXT}">Přehled — svítidla, vypínače a okruhy mezi nimi</text>',
-        f'<text x="20" y="58" font-size="12" font-style="italic" fill="{MUTED}">'
-        f'Každý vypínač je čarou propojen se zařízením, které ovládá. '
-        f'Více čar k jedné pilulce = víc vypínačů na stejný okruh (3-cestné nebo paralelka).</text>',
+        f'<text x="20" y="36" font-size="24" font-weight="700" fill="{TEXT}">{esc(title)}</text>',
+        f'<text x="20" y="58" font-size="12" font-style="italic" fill="{MUTED}">{esc(subtitle)}</text>',
     ]
 
     row_y = OVERVIEW_TOP_PAD
@@ -638,36 +739,79 @@ def render_overview(plates: list[dict]) -> str:
 
     parts.extend(conn_svgs)
 
+    # V "after" módu vykreslit Shelly badges na rámečcích a svítidlech
+    if mode == "after":
+        # Badges na rámečcích (Shelly za vypínačem)
+        for p in plates:
+            if p["id"] not in plate_positions:
+                continue
+            px, py, pw, ph = plate_positions[p["id"]]
+            shellies = shelly_for_plate(p)
+            for i, sh in enumerate(shellies):
+                badge_x = px + pw - SHELLY_BADGE_W - 6
+                badge_y = py + 6 + i * (SHELLY_BADGE_H + 3)
+                parts.extend(render_shelly_badge(sh["id"], sh.get("model", ""), badge_x, badge_y))
+        # Badges u svítidel (Shelly u spotřebiče)
+        for dev_id, (dpx, dpy) in device_positions.items():
+            shellies = shelly_for_circuit(dev_id)
+            for i, sh in enumerate(shellies):
+                # pilulka vpravo od svítidlové pilulky
+                badge_x = dpx + DEVICE_PILL_W + 6
+                badge_y = dpy - SHELLY_BADGE_H / 2 + i * (SHELLY_BADGE_H + 3)
+                parts.extend(render_shelly_badge(sh["id"], sh.get("model", ""), badge_x, badge_y))
+
     # Legend
     parts.extend(render_legend(20, total_h - 30))
+    if mode == "after":
+        # Vysvětlivka k Shelly badge
+        lg_x = 20
+        lg_y = total_h - 52
+        parts.extend(render_shelly_badge("SH-XX", "", lg_x, lg_y))
+        parts.append(
+            f'<text x="{lg_x + SHELLY_BADGE_W + 8}" y="{lg_y + SHELLY_BADGE_H - 4}" '
+            f'font-size="11" fill="{TEXT}">namontovaný Shelly (za vypínačem nebo u svítidla)</text>'
+        )
     parts.append("</svg>")
     return "\n".join(parts)
 
 
 def main() -> None:
-    global CIRCUITS
+    global CIRCUITS, SHELLY
     CIRCUITS = load_circuits()
+    SHELLY = load_shelly()
     data = yaml.safe_load(PLATES_YAML.read_text(encoding="utf-8"))
     plates = data["plates"]
+
+    # Per-room rendery používají "before" plates
+    plates_before = plates_for_mode(plates, "before")
     by_room: dict[str, list[dict]] = defaultdict(list)
-    for p in plates:
+    for p in plates_before:
         by_room[p["room"]].append(p)
 
     OUTPUT_DIR.mkdir(exist_ok=True)
 
-    # Overall overview first
-    overview_svg = render_overview(plates)
-    (OUTPUT_DIR / "prehled.svg").write_text(overview_svg, encoding="utf-8")
+    # Přehled (plánovaný stav) + stav po úpravě s namontovanými Shelly
+    (OUTPUT_DIR / "prehled.svg").write_text(
+        render_overview(plates, mode="before"), encoding="utf-8"
+    )
     print(f"Wrote {(OUTPUT_DIR / 'prehled.svg').relative_to(PROJECT)}")
+    (OUTPUT_DIR / "prehled-po.svg").write_text(
+        render_overview(plates, mode="after"), encoding="utf-8"
+    )
+    print(f"Wrote {(OUTPUT_DIR / 'prehled-po.svg').relative_to(PROJECT)}")
 
     index_lines = [
         "# Rámečky — digitální nákres",
         "",
         "Generováno z `devices/plates.yaml` skriptem `scripts/generate_plates.py`.",
         "",
-        "## Přehled (všechny místnosti + propojení okruhů)",
+        "## Přehled (plánovaný stav)",
         "",
         "![Přehled](prehled.svg)",
+        "",
+        "## Stav po úpravě (s namontovanými Shelly)",
+        "",
+        "![Stav po](prehled-po.svg)",
         "",
         "## Detail per místnost",
         "",

@@ -6,7 +6,15 @@
 
 ![Přehled — propojení okruhů napříč místnostmi](plates/prehled.svg)
 
-Čáry v přehledu spojují každý vypínač se zařízením, které ovládá:
+### Stav po úpravě (s namontovanými Shelly)
+
+![Stav po úpravě](plates/prehled-po.svg)
+
+Zahrnuje plánované úpravy: kuchyňský rámeček rozšířen o druhou zásuvku, 2 jednovypínače (Lišta 3 + LED digestoř) sloučené do dvojvypínače (obě buňky 220V — LED digestoř má předsazené relé 220→24V před SH-E3).
+
+### Čáry v přehledu
+
+Čáry spojují každý vypínač se zařízením, které ovládá:
 - **L-01** — 2-cestné ovládání schodiště (SW-A v obýváku + SW-H1 v horní předsíni, přes HA)
 - **L-02**, **L-09** — paralelky v dolní předsíni (přes stávající schodišťákové dráty)
 - **L-03** — paralelka horní předsíň lustr (SW-H2 + SW-CP přes schodišťákový drát do SH-03)
