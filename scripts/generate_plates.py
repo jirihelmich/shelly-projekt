@@ -104,6 +104,7 @@ def load_shelly() -> list[dict]:
     for s in data.get("devices", []):
         s = dict(s)
         s["mount"] = shelly_mount_type(s)
+        s["is_existing"] = s.get("status") == "existing"
         out.append(s)
     return out
 
@@ -599,7 +600,8 @@ SHELLY_FG = "#f9fafb"
 
 
 def render_shelly_badge(sh: dict, x: float, y: float, *, compact: bool = False, channel_mode: str = "") -> tuple[list[str], float]:
-    """Tmavá pilulka: '{type} [A/D] {SH-ID}'. Vrací (SVG parts, badge_width)."""
+    """Tmavá pilulka: '{type} [A/D] {SH-ID}'. Vrací (SVG parts, badge_width).
+    Stávající (is_existing=True) Shelly jsou ztlumené (nižší opacity)."""
     type_label = shelly_type_label(sh)
     sh_id = sh["id"]
     if type_label == "2PM" and channel_mode:
@@ -611,10 +613,14 @@ def render_shelly_badge(sh: dict, x: float, y: float, *, compact: bool = False, 
     pad = 7 if not compact else 6
     h = 14 if not compact else 12
     w = max(48, int(len(text) * char_w + pad * 2))
+    # Stávající Shelly = ztlumené (existují už, nejsou součást nové instalace)
+    opacity = 0.5 if sh.get("is_existing") else 1.0
     parts = [
+        f'<g opacity="{opacity}">',
         f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{SHELLY_BG}" rx="3" ry="3"/>',
         f'<text x="{x + w/2}" y="{y + h - (3 if compact else 4)}" text-anchor="middle" '
         f'font-family="monospace" font-size="{fs}" font-weight="700" fill="{SHELLY_FG}">{esc(text)}</text>',
+        f'</g>',
     ]
     return parts, w
 
@@ -810,7 +816,7 @@ def render_overview(plates: list[dict], mode: str = "before", scope: str = "main
         row_w += bw + ROOM_GAP
 
     # Compute overall canvas (extra bottom padding pro legendu; více pokud mode=after)
-    legend_pad = 140 if mode == "after" else 80
+    legend_pad = 160 if mode == "after" else 80
     total_w = max(sum(b[4] for b in row) + ROOM_GAP * (len(row) - 1) for row in rows) + 40
     total_h = OVERVIEW_TOP_PAD + sum(max(b[5] for b in row) for row in rows) + ROOM_GAP * (len(rows) - 1) + legend_pad
 
@@ -968,8 +974,8 @@ def render_overview(plates: list[dict], mode: str = "before", scope: str = "main
 
     # Legend — 2 řádky když je mode=after (barvy/napětí nahoře, Shelly dole), jinak 1 řádek
     if mode == "after":
-        color_legend_y = total_h - 100
-        shelly_legend_y = total_h - 65
+        color_legend_y = total_h - 120
+        shelly_legend_y = total_h - 85
         parts.extend(render_legend(20, color_legend_y))
         sample_sh = {"id": "SH-XX", "model": "Shelly i4"}
         sample_parts, sample_w = render_shelly_badge(sample_sh, 20, shelly_legend_y - 10)
@@ -1002,6 +1008,16 @@ def render_overview(plates: list[dict], mode: str = "before", scope: str = "main
         parts.append(
             f'<text x="{tp_x + 100}" y="{tp_y}" '
             f'font-size="11" fill="{TEXT}">svítidlo má fázi stále pod proudem (HUE / Shelly Vintage); Shelly je detached, čte jen event</text>'
+        )
+        # Legend: stávající Shelly
+        ex_x = 20
+        ex_y = tp_y + 18
+        ex_sh = {"id": "SH-E1", "model": "Shelly RGBW PM", "is_existing": True}
+        ex_parts, ex_w = render_shelly_badge(ex_sh, ex_x, ex_y - 10)
+        parts.extend(ex_parts)
+        parts.append(
+            f'<text x="{ex_x + ex_w + 8}" y="{ex_y}" '
+            f'font-size="11" fill="{TEXT}">ztlumená pilulka = stávající Shelly (už namontovaný, nemění se)</text>'
         )
     else:
         parts.extend(render_legend(20, total_h - 30))
