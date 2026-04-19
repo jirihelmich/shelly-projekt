@@ -343,7 +343,8 @@ def render_cell_content(cell: dict, x: int, y: int, w: int) -> list[str]:
             f'font-family="monospace" font-size="9" fill="{MUTED}">{esc(circ)}</text>'
         )
     if voltage:
-        parts.extend(voltage_badge(x + w - 4, y + 4, voltage))
+        # Voltage badge dole vpravo — nahoře je Shelly badge, který by ji přebil.
+        parts.extend(voltage_badge(x + w - 4, y + CELL_H - 17, voltage))
     if has_relay:
         # Oranžová pilulka uvnitř klapky: '↯ relé 220→24V'
         r_w = 84

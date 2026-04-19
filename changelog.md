@@ -54,6 +54,15 @@ Historie klíčových rozhodnutí a změn ve specifikaci.
 - **SH-10 i4 odstraněno** — krabice v Chodbě u pokoje je bez Shelly (paralelka stačí)
 - Nové Shelly: 4× Plus 1PM + 2× Plus 2PM + **3× i4** = **9 ks** (~7 000 Kč)
 
+### Další konsolidace + voltage badge přesun
+
+- **SH-03 přesunuto** ze za SW-H2 (u schodů) na **za SW-CP (u pokoje, P-CP)** — víc místa v samostatném rámečku. SW-CP attached, SW-H2 paralelka přes stáv. schodišťák.
+- **SH-02: Mini → Plus 2PM.** K1 spíná LED pásek (L-02, attached), K2 čte event pro Hue Předsíň strop (L-09, detached). SH-08 i4 odstraněno — Plus 2PM pokrývá oba kanály.
+- **Krabice za SW-H1+H2 je zcela bez Shelly** — SW-H1 paralelka do SH-01 v obýváku, SW-H2 paralelka do SH-03 za SW-CP.
+- **Nové Shelly: 7 → 6** (2× Mini + 3× 2PM + 1× i4). 1 Mini zbude jako rezerva.
+- **K nákupu: ~3 600 Kč → ~4 000 Kč** (+400 Kč; Plus 2PM stojí víc než Mini+i4, ale Mini byla zdarma).
+- **Voltage badge** přesunut do pravého dolního rohu buňky (nahoře byl kryt Shelly badgem).
+
 ### Konsolidace Shelly do obývákové konzole; 1PM → 1 Mini
 
 Úpravy koncentrovány do obývákové konzole (místo stropních krabic u svítidel).

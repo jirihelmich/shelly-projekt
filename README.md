@@ -27,9 +27,9 @@ Pro referenci při instalaci:
 
 ## Co se instaluje
 
-- **7 nových Shelly zařízení** (3× Shelly 1 Mini, 2× Plus 2PM, 2× i4). Všechny Mini už nakoupené.
+- **6 nových Shelly zařízení** (2× Shelly 1 Mini, 3× Plus 2PM, 1× i4). Mini už nakoupené (3 ks celkem, 1 zbude jako rezerva).
 - **9 krabic** s vypínači nebo Shelly (z toho 3 krabice bez Shelly — jen WAGO propojení)
-- **Odhad k nákupu:** ~3 600 Kč (2× 2PM + 2× i4 + rezerva; Mini už je)
+- **Odhad k nákupu:** ~4 000 Kč (3× 2PM + 1× i4 + rezerva; Mini už je)
 - **14 světelných okruhů** celkem (9 nových/upravených + 5 stávajících beze změny)
 
 ### Stávající zařízení (beze změny)
@@ -82,8 +82,8 @@ Krabice za vypínači jsou **mělké** → nutno prosekat hlouběji nebo použí
 
 Krabice, kde se bude sekat / KU68:
 - Obývák vstup, konzole (SH-01 Mini + SH-05/06 2PM + SH-07 i4 — 4 Shelly ve více krabicích za SW-A/B/C/D)
-- Dolní předsíň u pracovny (SH-02 Mini + SH-08 i4 — za SW-F1/F2)
-- Horní předsíň u schodů (SH-03 Mini — za SW-H2)
+- Dolní předsíň u pracovny (SH-02 Plus 2PM — za SW-F1/F2, K1 attached LED pásek + K2 detached Hue event)
+- Horní předsíň u pokoje (SH-03 Mini — za SW-CP, samostatný rámeček P-CP)
 
 ---
 
@@ -91,12 +91,13 @@ Krabice, kde se bude sekat / KU68:
 
 | Ks | Položka | Orient. cena/ks | Σ |
 |---:|---|---:|---:|
-| 3 | Shelly 1 Mini | — | **již nakoupeno** |
-| 2 | Shelly Plus 2PM | 1 000 Kč | 2 000 Kč |
-| 2 | Shelly i4 (230V) | 600 Kč | 1 200 Kč |
+| 2 | Shelly 1 Mini (použité) | — | **již nakoupeno** |
+| 1 | Shelly 1 Mini (rezerva) | — | **zbytek nákupu** |
+| 3 | Shelly Plus 2PM | 1 000 Kč | 3 000 Kč |
+| 1 | Shelly i4 (230V) | 600 Kč | 600 Kč |
 | — | KU68 prodlužovací kroužky | — | rezerva 400 Kč |
 | — | WAGO svorky | — | rezerva ~ |
-| | | **K nákupu** | **~3 600 Kč** |
+| | | **K nákupu** | **~4 000 Kč** |
 
 Vypínače ABB Tango (pružinkové tlačítkové moduly + rámečky) řeší zákazník samostatně.
 

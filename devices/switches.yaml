@@ -85,7 +85,7 @@ switches:
     buttons:
       - button: F2
         circuit: L-09  # předsíň strop HUE
-        wired_to: SH-08 IN1
+        wired_to: SH-02 SW2  # K2 detached (Plus 2PM)
         mode: detached
         parallel_with: SW-G2
 
@@ -101,7 +101,7 @@ switches:
         mode: parallel
       - button: G2
         circuit: L-09  # předsíň strop HUE
-        wired_to: SH-08 IN1  # přes stávající schodišťákový drát, paralelně s SW-F2
+        wired_to: SH-02 SW2  # přes stávající schodišťákový drát, paralelně s SW-F2
         mode: parallel
     notes: Krabice bez Shelly — jen WAGO svorky pro propojení tlačítek se stávajícími schodišťákovými dráty.
 
@@ -122,21 +122,21 @@ switches:
     buttons:
       - button: H2
         circuit: L-03  # lustr horní předsíň
-        wired_to: SH-03 SW1  # signálový vodič
-        mode: attached
+        wired_to: SH-03 SW1  # paralelka k SW-CP přes stáv. schodišťák
+        mode: parallel
         parallel_with: SW-CP
 
   - id: SW-CP
     room: Horní předsíň
-    position: U pokoje (samostatný vypínač v horní předsíni)
+    position: U pokoje (samostatný vypínač v horní předsíni, rámeček P-CP)
     hardware: Jednovypínač
-    shelly_in_box: NONE  # žádná Shelly v této krabici
     buttons:
       - button: CP
         circuit: L-03  # lustr horní předsíň
-        wired_to: SH-03 SW1  # přes stávající schodišťákový drát, paralelně s SW-H2
-        mode: parallel
-    notes: Krabice bez Shelly — jen tlačítko a propojení přes stávající schodišťákový drát do SH-03.
+        wired_to: SH-03 SW1  # attached, v krabici za SW-CP je Mini SH-03
+        mode: attached
+        parallel_with: SW-H2
+    notes: Krabice za SW-CP obsahuje Mini SH-03 (koncentrace k samostatnému vypínači — víc místa než u SW-H1+H2).
 
   - id: SW-J1
     room: Jídelna
@@ -202,10 +202,10 @@ switches:
 boxes_summary:
   with_shelly:
     - {location: "Obývák vstup (SW-A/B/C/D)", devices: [SH-01, SH-05, SH-06, SH-07]}
-    - {location: "Dolní předsíň, pracovna (SW-F1+F2)", devices: [SH-02, SH-08]}
-    - {location: "Horní předsíň, u schodů (SW-H1+H2)", devices: [SH-03]}
+    - {location: "Dolní předsíň, pracovna (SW-F1+F2)", devices: [SH-02]}
+    - {location: "Horní předsíň, u pokoje (SW-CP, P-CP)", devices: [SH-03]}
 
   without_shelly:
-    - {location: "Dolní předsíň, u dveří (SW-G)", reason: "Stáv. schodišťákové dráty vedou signál do SH-02 SW1 a SH-08 IN1"}
-    - {location: "Horní předsíň, u pokoje (SW-CP)", reason: "Stáv. schodišťákový drát vede signál do SH-03 SW1 (paralelka k SW-H2)"}
+    - {location: "Dolní předsíň, u dveří (SW-G)", reason: "Stáv. schodišťákové dráty vedou signál do SH-02 SW1 a SH-02 SW2"}
+    - {location: "Horní předsíň, u schodů (SW-H1 + SW-H2)", reason: "SW-H1 paralelka do SH-01 SW1 (obývák); SW-H2 paralelka do SH-03 SW1 (SW-CP v H. předsíni)"}
     - {location: "Jídelna (SW-J1 + SW-J2)", reason: "SW-J1 na stáv. SH-E2; SW-J2 paralelka k SW-D2 přes stáv. schodišťákový drát do SH-06 SW2 v obýváku"}
