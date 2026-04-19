@@ -10,6 +10,10 @@
 
 ![Stav po úpravě](plates/prehled-po.svg)
 
+### Ložnice (samostatný diagram — bokem od hlavního)
+
+![Ložnice](plates/prehled-loznice.svg)
+
 Zahrnuje plánované úpravy: kuchyňský rámeček rozšířen o druhou zásuvku, 2 jednovypínače (Lišta 3 + LED digestoř) sloučené do dvojvypínače (obě buňky 220V — LED digestoř má předsazené relé 220→24V před SH-E3).
 
 ### Čáry v přehledu

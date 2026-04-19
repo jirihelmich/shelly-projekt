@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1494 1314" width="1494" height="1314" font-family="sans-serif">
 <rect width="100%" height="100%" fill="white"/>
-<text x="20" y="36" font-size="24" font-weight="700" fill="#111827">Přehled — svítidla, vypínače a okruhy mezi nimi</text>
+<text x="20" y="36" font-size="24" font-weight="700" fill="#111827">Přehled (Dům) — svítidla, vypínače a okruhy mezi nimi</text>
 <text x="20" y="58" font-size="12" font-style="italic" fill="#6b7280">Každý vypínač je čarou propojen se zařízením, které ovládá. Více čar k jedné pilulce = víc vypínačů na stejný okruh (3-cestné nebo paralelka).</text>
 <rect x="20" y="90" width="456" height="576" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
 <text x="36" y="120" font-size="16" font-weight="700" fill="#111827">Obývák</text>

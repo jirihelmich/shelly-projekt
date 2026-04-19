@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1784 1374" width="1784" height="1374" font-family="sans-serif">
 <rect width="100%" height="100%" fill="white"/>
-<text x="20" y="36" font-size="24" font-weight="700" fill="#111827">Stav po úpravě — svítidla, vypínače a namontované Shelly</text>
-<text x="20" y="58" font-size="12" font-style="italic" fill="#6b7280">Shelly (tmavá pilulka) je na rámečku (za vypínačem) nebo u svítidla podle umístění. Kuchyňský rámeček upravený: 2× zásuvka + dvojvypínač Lišta 3/LED digestoř (220V, s relé) + dvojvypínač LED A/B.</text>
+<text x="20" y="36" font-size="24" font-weight="700" fill="#111827">Stav po úpravě (Dům) — svítidla, vypínače a namontované Shelly</text>
+<text x="20" y="58" font-size="12" font-style="italic" fill="#6b7280">Shelly (tmavá pilulka) je na buňce (pod vypínačem) nebo vpravo od svítidla (u spotřebiče). ⚡ = trvalá fáze (HUE/Vintage). Badge typu: Mini / 1PM / 2PM [A][D] / i4 / RGBW PM.</text>
 <rect x="20" y="90" width="556" height="576" fill="#fefefe" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" rx="6" ry="6"/>
 <text x="36" y="120" font-size="16" font-weight="700" fill="#111827">Obývák</text>
 <text x="36" y="144" font-size="11" font-style="italic" fill="#6b7280">Vstup</text>

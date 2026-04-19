@@ -151,6 +151,33 @@ plates:
   # uvolní místo pro 2. zásuvku. Oba moduly v novém dvojvypínači jsou 220V.
   # LED digestoř potřebuje předsazené relé 220→24V před SH-E3.
 
+  # ============ LOŽNICE (bokem — samostatný diagram) ============
+
+  - id: P-LZ-ZRC
+    scope: loznice
+    room: Ložnice
+    location: U zrcadla
+    orientation: horizontal
+    note: "Jednovypínač, toggluje skupinu Zrcadlo A+B přes HA."
+    components:
+      - type: single_switch
+        switch_ref: SW-LZ-ZRC
+        cells:
+          - { label: "Zrcadlo A+B", circuit: L-20, note: "skupinově také L-21" }
+
+  - id: P-LZ-D
+    scope: loznice
+    room: Ložnice
+    location: U dveří
+    orientation: horizontal
+    note: "Dvojvypínač: D1 toggluje Za+Pod postelí; D2 lustr 9× Vintage."
+    components:
+      - type: double_switch
+        switch_ref: SW-LZ-D
+        cells:
+          - { label: "Za+Pod postelí", circuit: L-22, note: "skupinově také L-23" }
+          - { label: "Lustr", circuit: L-24 }
+
   - id: P-KU-AFTER
     state: after_only
     room: Kuchyň

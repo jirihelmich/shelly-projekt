@@ -198,6 +198,36 @@ switches:
         status: existing
     notes: Stávající ovládání LED digestoře, beze změny.
 
+  # ============ LOŽNICE (bokem — samostatný diagram) ============
+
+  - id: SW-LZ-ZRC
+    room: Ložnice
+    position: U zrcadla
+    scope: loznice
+    hardware: Jednovypínač (s i4 pod ním)
+    buttons:
+      - button: ZRC
+        circuit: L-20  # (+ L-21 toggle spolu skupinově)
+        wired_to: SH-11 IN1
+        mode: detached
+    notes: Tlačítko toggluje skupinu (Zrcadlo A + B) přes HA automatizaci.
+
+  - id: SW-LZ-D
+    room: Ložnice
+    position: U dveří
+    scope: loznice
+    hardware: Dvojvypínač (s i4 pod ním)
+    buttons:
+      - button: D1
+        circuit: L-22  # (+ L-23 toggle spolu skupinově)
+        wired_to: SH-12 IN1
+        mode: detached
+      - button: D2
+        circuit: L-24  # lustr 9× Vintage
+        wired_to: SH-12 IN2
+        mode: detached
+    notes: D1 toggluje skupinu Za+Pod postelí; D2 toggluje Vintage skupinu v lustru.
+
 # ============ SOUHRN KRABIC ============
 
 boxes_summary:

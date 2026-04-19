@@ -164,3 +164,65 @@ circuits:
     status: existing
     notes: LED osvětlení digestoře, stávající.
 
+  # ============ LOŽNICE (bokem — samostatný diagram) ============
+
+  - id: L-20
+    name: Zrcadlo A
+    room: Ložnice
+    scope: loznice
+    type: RGBW-PM
+    voltage: 24V
+    dimmable: true
+    switched_by: SH-13 CH1
+    controlled_from: [SW-LZ-ZRC]
+    control_mode: event → HA → RGBW PM kanál 1 toggle
+    notes: LED pásek za zrcadlem A, jeden ze 4 kanálů SH-13 RGBW PM.
+
+  - id: L-21
+    name: Zrcadlo B
+    room: Ložnice
+    scope: loznice
+    type: RGBW-PM
+    voltage: 24V
+    dimmable: true
+    switched_by: SH-13 CH2
+    controlled_from: [SW-LZ-ZRC]
+    control_mode: event → HA → RGBW PM kanál 2 toggle
+    notes: LED pásek za zrcadlem B, sdílí tlačítko se zrcadlem A (toggle spolu).
+
+  - id: L-22
+    name: Za postelí
+    room: Ložnice
+    scope: loznice
+    type: RGBW-PM
+    voltage: 24V
+    dimmable: true
+    switched_by: SH-13 CH3
+    controlled_from: [SW-LZ-D1]
+    control_mode: event → HA → RGBW PM kanál 3 toggle
+    notes: LED pásek za postelí, sdílí tlačítko s "Pod postelí" (toggle spolu).
+
+  - id: L-23
+    name: Pod postelí
+    room: Ložnice
+    scope: loznice
+    type: RGBW-PM
+    voltage: 24V
+    dimmable: true
+    switched_by: SH-13 CH4
+    controlled_from: [SW-LZ-D1]
+    control_mode: event → HA → RGBW PM kanál 4 toggle
+    notes: LED pásek pod postelí, sdílí tlačítko se "Za postelí".
+
+  - id: L-24
+    name: Lustr (9× Vintage)
+    room: Ložnice
+    scope: loznice
+    type: HUE
+    voltage: 220V (trvale)
+    dimmable: true (via Shelly Vintage)
+    switched_by: null
+    controlled_from: [SW-LZ-D2]
+    control_mode: event → HA → Shelly Vintage skupina (9 žárovek) toggle
+    notes: 9× Shelly Vintage WiFi žárovky v lustru. Fáze trvalá. Spínání každou žárovkou přes WiFi jako skupinu v HA.
+

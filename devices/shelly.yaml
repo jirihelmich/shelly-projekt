@@ -145,6 +145,50 @@ devices:
     controlled_by: [SW-KU-LEDA, SW-KU-LEDB, SW-KU-DIG]
     notes: Stávající, beze změny. Model není potvrzen — ověřit při kontrole.
 
+  # ============ LOŽNICE (bokem — samostatný diagram) ============
+
+  - id: SH-11
+    model: Shelly i4
+    location: Pod vypínačem u zrcadla v ložnici
+    scope: loznice
+    function: Čte tlačítko u zrcadla (event → HA → toggle RGBW CH1+CH2 na SH-13)
+    mode: detached
+    inputs:
+      IN1: SW-LZ-ZRC
+      IN2: rezerva
+      IN3: rezerva
+      IN4: rezerva
+    outputs: []
+    controlled_by: [SW-LZ-ZRC]
+
+  - id: SH-12
+    model: Shelly i4
+    location: Pod dvojvypínačem u dveří v ložnici
+    scope: loznice
+    function: IN1 čte tlačítko D1 (LED Za+Pod postelí), IN2 čte D2 (lustr 9× Vintage)
+    mode: detached
+    inputs:
+      IN1: SW-LZ-D1  # pod postelí + za postelí (skupinově přes HA)
+      IN2: SW-LZ-D2  # lustr 9× Vintage
+      IN3: rezerva
+      IN4: rezerva
+    outputs: []
+    controlled_by: [SW-LZ-D1, SW-LZ-D2]
+
+  - id: SH-13
+    model: Shelly RGBW PM
+    location: V krabici za 2× 60W trafa u svítidel (ložnice)
+    scope: loznice
+    function: 4 kanály pro 4 LED pásky (zrcadlo A/B, za/pod postelí)
+    mode: attached
+    outputs:
+      CH1: L-20 (Zrcadlo A)
+      CH2: L-21 (Zrcadlo B)
+      CH3: L-22 (Za postelí)
+      CH4: L-23 (Pod postelí)
+    controlled_by: [SW-LZ-ZRC, SW-LZ-D1]
+    notes: 4 nezávislé kanály pro 4 samostatné LED pásky (ne RGBW barvy). HA skupinovité ovládání přes events z SH-11/12.
+
 # ============ SOUHRN ============
 
 summary:

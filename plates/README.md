@@ -10,6 +10,10 @@ Generováno z `devices/plates.yaml` skriptem `scripts/generate_plates.py`.
 
 ![Stav po](prehled-po.svg)
 
+## Ložnice (samostatný okruh dokumentace)
+
+![Ložnice](prehled-loznice.svg)
+
 ## Detail per místnost
 
 ### Dolní předsíň

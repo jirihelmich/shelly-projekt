@@ -77,6 +77,7 @@ def load_circuits() -> dict[str, dict]:
         out[c["id"]] = {
             "name": c.get("name", c["id"]),
             "room": c.get("room", ""),
+            "scope": c.get("scope", "main"),
             "tag": tag,
             "voltage": voltage,
             "dimmable": c.get("dimmable"),
@@ -542,9 +543,11 @@ def normalize_device_room(r: str) -> str:
     return r
 
 
-def devices_by_room() -> dict[str, list[dict]]:
+def devices_by_room(scope: str = "main") -> dict[str, list[dict]]:
     out: dict[str, list[dict]] = defaultdict(list)
     for circ_id, info in CIRCUITS.items():
+        if info.get("scope", "main") != scope:
+            continue
         room = normalize_device_room(info.get("room", ""))
         if not room:
             continue
@@ -709,10 +712,12 @@ def cell_anchors_in_plate(plate: dict, plate_x: float, plate_y: float):
             cx_base += cw + MODULE_GAP
 
 
-def plates_for_mode(plates: list[dict], mode: str) -> list[dict]:
-    """Filtruje plates pro daný mode ('before' nebo 'after')."""
+def plates_for_mode(plates: list[dict], mode: str, scope: str = "main") -> list[dict]:
+    """Filtruje plates pro daný mode a scope."""
     out = []
     for p in plates:
+        if p.get("scope", "main") != scope:
+            continue
         state = p.get("state", "both")
         if mode == "before" and state == "after_only":
             continue
@@ -722,18 +727,32 @@ def plates_for_mode(plates: list[dict], mode: str) -> list[dict]:
     return out
 
 
-def render_overview(plates: list[dict], mode: str = "before") -> str:
-    plates = plates_for_mode(plates, mode)
+ROOM_ORDER_BY_SCOPE: dict[str, list[str]] = {
+    "main": [
+        "Obývák",
+        "Schodiště",
+        "Horní předsíň",
+        "Dolní předsíň",
+        "Kuchyň",
+        "Jídelna",
+    ],
+    "loznice": ["Ložnice"],
+}
+
+
+def render_overview(plates: list[dict], mode: str = "before", scope: str = "main") -> str:
+    plates = plates_for_mode(plates, mode, scope)
     by_room: dict[str, list[dict]] = defaultdict(list)
     for p in plates:
         by_room[p["room"]].append(p)
 
-    devices_per_room = devices_by_room()
+    devices_per_room = devices_by_room(scope)
+    room_order = ROOM_ORDER_BY_SCOPE.get(scope, ROOM_ORDER_BY_SCOPE["main"])
 
     # Sjednocená sada místností — i ty bez plates (např. Schodiště) se objeví, pokud mají zařízení.
     all_rooms = set(by_room.keys()) | set(devices_per_room.keys())
-    rooms = [r for r in ROOM_ORDER if r in all_rooms] + sorted(
-        r for r in all_rooms if r not in ROOM_ORDER
+    rooms = [r for r in room_order if r in all_rooms] + sorted(
+        r for r in all_rooms if r not in room_order
     )
 
     # Pre-compute plate layout within each room box (locations = sub-columns).
@@ -799,14 +818,15 @@ def render_overview(plates: list[dict], mode: str = "before") -> str:
     # device_positions[circuit_id] = (cx, bottom_y) — kotva čáry na spodní hraně pilulky
     device_positions: dict[str, tuple[float, float]] = {}
 
+    scope_title = "Ložnice" if scope == "loznice" else "Dům"
     if mode == "after":
-        title = "Stav po úpravě — svítidla, vypínače a namontované Shelly"
+        title = f"Stav po úpravě ({scope_title}) — svítidla, vypínače a namontované Shelly"
         subtitle = (
-            "Shelly (tmavá pilulka) je na rámečku (za vypínačem) nebo u svítidla podle umístění. "
-            "Kuchyňský rámeček upravený: 2× zásuvka + dvojvypínač Lišta 3/LED digestoř (220V, s relé) + dvojvypínač LED A/B."
+            "Shelly (tmavá pilulka) je na buňce (pod vypínačem) nebo vpravo od svítidla (u spotřebiče). "
+            "⚡ = trvalá fáze (HUE/Vintage). Badge typu: Mini / 1PM / 2PM [A][D] / i4 / RGBW PM."
         )
     else:
-        title = "Přehled — svítidla, vypínače a okruhy mezi nimi"
+        title = f"Přehled ({scope_title}) — svítidla, vypínače a okruhy mezi nimi"
         subtitle = (
             "Každý vypínač je čarou propojen se zařízením, které ovládá. "
             "Více čar k jedné pilulce = víc vypínačů na stejný okruh (3-cestné nebo paralelka)."
@@ -997,23 +1017,29 @@ def main() -> None:
     data = yaml.safe_load(PLATES_YAML.read_text(encoding="utf-8"))
     plates = data["plates"]
 
-    # Per-room rendery používají "before" plates
-    plates_before = plates_for_mode(plates, "before")
+    # Per-room rendery používají "before" plates ze main scope
+    plates_before = plates_for_mode(plates, "before", "main")
     by_room: dict[str, list[dict]] = defaultdict(list)
     for p in plates_before:
         by_room[p["room"]].append(p)
 
     OUTPUT_DIR.mkdir(exist_ok=True)
 
-    # Přehled (plánovaný stav) + stav po úpravě s namontovanými Shelly
+    # Main scope: přehled (plánovaný) + stav po (s Shelly)
     (OUTPUT_DIR / "prehled.svg").write_text(
-        render_overview(plates, mode="before"), encoding="utf-8"
+        render_overview(plates, mode="before", scope="main"), encoding="utf-8"
     )
     print(f"Wrote {(OUTPUT_DIR / 'prehled.svg').relative_to(PROJECT)}")
     (OUTPUT_DIR / "prehled-po.svg").write_text(
-        render_overview(plates, mode="after"), encoding="utf-8"
+        render_overview(plates, mode="after", scope="main"), encoding="utf-8"
     )
     print(f"Wrote {(OUTPUT_DIR / 'prehled-po.svg').relative_to(PROJECT)}")
+
+    # Bedroom scope — samostatný diagram (jen stav po, vše nové)
+    (OUTPUT_DIR / "prehled-loznice.svg").write_text(
+        render_overview(plates, mode="after", scope="loznice"), encoding="utf-8"
+    )
+    print(f"Wrote {(OUTPUT_DIR / 'prehled-loznice.svg').relative_to(PROJECT)}")
 
     index_lines = [
         "# Rámečky — digitální nákres",
@@ -1027,6 +1053,10 @@ def main() -> None:
         "## Stav po úpravě (s namontovanými Shelly)",
         "",
         "![Stav po](prehled-po.svg)",
+        "",
+        "## Ložnice (samostatný okruh dokumentace)",
+        "",
+        "![Ložnice](prehled-loznice.svg)",
         "",
         "## Detail per místnost",
         "",
