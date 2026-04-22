@@ -117,6 +117,79 @@ devices:
   # odstraněno po úpravě: SW-CP = paralelka k SW-H2 pro lustr přes stáv. schodišťákový drát,
   # krabice Chodba u pokoje je bez Shelly.)
 
+  # ============ PRACOVNA (2× Plus 2PM za dvěma dvojvypínači u dveří) ============
+
+  - id: SH-14
+    model: Shelly Plus 2PM
+    location: Za vypínačem SW-PR-D1 v pracovně (u dveří)
+    function: Spíná Lišta pracovna 1 (L-30) a Lišta pracovna 2 (L-31)
+    mode: attached
+    inputs:
+      SW1: SW-PR-D1-1
+      SW2: SW-PR-D1-2
+    outputs:
+      O1: L-30 (Lišta pracovna 1)
+      O2: L-31 (Lišta pracovna 2)
+    controlled_by: [SW-PR-D1-1, SW-PR-D1-2]
+    notes: >
+      Mělká krabice — prosekat / KU68 kroužek. 4 Lišty bez paralelek (každá
+      buňka = samostatný okruh).
+
+  - id: SH-15
+    model: Shelly Plus 2PM
+    location: Za vypínačem SW-PR-D2 v pracovně (u dveří, vedle SW-PR-D1)
+    function: Spíná Lišta pracovna 3 (L-32) a Lišta pracovna 4 (L-33)
+    mode: attached
+    inputs:
+      SW1: SW-PR-D2-1
+      SW2: SW-PR-D2-2
+    outputs:
+      O1: L-32 (Lišta pracovna 3)
+      O2: L-33 (Lišta pracovna 4)
+    controlled_by: [SW-PR-D2-1, SW-PR-D2-2]
+    notes: >
+      Mělká krabice — prosekat / KU68 kroužek. SH-14 + SH-15 vedle sebe
+      v rámečku dvou dvojvypínačů u dveří.
+
+  # ============ KOUPELNA HORNÍ (1× Plus 2PM: K1 attached LED trafo, K2 detached HUE event) ============
+
+  - id: SH-16
+    model: Shelly Plus 2PM
+    location: Za vypínačem SW-KH-D v horní koupelně (u dveří)
+    function: K1 spíná LED trafo 220V (L-34); K2 čte event SW-KH-D-2 (L-35 HUE, O2 nezapojen)
+    mode: mixed  # K1 attached, K2 detached
+    inputs:
+      SW1: SW-KH-D-1
+      SW2: SW-KH-D-2
+    outputs:
+      O1: L-34 (LED trafo 220V)
+      O2: unused  # L-35 je HUE — fáze trvalá
+    controlled_by: [SW-KH-D-1, SW-KH-D-2]
+    notes: >
+      K2 detached: O2 nezapojen (L-35 HUE). Event sh_16_input_2 → HA → Hue toggle.
+      Zrcadlové světlo ovládá stávající samostatný vypínač (beze změny, bez Shelly).
+      Mělká krabice — prosekat / KU68 kroužek. Koupelna: zvážit IP krytí
+      krabice a vzdálenost od vody (zóny 0/1/2).
+
+  # ============ WC (1× Plus 2PM: K1 attached LED+vent, K2 detached HUE event) ============
+
+  - id: SH-17
+    model: Shelly Plus 2PM
+    location: Za vypínačem SW-WC-D v WC (u dveří)
+    function: K1 spíná LED+ventilátor (L-36); K2 čte event SW-WC-D-2 (L-37 HUE, O2 nezapojen)
+    mode: mixed  # K1 attached, K2 detached
+    inputs:
+      SW1: SW-WC-D-1
+      SW2: SW-WC-D-2
+    outputs:
+      O1: L-36 (LED + ventilátor společně)
+      O2: unused  # L-37 je HUE — fáze trvalá
+    controlled_by: [SW-WC-D-1, SW-WC-D-2]
+    notes: >
+      LED i ventilátor spojené na jednom výstupu O1 (společné spínání).
+      K2 detached: O2 nezapojen (L-37 HUE). Event sh_17_input_2 → HA → Hue toggle.
+      Mělká krabice — prosekat / KU68 kroužek.
+
   # ============ STÁVAJÍCÍ (beze změny) ============
 
   - id: SH-E1
@@ -193,16 +266,27 @@ devices:
 
 summary:
   new:
-    shelly_1_mini: 3  # SH-01, SH-02, SH-03 — všechny 3 nakoupené Mini se použijí
-    plus_2pm: 2       # SH-05 obývák, SH-06 obývák
-    i4: 1             # SH-07 obývák (čte B1/B2 + F2/G2 paralelka přes schodišťák)
-    total_new_installed: 6
+    shelly_1_mini: 3  # SH-01, SH-02, SH-03
+    plus_2pm: 6       # SH-05, SH-06 (obývák); SH-14, SH-15 (pracovna); SH-16 (koupelna horní); SH-17 (WC)
+    i4: 1             # SH-07 obývák
+    total_new_installed: 10
+  loznice_done:      # už instalováno dřív, mimo tuto objednávku
+    i4: 2            # SH-11, SH-12
+    rgbw_pm: 1       # SH-13
   existing:
     rgbw_pm: 2     # SH-E1 obývák, SH-E2 jídelna
     other: 1       # SH-E3 kuchyň (model neznámý)
+  inventory_free:    # volné kusy pro tuto objednávku (ložnice měla vlastní hardware mimo tento inventář)
+    shelly_1_mini: 2
+    plus_2pm: 5
+    i4: 2            # volné, ložnice neuberla
+    rgbw_pm: 0       # nepotřebujeme pro tento scope
   to_purchase:
-    plus_2pm: 2
-    i4: 1
-    estimated_cost_czk: 3000  # 2*1000 + 1*600 + rezerva 400
+    shelly_1_mini: 1  # vlastníme 2, potřeba 3 (SH-01/02/03) → chybí 1 (~300 Kč)
+    i4: 0             # vlastníme 2 volné, potřeba 1 (SH-07) → 1 ks rezerva
+    plus_2pm: 1       # 5 volných, potřeba 6 → chybí 1 (~1000 Kč)
+    estimated_cost_czk: 1700  # 300 + 1000 + rezerva 400 (KU68 + WAGO + drobné)
   notes: >
-    Shelly 1 Mini už je zakoupené (3 ks) a všechny se použijí. K nákupu: 2× Plus 2PM + 1× i4.
+    Ložnice (SH-11..13) už je hotová a v provozu — mimo tuto objednávku.
+    Volný inventář: 2 Mini (chybí 1) + 5 Plus 2PM (chybí 1) + 2 i4 (stačí, 1 zbyde rezerva).
+    Po této objednávce 0 rezervy Plus 2PM — zvážit nákup +1 ks navíc (+1000 Kč) kvůli poruchám.

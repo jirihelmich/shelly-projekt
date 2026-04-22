@@ -528,6 +528,13 @@ ROOM_ORDER = [
     "Dolní předsíň",
     "Kuchyň",
     "Jídelna",
+    "Pracovna",
+    "Koupelna horní",
+    "WC",
+    "Koupelna dolní",
+    "Garáž",
+    "Pokoj hostů",
+    "Prázdný pokoj",
 ]
 
 
@@ -741,6 +748,13 @@ ROOM_ORDER_BY_SCOPE: dict[str, list[str]] = {
         "Dolní předsíň",
         "Kuchyň",
         "Jídelna",
+        "Pracovna",
+        "Koupelna horní",
+        "WC",
+        "Koupelna dolní",
+        "Garáž",
+        "Pokoj hostů",
+        "Prázdný pokoj",
     ],
     "loznice": ["Ložnice"],
 }

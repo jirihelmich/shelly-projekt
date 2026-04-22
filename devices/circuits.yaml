@@ -164,6 +164,195 @@ circuits:
     status: existing
     notes: LED osvětlení digestoře, stávající.
 
+  # ============ PRACOVNA (4× Lišta, 220V non-HUE, bez paralelek) ============
+
+  - id: L-30
+    name: Lišta pracovna 1
+    room: Pracovna
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-14 K1
+    controlled_from: [SW-PR-D1-1]
+    ha_entity: switch.sh_14_lista_pracovna_1
+
+  - id: L-31
+    name: Lišta pracovna 2
+    room: Pracovna
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-14 K2
+    controlled_from: [SW-PR-D1-2]
+    ha_entity: switch.sh_14_lista_pracovna_2
+
+  - id: L-32
+    name: Lišta pracovna 3
+    room: Pracovna
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-15 K1
+    controlled_from: [SW-PR-D2-1]
+    ha_entity: switch.sh_15_lista_pracovna_3
+
+  - id: L-33
+    name: Lišta pracovna 4
+    room: Pracovna
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-15 K2
+    controlled_from: [SW-PR-D2-2]
+    ha_entity: switch.sh_15_lista_pracovna_4
+
+  # ============ KOUPELNA HORNÍ (LED trafo 220V + HUE strop) ============
+
+  - id: L-34
+    name: LED trafo koupelna horní
+    room: Koupelna horní
+    type: LED-trafo
+    voltage: 220V
+    dimmable: false
+    switched_by: SH-16 K1
+    controlled_from: [SW-KH-D-1]
+    control_mode: attached — SH-16 spíná 220V primár trafa
+    ha_entity: switch.sh_16_led_trafo_koupelna
+    notes: LED pásek / svítidlo přes trafo, 220V na primáru. Ověřit kompatibilitu trafa se spínáním primáru.
+
+  - id: L-35
+    name: Strop koupelna horní (HUE)
+    room: Koupelna horní
+    type: HUE
+    voltage: 230V (trvale)
+    dimmable: true (via Hue)
+    switched_by: null  # Hue, fáze trvalá
+    controlled_from: [SW-KH-D-2]
+    control_mode: detached — SH-16 K2 čte event (O2 nezapojen), HA toggluje Hue skupinu
+    ha_entity: light.koupelna_horni_strop
+    notes: HUE svítidla ve stropě koupelny, fáze trvalá. SH-16 O2 nezapojen.
+
+  # ============ WC (1 dvojvypínač: LED+vent společně, HUE strop) ============
+
+  - id: L-36
+    name: WC LED + ventilátor
+    room: WC
+    type: non-HUE
+    voltage: 230V
+    dimmable: false
+    switched_by: SH-17 K1
+    controlled_from: [SW-WC-D-1]
+    control_mode: attached — jedno tlačítko spíná LED i ventilátor společně (paralelně na jednom výstupu)
+    ha_entity: switch.sh_17_wc_led_vent
+    notes: >
+      Levá buňka dvojvypínače spíná společně LED svítidlo + ventilátor (obé na
+      stejném výstupu O1). Ventilátor má vlastní doběhový spínač (potvrzeno
+      2026-04-22), proto 1× Plus 2PM stačí — doběh je řešen uvnitř ventilátoru.
+
+  - id: L-37
+    name: Strop WC (HUE)
+    room: WC
+    type: HUE
+    voltage: 230V (trvale)
+    dimmable: true (via Hue)
+    switched_by: null  # Hue, fáze trvalá
+    controlled_from: [SW-WC-D-2]
+    control_mode: detached — SH-17 K2 čte event (O2 nezapojen), HA toggluje Hue skupinu
+    ha_entity: light.wc_strop
+    notes: HUE svítidla ve stropě WC, fáze trvalá. SH-17 O2 nezapojen.
+
+  # ============ STÁVAJÍCÍ 220V OKRUHY V IGNOROVANÝCH MÍSTNOSTECH (beze změny, non-HUE) ============
+
+  - id: L-40
+    name: Venkovní svítidlo pracovna
+    room: Pracovna
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-PR-V]
+    status: existing
+    notes: Venkovní svítidlo u pracovního stolu, stávající zapojení, beze změny.
+
+  - id: L-41
+    name: Zrcadlové svítidlo koupelna horní
+    room: Koupelna horní
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-KH-ZRC]
+    status: existing
+    notes: Zrcadlové svítidlo, stávající zapojení, beze změny.
+
+  - id: L-42
+    name: Strop garáž
+    room: Garáž
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-GA]
+    status: existing
+    notes: Stropní svítidlo v garáži, stávající zapojení, beze změny.
+
+  - id: L-43
+    name: Ventilátor koupelna dolní
+    room: Koupelna dolní
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-KD-1-1]
+    status: existing
+    notes: Odvětrávací ventilátor koupelny dolní, stávající zapojení, beze změny.
+
+  - id: L-44
+    name: Svítidlo u umyvadla koupelna dolní
+    room: Koupelna dolní
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-KD-1-2]
+    status: existing
+    notes: Svítidlo u umyvadla, stávající zapojení, beze změny.
+
+  - id: L-45
+    name: Strop koupelna dolní
+    room: Koupelna dolní
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-KD-2-1]
+    status: existing
+    notes: Stropní svítidlo koupelny dolní, stávající zapojení, beze změny.
+
+  - id: L-46
+    name: Závěsné svítidlo koupelna dolní
+    room: Koupelna dolní
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-KD-2-2]
+    status: existing
+    notes: Závěsné (pendant) svítidlo koupelny dolní, stávající zapojení, beze změny.
+
+  - id: L-47
+    name: Strop pokoj hostů
+    room: Pokoj hostů
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-PH]
+    status: existing
+    notes: Stropní svítidlo v pokoji hostů, stávající zapojení, beze změny.
+
+  - id: L-48
+    name: Strop prázdný pokoj
+    room: Prázdný pokoj
+    type: non-HUE
+    voltage: 230V
+    switched_by: stávající
+    controlled_from: [SW-PP]
+    status: existing
+    notes: Stropní svítidlo v prázdném pokoji, stávající zapojení, beze změny.
+
   # ============ LOŽNICE (bokem — samostatný diagram) ============
 
   - id: L-20

@@ -198,6 +198,170 @@ switches:
         status: existing
     notes: Stávající ovládání LED digestoře, beze změny.
 
+  # ============ PRACOVNA (2× dvojvypínač u dveří; 4 Lišty bez paralelek) ============
+
+  - id: SW-PR-D1
+    room: Pracovna
+    position: U dveří, první dvojvypínač
+    hardware: Dvojvypínač #1
+    buttons:
+      - button: PR-D1-1
+        circuit: L-30  # Lišta pracovna 1
+        wired_to: SH-14 SW1
+        mode: attached
+      - button: PR-D1-2
+        circuit: L-31  # Lišta pracovna 2
+        wired_to: SH-14 SW2
+        mode: attached
+
+  - id: SW-PR-D2
+    room: Pracovna
+    position: U dveří, druhý dvojvypínač (vedle SW-PR-D1)
+    hardware: Dvojvypínač #2
+    buttons:
+      - button: PR-D2-1
+        circuit: L-32  # Lišta pracovna 3
+        wired_to: SH-15 SW1
+        mode: attached
+      - button: PR-D2-2
+        circuit: L-33  # Lišta pracovna 4
+        wired_to: SH-15 SW2
+        mode: attached
+
+  - id: SW-PR-V
+    room: Pracovna
+    position: U pracovního stolu (venkovní svítidlo)
+    hardware: Jednovypínač (stávající)
+    status: existing
+    ignored: true
+    buttons:
+      - button: PR-V
+        circuit: L-40  # venkovní svítidlo, stávající 230V non-HUE
+        wired_to: stávající zapojení
+        status: existing
+    notes: >
+      Stávající vypínač venkovního svítidla u pracovního stolu. Mimo scope —
+      beze změny, žádná Shelly, dokumentováno jen pro úplnost.
+
+  # ============ KOUPELNA HORNÍ (1× dvojvypínač + samostatný vypínač zrcadla) ============
+
+  - id: SW-KH-D
+    room: Koupelna horní
+    position: U dveří
+    hardware: Dvojvypínač
+    buttons:
+      - button: KH-D-1
+        circuit: L-34  # LED trafo 220V
+        wired_to: SH-16 SW1
+        mode: attached
+      - button: KH-D-2
+        circuit: L-35  # Strop HUE
+        wired_to: SH-16 SW2
+        mode: detached  # event → HA → Hue toggle
+
+  - id: SW-KH-ZRC
+    room: Koupelna horní
+    position: U zrcadla
+    hardware: Jednovypínač (stávající)
+    status: existing
+    ignored: true
+    buttons:
+      - button: KH-ZRC
+        circuit: L-41  # zrcadlové svítidlo, stávající 230V non-HUE
+        wired_to: stávající zapojení
+        status: existing
+    notes: >
+      Stávající vypínač zrcadlového svítidla. Beze změny, žádná Shelly.
+
+  # ============ WC (1 dvojvypínač u dveří) ============
+
+  - id: SW-WC-D
+    room: WC
+    position: U dveří
+    hardware: Dvojvypínač
+    buttons:
+      - button: WC-D-1
+        circuit: L-36  # LED + ventilátor (společně)
+        wired_to: SH-17 SW1
+        mode: attached
+      - button: WC-D-2
+        circuit: L-37  # Strop HUE
+        wired_to: SH-17 SW2
+        mode: detached  # event → HA → Hue toggle
+
+  # ============ IGNORED (stávající, dokumentováno, beze změny) ============
+
+  - id: SW-GA
+    room: Garáž
+    position: U dveří
+    hardware: Jednovypínač (stávající)
+    status: existing
+    ignored: true
+    buttons:
+      - button: GA
+        circuit: L-42  # stropní 230V non-HUE
+        wired_to: stávající zapojení
+        status: existing
+    notes: Světlo v garáži. Beze změny, žádná Shelly.
+
+  - id: SW-KD-1
+    room: Koupelna dolní
+    position: U dveří, první dvojvypínač
+    hardware: Dvojvypínač (stávající)
+    status: existing
+    ignored: true
+    buttons:
+      - button: KD-1-1
+        circuit: L-43  # ventilátor
+        wired_to: stávající zapojení
+        status: existing
+      - button: KD-1-2
+        circuit: L-44  # umyvadlo
+        wired_to: stávající zapojení
+        status: existing
+    notes: Ovládá ventilátor + svítidlo u umyvadla. Beze změny, žádná Shelly.
+
+  - id: SW-KD-2
+    room: Koupelna dolní
+    position: U dveří, druhý dvojvypínač (vedle SW-KD-1)
+    hardware: Dvojvypínač (stávající)
+    status: existing
+    ignored: true
+    buttons:
+      - button: KD-2-1
+        circuit: L-45  # stropní
+        wired_to: stávající zapojení
+        status: existing
+      - button: KD-2-2
+        circuit: L-46  # závěs (pendant)
+        wired_to: stávající zapojení
+        status: existing
+    notes: Ovládá strop + závěsné svítidlo. Beze změny, žádná Shelly.
+
+  - id: SW-PH
+    room: Pokoj hostů
+    hardware: Jednovypínač (stávající)
+    status: existing
+    ignored: true
+    buttons:
+      - button: PH
+        circuit: L-47  # stropní 230V non-HUE
+        wired_to: stávající zapojení
+        status: existing
+    notes: Světlo v pokoji pro hosty. Beze změny, žádná Shelly.
+
+  - id: SW-PP
+    room: Prázdný pokoj
+    hardware: Jednovypínač (stávající)
+    status: existing
+    ignored: true
+    buttons:
+      - button: PP
+        circuit: L-48  # stropní 230V non-HUE
+        wired_to: stávající zapojení
+        status: existing
+    notes: Světlo v prázdném pokoji. Beze změny, žádná Shelly.
+
   # ============ LOŽNICE (bokem — samostatný diagram) ============
 
   - id: SW-LZ-ZRC
@@ -235,6 +399,9 @@ boxes_summary:
     - {location: "Obývák vstup (SW-A/B/C/D) — konzole", devices: [SH-01, SH-05, SH-06, SH-07]}
     - {location: "Dolní předsíň, pracovna (SW-F1)", devices: [SH-02]}
     - {location: "Horní předsíň, u pokoje (SW-CP, P-CP)", devices: [SH-03]}
+    - {location: "Pracovna, u dveří (SW-PR-D1 + SW-PR-D2)", devices: [SH-14, SH-15]}
+    - {location: "Koupelna horní, u dveří (SW-KH-D)", devices: [SH-16]}
+    - {location: "WC, u dveří (SW-WC-D)", devices: [SH-17]}
 
   without_shelly:
     - {location: "Dolní předsíň, u pracovny (SW-F2)", reason: "Paralelka k SW-B1 (obývák) přes stáv. schodišťák → SH-07 IN2"}

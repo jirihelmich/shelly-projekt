@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 276" width="170" height="276" font-family="sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="20" y="32" font-size="22" font-weight="700" fill="#111827">Garáž</text>
+<line x1="20" y1="42" x2="150" y2="42" stroke="#374151" stroke-width="1"/>
+<text x="20" y="72" font-size="12" font-style="italic" fill="#6b7280">U dveří</text>
+<rect x="20" y="82" width="130" height="122" fill="#f9fafb" stroke="#374151" stroke-width="2" rx="8" ry="8"/>
+<rect x="30" y="110" width="110" height="84" fill="#dbeafe"/>
+<rect x="30" y="110" width="110" height="84" fill="none" stroke="#374151" stroke-width="1.5"/>
+<rect x="44" y="122" width="82" height="40" fill="white" stroke="#374151" stroke-width="1" rx="3" ry="3"/>
+<text x="85.0" y="175" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#111827">Strop</text>
+<text x="85.0" y="189" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b7280">L-42</text>
+<rect x="104" y="177" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="120.0" y="186.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<text x="30" y="102" font-family="monospace" font-size="9" fill="#6b7280">P-GA</text>
+<text x="20" y="216" font-size="10" fill="#6b7280">Stávající jednovypínač stropního svítidla — beze změny, žádná Shelly.</text>
+<rect x="20" y="241" width="14" height="14" fill="#e9d5ff" stroke="#374151" stroke-width="1"/>
+<text x="40" y="252" font-size="11" fill="#111827">HUE</text>
+<rect x="130" y="241" width="14" height="14" fill="#dbeafe" stroke="#374151" stroke-width="1"/>
+<text x="150" y="252" font-size="11" fill="#111827">non-HUE</text>
+<rect x="240" y="241" width="14" height="14" fill="#fef3c7" stroke="#374151" stroke-width="1"/>
+<text x="260" y="252" font-size="11" fill="#111827">LED-trafo</text>
+<rect x="350" y="241" width="14" height="14" fill="#dcfce7" stroke="#374151" stroke-width="1"/>
+<text x="370" y="252" font-size="11" fill="#111827">RGBW-PM</text>
+<rect x="460" y="241" width="32" height="13" fill="white" stroke="#1e3a8a" stroke-width="1" rx="2" ry="2"/>
+<text x="476.0" y="250.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#1e3a8a">220V</text>
+<text x="498" y="252" font-size="11" fill="#111827">220V</text>
+<rect x="560" y="241" width="32" height="13" fill="white" stroke="#047857" stroke-width="1" rx="2" ry="2"/>
+<text x="576.0" y="250.5" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#047857">24V</text>
+<text x="598" y="252" font-size="11" fill="#111827">24V</text>
+</svg>

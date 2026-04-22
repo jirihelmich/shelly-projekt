@@ -122,8 +122,55 @@ Shelly Plus 1PM nahrazeny **Shelly 1 Mini** (už nakoupené).
 - Per-místnost SVG: `plates/<room>.svg`
 - `scripts/generate_plates.py` generátor z `devices/plates.yaml` + `devices/circuits.yaml`
 
+## DRAFT v0.3 — 2026-04-22
+
+### Rozšíření scope před objednávkou (pracovna, koupelna horní, WC)
+
+Cíl: jedna objednávka Shelly pro celý dům (včetně ložnice). Přidány místnosti:
+
+- **Pracovna:** 2× dvojvypínač u dveří, 4× Lišta 220V non-HUE, bez paralelek.
+  Hardware: **2× Shelly Plus 2PM** (SH-14 za SW-PR-D1, SH-15 za SW-PR-D2), všechny kanály attached.
+  Nové okruhy: L-30..L-33 (Lišta pracovna 1–4).
+- **Koupelna horní:** 1× dvojvypínač u dveří (LED trafo 220V + HUE strop).
+  Hardware: **1× Shelly Plus 2PM** (SH-16) — K1 attached pro LED trafo, K2 detached pro HUE event (O2 nezapojen).
+  Nové okruhy: L-34 (LED trafo), L-35 (HUE strop).
+  Zrcadlové světlo (SW-KH-ZRC) ponecháno v původním zapojení.
+- **WC:** 1× dvojvypínač u dveří — levá buňka LED+ventilátor společně na jednom výstupu, pravá HUE strop.
+  Hardware: **1× Shelly Plus 2PM** (SH-17) — K1 attached pro LED+vent, K2 detached pro HUE event (O2 nezapojen).
+  Nové okruhy: L-36 (LED+vent), L-37 (HUE strop).
+
+### Dokumentováno jen pro úplnost (beze změny, žádná Shelly)
+
+- Garáž (SW-GA), koupelna dolní (SW-KD-1/2), pokoj hostů (SW-PH), prázdný pokoj (SW-PP),
+  venkovní svítidlo pracovna (SW-PR-V), zrcadlo koupelna horní (SW-KH-ZRC)
+- Souhrn v `rooms/11-ignored.md`
+
+### Kusovník — ložnice už hotová, mimo objednávku
+
+| Ks | Shelly typ | Kde | Volné | Chybí |
+|---:|---|---|---:|---:|
+| 3 | Shelly 1 Mini | SH-01/02/03 | 2 | **1** (~300 Kč) |
+| 6 | Shelly Plus 2PM | SH-05/06 + SH-14/15 (pracovna) + SH-16 (koupelna h.) + SH-17 (WC) | 5 | **1** (~1 000 Kč) |
+| 1 | Shelly i4 | SH-07 | 2 | 0 (1 zbyde rezerva) |
+
+**Celkem k nákupu: ~1 700 Kč** (300 + 1 000 + rezerva 400 Kč KU68/WAGO).
+Ložnice (SH-11..13: 2× i4 + 1× RGBW PM) **už hotová** — v provozu, mimo objednávku, volný inventář i4 nedotčen.
+Plus 2PM po objednávce 0 rezervy — zvážit +1 ks navíc (~1 000 Kč).
+
+### Místnosti beze změny
+
+- Každá má vlastní `rooms/NN-*.md` (beze změny, jen dokumentace):
+  - `11-garaz.md`, `12-koupelna-dolni.md`, `13-pokoj-hostu.md`, `14-prazdny-pokoj.md`
+- `rooms/11-ignored.md` zrušeno (původní souhrnný soubor) — rozděleno na samostatné místnosti.
+
+### Filozofická změna
+
+- Philosophy v README upravena: přízemí je koncentrace v obýváku, patro/pracovna/koupelny/WC mají Shelly lokálně za vypínačem. Bez paralelek mimo přízemí.
+- 2PM se stává "výchozím modelem pro dvojvypínač s HUE+non-HUE kombinací" (K1 attached, K2 detached, O2 nezapojen).
+
 ## Další plánované iterace
 
 - [ ] Ověřit otevřené otázky z `open-questions.md`
 - [ ] Doplnit `rooms/*.md` s rozpisem per místnost pro elektrikáře
+- [ ] Vygenerovat SVG diagramy pro pracovna / koupelna horní / WC (zatím jen YAML)
 - [ ] Případně vygenerovat schéma zapojení per krabice (svg nebo mermaid)

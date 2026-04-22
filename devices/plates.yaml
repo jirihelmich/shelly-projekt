@@ -151,6 +151,133 @@ plates:
   # uvolní místo pro 2. zásuvku. Oba moduly v novém dvojvypínači jsou 220V.
   # LED digestoř potřebuje předsazené relé 220→24V před SH-E3.
 
+  # ============ PRACOVNA (1 rámeček u dveří se 2 dvojvypínači + stávající venkovní u stolu) ============
+
+  - id: P-PR-D
+    room: Pracovna
+    location: U dveří
+    orientation: horizontal
+    note: "2 dvojvypínače vedle sebe, 4 buňky = 4 Lišty (L-30..L-33), všechny 220V bez paralelek."
+    components:
+      - type: double_switch
+        switch_ref: SW-PR-D1
+        cells:
+          - { label: "Lišta 1", circuit: L-30 }
+          - { label: "Lišta 2", circuit: L-31 }
+      - type: double_switch
+        switch_ref: SW-PR-D2
+        cells:
+          - { label: "Lišta 3", circuit: L-32 }
+          - { label: "Lišta 4", circuit: L-33 }
+
+  - id: P-PR-V
+    room: Pracovna
+    location: U pracovního stolu
+    orientation: horizontal
+    note: "Stávající jednovypínač venkovního svítidla — beze změny, žádná Shelly."
+    components:
+      - type: single_switch
+        switch_ref: SW-PR-V
+        cells:
+          - { label: "Venkovní", circuit: L-40 }
+
+  # ============ KOUPELNA HORNÍ (1 dvojvypínač u dveří + stávající u zrcadla) ============
+
+  - id: P-KH-D
+    room: Koupelna horní
+    location: U dveří
+    orientation: horizontal
+    note: "Dvojvypínač: levá buňka = LED trafo 220V (non-HUE), pravá = HUE strop."
+    components:
+      - type: double_switch
+        switch_ref: SW-KH-D
+        cells:
+          - { label: "LED trafo", circuit: L-34 }
+          - { label: "Strop", circuit: L-35 }
+
+  - id: P-KH-ZRC
+    room: Koupelna horní
+    location: U zrcadla
+    orientation: horizontal
+    note: "Stávající jednovypínač zrcadlového svítidla — beze změny, žádná Shelly."
+    components:
+      - type: single_switch
+        switch_ref: SW-KH-ZRC
+        cells:
+          - { label: "Zrcadlo", circuit: L-41 }
+
+  # ============ WC (1 dvojvypínač u dveří: LED+vent + HUE strop) ============
+
+  - id: P-WC-D
+    room: WC
+    location: U dveří
+    orientation: horizontal
+    note: "Dvojvypínač: levá buňka spíná LED+ventilátor společně (L-36, non-HUE), pravá HUE strop (L-37)."
+    components:
+      - type: double_switch
+        switch_ref: SW-WC-D
+        cells:
+          - { label: "LED + vent", circuit: L-36 }
+          - { label: "Strop", circuit: L-37 }
+
+  # ============ GARÁŽ (stávající, beze změny) ============
+
+  - id: P-GA
+    room: Garáž
+    location: U dveří
+    orientation: horizontal
+    note: "Stávající jednovypínač stropního svítidla — beze změny, žádná Shelly."
+    components:
+      - type: single_switch
+        switch_ref: SW-GA
+        cells:
+          - { label: "Strop", circuit: L-42 }
+
+  # ============ KOUPELNA DOLNÍ (stávající, beze změny) ============
+
+  - id: P-KD-D
+    room: Koupelna dolní
+    location: U dveří
+    orientation: horizontal
+    note: "Stávající 2 dvojvypínače vedle sebe — beze změny, žádná Shelly."
+    components:
+      - type: double_switch
+        switch_ref: SW-KD-1
+        cells:
+          - { label: "Ventilátor", circuit: L-43 }
+          - { label: "Umyvadlo", circuit: L-44 }
+      - type: double_switch
+        switch_ref: SW-KD-2
+        cells:
+          - { label: "Strop", circuit: L-45 }
+          - { label: "Závěs", circuit: L-46 }
+
+  # ============ POKOJ HOSTŮ (stávající, beze změny) ============
+
+  - id: P-PH
+    room: Pokoj hostů
+    location: ""
+    orientation: horizontal
+    note: "Stávající jednovypínač stropního svítidla — beze změny, žádná Shelly."
+    components:
+      - type: single_switch
+        switch_ref: SW-PH
+        cells:
+          - { label: "Strop", circuit: L-47 }
+
+  # ============ PRÁZDNÝ POKOJ (stávající, beze změny) ============
+
+  - id: P-PP
+    room: Prázdný pokoj
+    location: ""
+    orientation: horizontal
+    note: "Stávající jednovypínač stropního svítidla — beze změny, žádná Shelly."
+    components:
+      - type: single_switch
+        switch_ref: SW-PP
+        cells:
+          - { label: "Strop", circuit: L-48 }
+
   # ============ LOŽNICE (bokem — samostatný diagram) ============
 
   - id: P-LZ-ZRC

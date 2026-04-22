@@ -20,6 +20,10 @@ Generováno z `devices/plates.yaml` skriptem `scripts/generate_plates.py`.
 
 ![Dolní předsíň](dolni-predsin.svg)
 
+### Garáž
+
+![Garáž](garaz.svg)
+
 ### Horní předsíň
 
 ![Horní předsíň](horni-predsin.svg)
@@ -28,6 +32,14 @@ Generováno z `devices/plates.yaml` skriptem `scripts/generate_plates.py`.
 
 ![Jídelna](jidelna.svg)
 
+### Koupelna dolní
+
+![Koupelna dolní](koupelna-dolni.svg)
+
+### Koupelna horní
+
+![Koupelna horní](koupelna-horni.svg)
+
 ### Kuchyň
 
 ![Kuchyň](kuchyn.svg)
@@ -35,3 +47,19 @@ Generováno z `devices/plates.yaml` skriptem `scripts/generate_plates.py`.
 ### Obývák
 
 ![Obývák](obyvak.svg)
+
+### Pokoj hostů
+
+![Pokoj hostů](pokoj-hostu.svg)
+
+### Pracovna
+
+![Pracovna](pracovna.svg)
+
+### Prázdný pokoj
+
+![Prázdný pokoj](prazdny-pokoj.svg)
+
+### WC
+
+![WC](wc.svg)

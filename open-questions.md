@@ -18,9 +18,18 @@ Každá z nich může ovlivnit kusovník nebo zapojení.
 
 ### 2. Trafo LED pásku
 
-- [ ] Toleruje stávající trafo časté spínání 230V primáru? Moderní elektronická LED trafa obvykle ano. Staré EI/toroidní mohou mít inrush problém.
+- [ ] **L-02 (dolní předsíň):** toleruje stávající trafo časté spínání 230V primáru?
+- [ ] **L-34 (koupelna horní):** toleruje LED trafo spínání 220V primáru přes SH-16 K1?
+
+Moderní elektronická LED trafa obvykle OK. Staré EI/toroidní mohou mít inrush problém.
 
 **Fallback:** výměna trafa za moderní LED driver tolerantní ke spínání primáru.
+
+### 2b. ~~WC — ventilátor doběh~~ — VYŘEŠENO (2026-04-22)
+
+**Výsledek:** ventilátor má vlastní doběhový spínač (doběh po vypnutí je řešen v ventilátoru samotném). LED i ventilátor tedy mohou být na jednom výstupu SH-17 O1. 1× Plus 2PM stačí, není potřeba jiné schéma.
+
+- [ ] Proudový odběr LED + ventilátor na jednom výstupu O1 — v limitu 2PM (16 A / ~3 500 W)?
 
 ### 3. Rozměry krabic
 
