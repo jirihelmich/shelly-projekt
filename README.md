@@ -4,9 +4,10 @@
 
 ## Filozofie instalace
 
-- **Přízemí (obývák/předsíně/jídelna/kuchyň) — Shelly koncentrované v obývákové konzoli** (+ 1 Mini ve stropě u LED driveru dolní předsíně a 1 Mini v rámečku P-CP v horní předsíni). Důvod: jedno místo pro údržbu/firmware/přístup.
-- **Vypínače mimo obývák v přízemí = paralelky** přes stávající schodišťákové dráty do Shelly v obýváku (nebo do blízkého Shelly). Krabice za těmito vypínači jsou většinou bez Shelly, jen WAGO.
-- **Patro a další místnosti (pracovna, koupelna horní, WC, ložnice) — Shelly lokálně za vypínačem** každé místnosti. Bez paralelek, bez závislosti na schodišťákových drátech. Jeden Plus 2PM typicky pokryje 2 okruhy v rámci dvojvypínače (HUE event + non-HUE spínání).
+- **Shelly tam, kde má L+N** — schodišťákové dráty bývají na jiném okruhu a N (nulák) nemusí být dostupný v každé krabici. Před montáží ověřit, kde je N. **Každý okruh = vlastní Shelly** v té krabici, kde má L+N. Důsledek: schodiště (L-01) i lustr horní předsíně (L-03) mají každý vlastní Mini v jiné krabici, neslučujeme do 2PM.
+- **Přízemí (obývák/předsíně/jídelna/kuchyň) — Shelly koncentrované v obývákové konzoli** (+ 1 Mini ve stropě u LED driveru dolní předsíně). Vypínače mimo obývák v přízemí = paralelky přes stávající schodišťákové dráty.
+- **Horní předsíň — 2× Mini ve dvou krabicích, každý okruh sám za sebe.** SH-01 v krabici u schodů (P-HP) pro L-01, SH-03 v krabici P-CP (u pokoje) pro L-03.
+- **Patro a další místnosti (pracovna, koupelna horní, WC, ložnice) — Shelly lokálně za vypínačem** každé místnosti. Jeden Plus 2PM typicky pokryje 2 okruhy v rámci dvojvypínače (HUE event + non-HUE spínání).
 - **Subprojekty lze řešit nezávisle** — horní předsíň, kuchyň, pracovna, koupelna horní, WC, ložnice nejsou přímo svázané s přízemním instalem. Dělá se to společně, ale kdyby bylo potřeba, lze oddělit v čase.
 - **HUE svítidla mají trvalou fázi** (⚡) — fáze nikdy neodpojovat. Shelly u těchto okruhů je detached (čte jen eventy, nespíná fázi). Pokud je 2PM, O2 se nechá nezapojen.
 - **Offline fallback kdekoli to jde**: attached SW vstup (ne přes HA), abychom se nespoléhali jen na funkční HA. Non-HUE okruhy jsou vždy attached.
@@ -42,7 +43,7 @@ Pro referenci při instalaci:
 
 - **10 nových Shelly zařízení** v tomto scope (3× Shelly 1 Mini, 6× Plus 2PM, 1× i4)
 - **Ložnice už je hotová** — mimo tuto objednávku (nedotýká se inventáře volných kusů)
-- **12+ krabic** s vypínači nebo Shelly (z toho 4 krabice bez Shelly — jen WAGO propojení; další 4 místnosti beze změny)
+- **12+ krabic** s vypínači nebo Shelly (z toho 5 krabic bez Shelly — jen WAGO propojení; další 4 místnosti beze změny)
 - **K nákupu:** ~1 700 Kč (1× Mini + 1× Plus 2PM + rezerva; i4 pokryjeme z vlastních)
 - **20 světelných okruhů** celkem (15 nových/upravených + 5 stávajících beze změny; ložnice L-20..L-24 vedena zvlášť, již instalováno)
 
@@ -79,27 +80,41 @@ Všechny nové vypínače jsou **ABB Tango s pružinkami = monostabilní tlačí
 Dvě tlačítka z různých krabic jsou připojena paralelně na **jeden** `SW` vstup Shelly (přes stávající schodišťákové dráty). Shelly vidí „někdo stiskl" → toggle. Funguje offline.
 
 Kde to je:
-- **L-01** schodiště — SW-A (obývák) + SW-H1 (horní předsíň) → SH-01 SW1 (Mini v obývákové konzoli)
-- **L-02** LED pásek — SW-F1 + SW-G1 → SH-02 SW1 (Mini za SW-F1)
-- **L-03** horní předsíň lustr — SW-CP (u pokoje) + SW-H2 (u schodů) → SH-03 SW1 (Mini za SW-CP v P-CP)
+- **L-01** schodiště — SW-H1 (H. předsíň u schodů, attached) + SW-A (obývák, paralelka přes stáv. schodišťák) → SH-01 SW1 (Mini v krabici u schodů, P-HP)
+- **L-02** LED pásek — SW-F1 + SW-G1 → SH-02 SW1 (Mini u trafa)
+- **L-03** horní předsíň lustr — SW-CP (u pokoje, attached) + SW-H2 (u schodů, paralelka přes stáv. schodišťák) → SH-03 SW1 (Mini v P-CP, jiný okruh než L-01)
 - **L-04** lustr jídelna (HUE) — SW-D2 (obývák) + SW-J2 (jídelna) → SH-06 SW2 (detached, event)
 - **L-07** Lišta 3 — SW-D1 (obývák) + SW-KU-L3 (kuchyň) → SH-06 SW1
 - **L-09** předsíň strop (HUE) — **SW-B1** (obývák) + **SW-F2** + **SW-G2** → všechna 3 paralelně na SH-07 IN2 (i4 v obývákové konzoli) přes stáv. schodišťák
 
-### 5. 2-cestné schodiště (L-01) — attached paralelka
+### 5. 2-cestné schodiště (L-01) + lustr H. předsíně (L-03) — 2× Mini, různé okruhy
 
-SW-A (obývák) attached přímo na SH-01 SW1 (Shelly 1 Mini v obývákové konzoli). SW-H1 (horní předsíň) paralelně přes stávající schodišťákový drát na stejný vstup. Funguje **offline bez HA** — stisk libovolného tlačítka toggluje SH-01.
+L-01 a L-03 jsou na **jiných okruzích** (jistič + L+N). Proto **2× Shelly 1 Mini** lokálně v každé krabici, ne sdílený 2PM.
+
+- **SH-01 Mini** v krabici u schodů (P-HP, za SW-H1, okruh L-01): SW-H1 attached lokálně + SW-A obývák paralelka přes stáv. schodišťák Obývák↔H. předsíň
+- **SH-03 Mini** v krabici P-CP (za SW-CP, okruh L-03): SW-CP attached lokálně + SW-H2 paralelka přes stáv. schodišťák H. předsíň (u schodů) ↔ P-CP
+
+Funguje **offline bez HA** — každý Mini si toggluje O1 sám.
+
+> SH-01 nesedí v obývákové konzoli (jak bylo plánováno dříve), protože schodišťákový drát Obývák↔H. předsíň je na jiném jističi/okruhu než obývákové vypínače a N (nulák) tam pro Shelly není. Krabice u schodů má L+N pro L-01.
 
 ### 6. Umístění Shelly — preferenčně u svítidel
 
 Krabice za vypínači jsou **mělké** → nutno prosekat hlouběji nebo použít **KU68 prodlužovací kroužek**. Shelly proto umísťujeme do stropních krabic u svítidel, kde je místa dost, kdykoli to jde.
 
 Krabice, kde se bude sekat / KU68:
-- Obývák vstup, konzole (SH-01 Mini + SH-05/06 2PM + SH-07 i4 — 4 Shelly ve více krabicích za SW-A/B/C/D)
-- Horní předsíň u pokoje (SH-03 Mini — za SW-CP, samostatný rámeček P-CP)
+- Obývák vstup, konzole (SH-05/06 2PM + SH-07 i4 — 3 Shelly ve více krabicích za SW-B/C/D)
+- Horní předsíň u schodů (**SH-01 Mini** za SW-H1, krabice na okruhu L-01)
+- Horní předsíň u pokoje (**SH-03 Mini** za SW-CP, krabice na okruhu L-03 v P-CP)
 - Pracovna u dveří (SH-14 + SH-15 Plus 2PM — za SW-PR-D1 + SW-PR-D2)
 - Koupelna horní u dveří (SH-16 Plus 2PM — za SW-KH-D)
 - WC u dveří (SH-17 Plus 2PM — za SW-WC-D)
+
+Krabice bez Shelly (jen tlačítka + WAGO + signální vodič):
+- Obývák, krabice za SW-A — paralelka přes stáv. schodišťák Obývák↔P-HP do SH-01 SW1
+- Horní předsíň, krabice za SW-H2 (vedle SW-H1) — paralelka přes stáv. schodišťák P-HP↔P-CP do SH-03 SW1 (jiný okruh než L-01)
+- Dolní předsíň, SW-F2 a SW-G — paralelky do SH-07 IN2 a SH-02 SW1
+- Jídelna, SW-J2 — paralelka do SH-06 SW2
 
 Krabice bez Shelly (jen tlačítka + WAGO propoje):
 - Dolní předsíň u pracovny (SW-F1 + SW-F2) — SH-02 Mini je ve stropě u trafa/driveru pásku; SW-F2 paralelka přes schodišťák do SH-07 IN2 v obýváku
@@ -129,7 +144,7 @@ Shelly u svítidel (stropní krabice):
 
 | Ks | Shelly typ | Kde | Máme volné | Chybí |
 |---:|---|---|---:|---:|
-| 3 | Shelly 1 Mini (SH-01, SH-02, SH-03) | obývák / dolní a horní předsíň | 2 | **1** (~300 Kč) |
+| 3 | Shelly 1 Mini (SH-01, SH-02, SH-03) | H. předsíň u schodů (P-HP), dolní předsíň (u trafa), H. předsíň u pokoje (P-CP) | 2 | **1** (~300 Kč) |
 | 6 | Shelly Plus 2PM (SH-05, SH-06, SH-14, SH-15, SH-16, SH-17) | obývák (2) + pracovna (2) + koupelna horní (1) + WC (1) | 5 | **1** (~1 000 Kč) |
 | 1 | Shelly i4 (SH-07) | obývák | 2 | 0 (1 ks zbyde jako rezerva) |
 | — | KU68 kroužky + WAGO svorky + drobné | — | — | rezerva ~400 Kč |

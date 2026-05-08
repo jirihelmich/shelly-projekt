@@ -56,11 +56,11 @@ plates:
       - type: single_switch
         switch_ref: SW-F1
         cells:
-          - { label: "LED pásek", circuit: L-02 }
+          - { label: "Předsíň strop", circuit: L-09 }
       - type: single_switch
         switch_ref: SW-F2
         cells:
-          - { label: "Předsíň strop", circuit: L-09 }
+          - { label: "LED pásek", circuit: L-02 }
 
   - id: P-DP-G
     room: Dolní předsíň
@@ -71,8 +71,8 @@ plates:
       - type: double_switch
         switch_ref: SW-G
         cells:
-          - { label: "LED pásek", circuit: L-02 }
           - { label: "Předsíň strop", circuit: L-09 }
+          - { label: "LED pásek", circuit: L-02 }
 
   # ============ HORNÍ PŘEDSÍŇ — 1 rámeček u schodů (2 jednovypínače) + 1 samostatný ============
 
@@ -80,6 +80,7 @@ plates:
     room: Horní předsíň
     location: U schodů
     orientation: horizontal
+    note: "Krabice za SW-H1 obsahuje SH-01 Mini (okruh L-01); krabice za SW-H2 je BEZ Shelly (jiný okruh L-03, paralelka přes stáv. schodišťák do SH-03 v P-CP)."
     components:
       - type: single_switch
         switch_ref: SW-H1
@@ -96,7 +97,7 @@ plates:
     room: Horní předsíň
     location: U pokoje
     orientation: horizontal
-    note: "Paralelka k SW-H2 přes stávající schodišťákový drát → SH-03 SW1"
+    note: "Krabice na okruhu L-03 — obsahuje SH-03 Mini. SW-H2 (u schodů) je paralelka přes stáv. schodišťák."
     components:
       - type: single_switch
         switch_ref: SW-CP

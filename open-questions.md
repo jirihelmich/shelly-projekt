@@ -9,7 +9,8 @@ Každá z nich může ovlivnit kusovník nebo zapojení.
 
 - [ ] **L-02 LED pásek dolní předsíň**: skutečně existují 2 volné vodiče mezi krabicí SW-F1 (pracovna) a krabicí SW-G (dveře)? Lze jeden použít jako signálový k SH-02 SW1?
 - [ ] **L-09 Předsíň strop (HUE)**: potvrzeno "schodišťák na obou okruzích". Ověřit fyzicky, že druhý volný drát existuje.
-- [ ] **L-03 Lustr horní předsíň**: 2 volné vodiče mezi SW-H2 (u schodů v horní předsíni) a SW-CP (chodba u pokoje)?
+- [ ] **L-01 Schodiště (Obývák↔H. předsíň schodišťák)**: alespoň 1 volná žíla pro signál SW-A → SH-01 SW1 (v krabici u schodů). PE jako bonus pro sjednocení napříč krabicemi.
+- [ ] **L-03 Lustr horní předsíň (H. předsíň↔P-CP schodišťák)**: alespoň 1 volná žíla pro signál SW-CP → SH-01 SW2.
 - [ ] **L-07 Lišta 3**: existuje drát mezi SW-D v obýváku a kuchyňským rámečkem (paralelka pro Lišta 3)?
 - [ ] **L-04 Lustr jídelna (HUE)**: existuje stávající schodišťákový drát Obývák (SW-D) ↔ Jídelna (SW-J) pro paralelní zapojení SW-D2 + SW-J2 na SH-06 SW2? Pokud ne, bude potřeba i4 v jídelně (+1× i4, +600 Kč).
 - [ ] **L-09 Předsíň strop (HUE)**: existuje stávající schodišťákový drát Obývák (SW-B) ↔ Dolní předsíň (SW-F2) pro paralelní zapojení SW-B1 + SW-F2 + SW-G2 na SH-07 IN2? Pokud ne, bude potřeba Plus 2PM místo Mini v dolní předsíni (+1× 2PM, vyšší cena).
@@ -80,12 +81,23 @@ HA automatizace: 2 trigger entity (sh_07_input_2 + sh_08_input_1) → `light.tog
 - [ ] Schodiště je 2-cestné přes HA (SW-A obývák, SW-H1 horní předsíň). Pokud HA spadne, žádný vypínač nefunguje.
 - [ ] Stojí za to zapojit jedno tlačítko (nejbližší k SH-01) přímo do SH-01 SW1 jako fallback?
 
-**Rozhodnutí:** ne, schodiště je chodba, v nouzi bez světla se projde.
+**Rozhodnutí:** ne, schodiště je chodba, v nouzi bez světla se projde. **Update v0.5:** L-01 i L-03 jsou na vlastních okruzích, každý má vlastní Mini lokálně (SH-01 v P-HP za SW-H1, SH-03 v P-CP za SW-CP), oba attached. Offline fallback funguje pro obě svítidla — paralelky (SW-A pro L-01, SW-H2 pro L-03) jdou taky offline (signál jde přímo na SW vstup Mini).
 
 ### 9. Scény na long-press / double-click
 
 - [ ] Které tlačítka budou mít jaké scény? (short = toggle, long = ?, double = ?)
 - [ ] Dokumentovat v `ha/scenes.md` (zatím neexistuje)
+
+### 10. Cross-circuit signální vodič přes schodišťák — bezpečnost
+
+Po v0.5 jsou Shelly v krabicích na vlastních okruzích (L-01 v P-HP, L-03 v P-CP), ale paralelky pořád jdou přes stáv. schodišťáky a mohou křížit jističe.
+
+- [ ] **L-01 / SW-A obývák ↔ SH-01 P-HP**: SW-A posílá pulz fáze (z **obývákového** jističe) přes stáv. schodišťák do SH-01 SW1. Tlačítko v obývákové krabici dostává L z lokální fáze (obývák), pulz přes drát do P-HP. Při údržbě v krabici za SW-A nebo v krabici SH-01 je třeba vypnout **jistič obyváku I jistič L-01** (kvůli cross-circuit signálu).
+- [ ] **L-03 / SW-H2 (u schodů) ↔ SH-03 P-CP**: SW-H2 v krabici u schodů posílá pulz fáze přes stáv. schodišťák do SH-03 SW1 v P-CP. Krabice za SW-H2 je _vedle_ krabice za SW-H1, ale na **jiném okruhu** (L-03). SW-H2 dostává L z okruhu L-03 (přes WAGO v krabici za SW-H2 — ale L-03 nemá v této krabici N, jen L pro tlačítko)? Nebo z lokálního okruhu (L-01)? **Ověřit** — bezpečně cross-circuit signál vždy hlásit štítkem.
+- [ ] Fyzicky: označit v krabicích štítky:
+  - Obývák za SW-A: **"signál schodiště do P-HP. Vypnout jistič L-01 (H. předsíně) před údržbou"**
+  - P-HP za SW-H2: **"signál L-03 do P-CP. Vypnout jistič L-03 před údržbou"**
+- [ ] **Doporučení:** ověřit, že fáze SW-A v obýváku je na **stejné fázi** (L1 vs L2 vs L3) jako napájení SH-01 v P-HP. Pokud ne, riziko 400V mezi vodiči ve stáv. schodišťáku.
 
 ## Log změn rozhodnutí
 

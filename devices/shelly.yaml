@@ -7,19 +7,20 @@ devices:
 
   - id: SH-01
     model: Shelly 1 Mini
-    location: Za vypínačem SW-A v obýváku (konzole)
+    location: V krabici u schodů v horní předsíni (P-HP, za SW-H1)
     function: Spíná fázi svítidla schodiště (L-01)
     mode: attached
     inputs:
-      SW1: [SW-A, SW-H1]  # attached + paralelka přes stáv. schodišťák
+      SW1: [SW-H1, SW-A]  # SW-H1 attached lokálně + SW-A paralelka přes stáv. schodišťák
     outputs:
       O1: L-01 (schodiště)
-    controlled_by: [SW-A, SW-H1]
+    controlled_by: [SW-H1, SW-A]
     notes: >
-      Mini má 1 výstup a 1 vstup — stačí pro schodiště.
-      SW-A připojen attached přímo na SW1; SW-H1 paralelka přes stávající schodišťákový
-      drát Obývák↔Horní předsíň do stejného vstupu SW1.
-      Funguje offline bez HA. Umístěno v obýváku (konzole) kvůli koncentraci instalace.
+      L-01 a L-03 jsou na DIFERENTNÍCH okruzích — každý má vlastní L+N v jiné krabici.
+      L-01 schodiště má L+N v krabici u schodů (P-HP); L-03 lustr má L+N v krabici P-CP u pokoje.
+      Proto 2× Mini, jeden v každé krabici, ne sdílené 2PM.
+      SW-H1 attached lokálně, SW-A v obýváku paralelka přes stáv. schodišťák Obývák↔H. předsíň.
+      Funguje offline bez HA.
 
   - id: SH-02
     model: Shelly 1 Mini
@@ -27,14 +28,15 @@ devices:
     function: Spíná 220V do LED driveru pásku (L-02)
     mode: attached
     inputs:
-      SW1: [SW-F1, SW-G1]  # signálový vodič z tlačítek přes stáv. schodišťák
+      SW1: [SW-F2, SW-G2]  # signálový vodič z tlačítek přes stáv. schodišťák
     outputs:
       O1: L-02 (LED pásek 220V)
-    controlled_by: [SW-F1, SW-G1]
+    controlled_by: [SW-F2, SW-G2]
     notes: >
       Umístěno v krabičce u LED driveru, ne pod vypínačem — tam je víc místa
-      a Shelly je přímo u spínaného zařízení. SW-F1 attached signálovým
-      vodičem, SW-G1 paralelka přes stáv. schodišťák Pracovna↔Dveře.
+      a Shelly je přímo u spínaného zařízení. SW-F2 attached signálovým
+      vodičem, SW-G2 paralelka přes stáv. schodišťák Pracovna↔Dveře.
+      (LED pásek = pravá buňka dvojvypínače / dolní v rámečku u pracovny — viz v0.5 swap.)
 
   - id: SH-03
     model: Shelly 1 Mini
@@ -42,14 +44,15 @@ devices:
     function: Spíná fázi lustru horní předsíně (L-03)
     mode: attached
     inputs:
-      SW1: [SW-CP, SW-H2]  # SW-CP attached, SW-H2 paralelka přes stáv. schodišťák
+      SW1: [SW-CP, SW-H2]  # SW-CP attached lokálně + SW-H2 paralelka přes stáv. schodišťák
     outputs:
       O1: L-03 (lustr horní předsíň)
     controlled_by: [SW-CP, SW-H2]
     notes: >
-      Umístěno v krabici za SW-CP (samostatný v horní předsíni, P-CP) — více místa
-      než u SW-H1+H2 u schodů. SW-H2 paralelka přes stáv. schodišťákový drát
-      (SW-CP ↔ SW-H2). Funguje offline bez HA.
+      L-03 je na svém vlastním okruhu, který má L+N v krabici P-CP (u pokoje).
+      Proto Mini lokálně tady, ne sdílené 2PM s L-01.
+      SW-CP attached lokálně. SW-H2 paralelka přes stáv. schodišťák H. předsíň (u schodů) ↔ P-CP.
+      Funguje offline bez HA.
 
   # (dříve zde bylo SH-04 i4 za SW-J v jídelně pro Lustr jídelna L-04;
   # odstraněno — SW-J2 je paralelka k SW-D2 přes stávající schodišťákový drát
@@ -93,29 +96,24 @@ devices:
     function: Čte IN2 pro L-09 Předsíň strop (3 tlačítka paralelka), IN3 pro L-10 Obývák strop
     mode: detached
     inputs:
-      IN1: rezerva  # (dříve SW-A; ten je teď attached přímo na SH-01 Mini)
-      IN2: [SW-B1, SW-F2, SW-G2]  # paralelka: B1 lokálně + F2/G2 přes stáv. schodišťák Obývák↔Dolní předsíň
+      IN1: rezerva  # (SW-A je paralelka přes schodišťák do SH-01 v P-HP, ne na i4)
+      IN2: [SW-B1, SW-F1, SW-G1]  # paralelka: B1 lokálně + F1/G1 přes stáv. schodišťák Obývák↔Dolní předsíň
       IN3: SW-B2  # → HA → Hue L-10
       IN4: rezerva
     outputs: []
-    controlled_by: [SW-B1, SW-B2, SW-F2, SW-G2]
+    controlled_by: [SW-B1, SW-B2, SW-F1, SW-G1]
     notes: >
-      IN2 čte 3 tlačítka paralelně (SW-B1 v obýváku + SW-F2/G2 v dolní předsíni
+      IN2 čte 3 tlačítka paralelně (SW-B1 v obýváku + SW-F1/G1 v dolní předsíni
       přes stáv. schodišťákový drát). Všechny 3 toggluje stejnou Hue skupinu L-09.
-      IN1 uvolněno (SW-A attached na SH-01).
+      Po v0.5 swapu: L-09 (Předsíň strop) je horní/levá buňka, L-02 (LED pásek) je dolní/pravá.
 
   # (dříve zde bylo SH-08 i4 v dolní předsíni pro SW-F2+G2 event;
   # odstraněno — SH-02 Plus 2PM nyní pokrývá oba kanály: K1 attached pro LED pásek,
   # K2 detached pro Hue Předsíň strop event.)
 
-  # (dříve zde bylo SH-09 i4 v horní předsíni pro SW-H1;
-  # odstraněno — SW-H1 je teď paralelka k SW-A přes stáv. schodišťákový drát
-  # do SH-01 SW1 v obýváku. Krabice u schodů (SW-H1+H2) je zcela bez Shelly —
-  # SW-H1 paralelka do SH-01, SW-H2 paralelka do SH-03 (za SW-CP).)
-
-  # (dříve zde bylo SH-10 i4 za SW-CP pro 3-cestné schodiště;
-  # odstraněno po úpravě: SW-CP = paralelka k SW-H2 pro lustr přes stáv. schodišťákový drát,
-  # krabice Chodba u pokoje je bez Shelly.)
+  # (dříve zde bylo SH-09 i4 v horní předsíni pro SW-H1; SH-10 i4 za SW-CP pro 3-cestné schodiště;
+  # odstraněno — paralelní zapojení tlačítek na SW vstup Mini v každé krabici stačí,
+  # není potřeba i4 + HA pro 2-cestné ovládání.)
 
   # ============ PRACOVNA (2× Plus 2PM za dvěma dvojvypínači u dveří) ============
 
@@ -266,7 +264,7 @@ devices:
 
 summary:
   new:
-    shelly_1_mini: 3  # SH-01, SH-02, SH-03
+    shelly_1_mini: 3  # SH-01 (P-HP, schodiště), SH-02 (u trafa, LED pásek), SH-03 (P-CP, lustr H. předsíň)
     plus_2pm: 6       # SH-05, SH-06 (obývák); SH-14, SH-15 (pracovna); SH-16 (koupelna horní); SH-17 (WC)
     i4: 1             # SH-07 obývák
     total_new_installed: 10
@@ -276,17 +274,19 @@ summary:
   existing:
     rgbw_pm: 2     # SH-E1 obývák, SH-E2 jídelna
     other: 1       # SH-E3 kuchyň (model neznámý)
-  inventory_free:    # volné kusy pro tuto objednávku (ložnice měla vlastní hardware mimo tento inventář)
+  inventory_free:    # volné kusy pro tuto objednávku
     shelly_1_mini: 2
     plus_2pm: 5
-    i4: 2            # volné, ložnice neuberla
-    rgbw_pm: 0       # nepotřebujeme pro tento scope
+    i4: 2
+    rgbw_pm: 0
   to_purchase:
-    shelly_1_mini: 1  # vlastníme 2, potřeba 3 (SH-01/02/03) → chybí 1 (~300 Kč)
-    i4: 0             # vlastníme 2 volné, potřeba 1 (SH-07) → 1 ks rezerva
+    shelly_1_mini: 1  # vlastníme 2, potřeba 3 → chybí 1 (~300 Kč)
     plus_2pm: 1       # 5 volných, potřeba 6 → chybí 1 (~1000 Kč)
+    i4: 0             # vlastníme 2, potřeba 1 (SH-07) → 1 ks rezerva
     estimated_cost_czk: 1700  # 300 + 1000 + rezerva 400 (KU68 + WAGO + drobné)
   notes: >
     Ložnice (SH-11..13) už je hotová a v provozu — mimo tuto objednávku.
-    Volný inventář: 2 Mini (chybí 1) + 5 Plus 2PM (chybí 1) + 2 i4 (stačí, 1 zbyde rezerva).
+    Topologická poznámka v0.5: L-01 (schodiště) a L-03 (lustr H. předsíň) jsou na různých
+    okruzích, každý má L+N v jiné krabici → 2× Mini (SH-01 v P-HP, SH-03 v P-CP).
+    Předchozí pokus sloučit do 1× 2PM v krabici u schodů (v0.4) byl zrušen.
     Po této objednávce 0 rezervy Plus 2PM — zvážit nákup +1 ks navíc (+1000 Kč) kvůli poruchám.

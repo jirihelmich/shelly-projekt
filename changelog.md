@@ -168,6 +168,78 @@ Plus 2PM po objednávce 0 rezervy — zvážit +1 ks navíc (~1 000 Kč).
 - Philosophy v README upravena: přízemí je koncentrace v obýváku, patro/pracovna/koupelny/WC mají Shelly lokálně za vypínačem. Bez paralelek mimo přízemí.
 - 2PM se stává "výchozím modelem pro dvojvypínač s HUE+non-HUE kombinací" (K1 attached, K2 detached, O2 nezapojen).
 
+## DRAFT v0.4 — 2026-05-08
+
+### Přesun schodišťového Shelly z obýváku do krabice u schodů (P-HP)
+
+**Trigger:** elektrikářské zjištění při kontrole krabic:
+1. Stávající schodišťákový drát Obývák↔H. předsíň je na **jiném jističi** než obývákové vypínače.
+2. **N (nulák) je dostupný pouze v horní předsíni**, v obývákové krabici za SW-A není volně k dispozici N pro napájení Shelly.
+
+**Důsledek topologické změny:**
+
+- **SH-01 přesunuto** z obývákové konzole (za SW-A) do krabice u schodů v horní předsíni (P-HP, za SW-H1+H2).
+- **SH-01 povýšeno z Mini na Plus 2PM** — jeden Shelly nyní pokrývá **oba schodišťáky**:
+  - K1 = L-01 schodiště (SW-H1 attached lokálně, SW-A v obýváku paralelka přes stáv. schodišťák)
+  - K2 = L-03 lustr horní předsíň (SW-H2 attached lokálně, SW-CP v P-CP paralelka přes stáv. schodišťák)
+- **SH-03 odstraněno** — funkci L-03 nyní pokrývá SH-01 K2.
+- **Krabice za SW-A v obýváku je nyní BEZ Shelly** — jen tlačítko + WAGO + signální vodič přes stáv. schodišťák.
+- **Krabice za SW-CP (P-CP) je nyní BEZ Shelly** — stejný princip.
+
+### Kusovník — přepočet po přesunu
+
+| Ks | Shelly typ | Volné | Chybí |
+|---:|---|---:|---:|
+| 1 | Shelly 1 Mini (jen SH-02) | 2 | 0 (1 zbyde rezerva) |
+| 7 | Shelly Plus 2PM | 5 | **2** (~2 000 Kč) |
+| 1 | Shelly i4 (SH-07) | 2 | 0 (1 zbyde rezerva) |
+
+**Celkem k nákupu: ~2 400 Kč** (2 000 + rezerva 400 Kč KU68/WAGO).
+Cena +700 Kč proti v0.3, protože 2× Plus 2PM stojí víc než 1× Mini + 1× Plus 2PM. Důvod: jeden Plus 2PM nahradil dva Mini.
+
+### Bezpečnostní poznámka — cross-circuit signální vodič
+
+SW-A v obýváku posílá fázi (z obývákového jističe) přes stáv. schodišťák do SH-01 (na jiném jističi v H. předsíni). Při údržbě je nutné vypnout **oba jističe**. Přidáno do `open-questions.md` § 10.
+
+### Filozofie aktualizována
+
+První zásada v README: **"Shelly tam, kde má L+N"** — dostupnost N v krabici je rozhodující kritérium pro umístění Shelly. Schodišťákové dráty bývají na jiném okruhu než vypínač u krabice — vždy ověřit před montáží.
+
+## DRAFT v0.5 — 2026-05-08
+
+### Revert v0.4 — L-01 a L-03 jsou na různých okruzích
+
+**Trigger:** elektrikářské zjištění při prohlídce krabic:
+- L-01 (schodiště) a L-03 (lustr horní předsíň) jsou na **dvou různých okruzích / jističích**
+- Každý okruh má L+N v jiné krabici (L-01 v P-HP u schodů, L-03 v P-CP u pokoje)
+- Sdílet jeden 2PM mezi nimi by znamenalo cross-circuit přemostění napájení Shelly — špatná praxe
+
+### Topologie po v0.5
+
+- **SH-01 Shelly 1 Mini** v krabici u schodů (P-HP, za SW-H1) na okruhu L-01:
+  - SW-H1 attached lokálně
+  - SW-A v obýváku paralelka přes stáv. schodišťák Obývák↔H. předsíň
+- **SH-03 Shelly 1 Mini** v krabici P-CP (za SW-CP) na okruhu L-03:
+  - SW-CP attached lokálně
+  - SW-H2 (u schodů, vedle SW-H1) paralelka přes stáv. schodišťák H. předsíň (u schodů) ↔ P-CP
+
+Krabice za SW-A (obývák), za SW-H2 (u schodů) zůstávají BEZ Shelly — jen tlačítko + WAGO + signální vodič přes stáv. schodišťák.
+
+### Kusovník — zpět na úroveň v0.3
+
+| Ks | Shelly typ | Volné | Chybí |
+|---:|---|---:|---:|
+| 3 | Shelly 1 Mini | 2 | **1** (~300 Kč) |
+| 6 | Shelly Plus 2PM | 5 | **1** (~1 000 Kč) |
+| 1 | Shelly i4 (SH-07) | 2 | 0 (1 zbyde rezerva) |
+
+**Celkem k nákupu: ~1 700 Kč** (300 + 1 000 + rezerva 400 Kč KU68/WAGO).
+
+### Filozofie aktualizována
+
+- "Shelly tam, kde má L+N" — dále zpřesněno: **každý okruh = vlastní Shelly v té krabici, kde má L+N**. Neslučujeme okruhy do jednoho 2PM, pokud by to znamenalo cross-circuit přemostění napájení.
+- Pokus o sloučení L-01+L-03 do 1× Plus 2PM (v0.4) byl zrušen po zjištění, že okruhy jsou různé.
+
 ## Další plánované iterace
 
 - [ ] Ověřit otevřené otázky z `open-questions.md`

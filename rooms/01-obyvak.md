@@ -6,7 +6,7 @@ U vstupu do obýváku: 4× dvojvypínač v řadě + 1× stávající vypínač p
 
 | ID | Tlačítko | Okruh | Typ | Shelly vstup | Režim |
 |---|---|---|---|---|---|
-| SW-A | A | L-01 Schodiště | non-HUE | SH-01 SW1 (Mini) | attached, paralelně s SW-H1 přes stáv. schodišťák |
+| SW-A | A | L-01 Schodiště | non-HUE | SH-01 SW1 (Mini v krabici u schodů P-HP) | **paralelka** přes stáv. schodišťák Obývák↔H. předsíň |
 | SW-B | B1 | L-09 Předsíň strop (sdíleno) | HUE | SH-07 IN2 | detached |
 | SW-B | B2 | L-10 Obývák strop | HUE | SH-07 IN3 | detached |
 | SW-C | C1 | L-05 Lišta 1 | non-HUE | SH-05 SW1 | attached |
@@ -19,10 +19,11 @@ U vstupu do obýváku: 4× dvojvypínač v řadě + 1× stávající vypínač p
 
 | ID | Model | Umístění | Výstupy |
 |---|---|---|---|
-| SH-01 | Shelly 1 Mini | Za SW-A (konzole) | O1→L-01 schodiště |
 | SH-05 | Plus 2PM | Za SW-C | O1→L-05, O2→L-06 |
 | SH-06 | Plus 2PM | Za SW-D | O1→L-07; O2 nezapojen (L-04 je HUE) |
-| SH-07 | i4 | Za SW-A + SW-B | IN2=SW-B1, IN3=SW-B2; IN1 rezerva |
+| SH-07 | i4 | Za SW-B (přízemní konzole) | IN2=SW-B1, IN3=SW-B2; IN1, IN4 rezerva |
+
+> **Pozor:** SH-01 (Mini, jen schodiště L-01) **nesedí v obýváku** — sedí v krabici u schodů v horní předsíni (P-HP, za SW-H1), kde je dostupný N pro okruh L-01. Krabice za SW-A v obýváku je tedy **bez Shelly**, jen tlačítko + WAGO + signální vodič přes stáv. schodišťák.
 
 ## Stávající
 
@@ -31,8 +32,8 @@ U vstupu do obýváku: 4× dvojvypínač v řadě + 1× stávající vypínač p
 ## Instalační poznámky
 
 - Všechny krabice jsou mělké → **prosekat** nebo použít KU68 kroužek
-- SH-05, SH-06, SH-07 by měly být za vypínači C, D a A+B — ověřit, že jsou fyzicky vedle sebe (jeden rámeček / hnízdo)
-- Pokud SW-A je daleko od SW-B, potřeba +1× i4
+- SH-05, SH-06, SH-07 by měly být za vypínači C, D a B — ověřit, že jsou fyzicky vedle sebe
+- Krabice za SW-A je BEZ Shelly: jen tlačítko, WAGO, signální vodič přes stáv. schodišťák do SH-01 SW1 (v horní předsíni)
 
 ## Zapojení SH-06 K2 (detached, paralelka s jídelnou pro Hue Lustr)
 
@@ -46,3 +47,4 @@ U vstupu do obýváku: 4× dvojvypínač v řadě + 1× stávající vypínač p
 ## Ověřit
 
 - [ ] Fyzické rozmístění SW-A, SW-B, SW-C, SW-D (stejný rámeček?)
+- [ ] Krabice za SW-A: vejde se WAGO + signální vodič ze schodišťáku po proseknutí (Shelly tam **není**)

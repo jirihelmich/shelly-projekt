@@ -8,11 +8,14 @@ circuits:
     type: non-HUE
     voltage: 230V
     dimmable: false
-    switched_by: SH-01  # Shelly 1 Mini v obývákové konzoli (za SW-A)
-    controlled_from: [SW-A, SW-H1]
-    control_mode: SW-A attached (SH-01 SW1), SW-H1 paralelně přes stáv. schodišťákový drát
+    switched_by: SH-01  # Shelly 1 Mini v krabici u schodů (P-HP, za SW-H1)
+    controlled_from: [SW-H1, SW-A]
+    control_mode: SW-H1 attached (SH-01 SW1), SW-A paralelně přes stáv. schodišťákový drát Obývák↔H. předsíň
     ha_entity: switch.sh_01_schodiste
-    notes: Funguje offline bez HA. Fáze ke svítidlu schodiště vede z SH-01 O1 (v obýváku).
+    notes: >
+      Funguje offline bez HA. Fáze ke svítidlu schodiště vede z SH-01 O1 (v krabici u schodů
+      v horní předsíni). Schodišťák je na jiném okruhu než obývák — N (nulák) je k dispozici
+      v krabici u schodů, proto Shelly tady (ne v obýváku).
 
   - id: L-02
     name: LED pásek dolní předsíň
@@ -21,8 +24,8 @@ circuits:
     voltage: 220V
     dimmable: false
     switched_by: SH-02  # spíná 220V stranu (primár trafa nebo přímo)
-    controlled_from: [SW-F1, SW-G1]
-    control_mode: 2-way parallel to SW1
+    controlled_from: [SW-F2, SW-G2]
+    control_mode: 2-way parallel to SW1 (SW-F2 attached signálem, SW-G2 paralelka přes stáv. schodišťák)
     ha_entity: switch.sh_02_led_pasek
     notes: LED pásek na 220V. Shelly Plus 1PM spíná 220V stranu. Ověřit kompatibilitu s driverem pásku.
 
@@ -32,10 +35,13 @@ circuits:
     type: non-HUE
     voltage: 230V
     dimmable: false
-    switched_by: SH-03
-    controlled_from: [SW-H2, SW-CP]
-    control_mode: 2-way parallel to SW1
+    switched_by: SH-03  # Shelly 1 Mini v krabici P-CP (za SW-CP)
+    controlled_from: [SW-CP, SW-H2]
+    control_mode: SW-CP attached (SH-03 SW1), SW-H2 paralelně přes stáv. schodišťák H. předsíň (u schodů) ↔ P-CP
     ha_entity: switch.sh_03_lustr_horni_predsin
+    notes: >
+      L-03 je na samostatném okruhu (jiném než L-01 schodiště) s L+N v krabici P-CP u pokoje.
+      Proto vlastní Mini SH-03 lokálně tady. Funguje offline bez HA.
 
   - id: L-04
     name: Lustr jídelna
@@ -95,14 +101,15 @@ circuits:
     voltage: 230V (trvale)
     dimmable: true (via Hue)
     switched_by: null
-    controlled_from: [SW-B1, SW-F2, SW-G2]
+    controlled_from: [SW-B1, SW-F1, SW-G1]
     control_mode: 3 tlačítka paralelně na SH-07 IN2 (i4 v obýváku) → event → HA → Hue
     ha_entity: light.dolni_predsin_strop
     notes: >
       Jedno Hue svítidlo ovládané ze 3 míst, všechna 3 tlačítka vedou
       paralelně na SH-07 IN2 v obývákové konzoli (přes stáv. schodišťákový
-      drát Obývák↔Dolní předsíň mezi SW-B a SW-F2).
+      drát Obývák↔Dolní předsíň mezi SW-B a SW-F1).
       HA vidí jediný event sh_07_input_2, toggluje Hue skupinu.
+      (Po v0.5 swapu: L-09 = horní tlačítko v rámečku u pracovny / levá buňka dvojvypínače u dveří.)
 
   - id: L-10
     name: Obývák strop
