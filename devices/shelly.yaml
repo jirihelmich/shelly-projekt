@@ -7,9 +7,10 @@ devices:
 
   - id: SH-01
     model: Shelly 1 Mini
-    location: V krabici u schodů v horní předsíni (P-HP, za SW-H1)
+    location: Za vypínačem SW-H1 v horní předsíni (P-HP, krabice u schodů)
     function: Spíná fázi svítidla schodiště (L-01)
     mode: attached
+    status: existing  # nainstalováno v rámci horní předsíně (v0.6)
     inputs:
       SW1: [SW-H1, SW-A]  # SW-H1 attached lokálně + SW-A paralelka přes stáv. schodišťák
     outputs:
@@ -43,6 +44,7 @@ devices:
     location: Za vypínačem SW-CP v horní předsíni (u pokoje, P-CP)
     function: Spíná fázi lustru horní předsíně (L-03)
     mode: attached
+    status: existing  # nainstalováno v rámci horní předsíně (v0.6)
     inputs:
       SW1: [SW-CP, SW-H2]  # SW-CP attached lokálně + SW-H2 paralelka přes stáv. schodišťák
     outputs:
@@ -63,6 +65,7 @@ devices:
     location: Za vypínačem SW-C v obýváku
     function: Spíná Lišta 1 (L-05) a Lišta 2 (L-06)
     mode: attached
+    status: existing  # nainstalováno v rámci P-OB (v0.6)
     inputs:
       SW1: SW-C1
       SW2: SW-C2
@@ -77,24 +80,27 @@ devices:
     location: Za vypínačem SW-D v obýváku
     function: K1 spíná Lišta 3 (L-07); K2 čte tlačítka SW-D2 + SW-J2 paralelně (event → HA → Hue L-04)
     mode: mixed  # K1 attached, K2 detached
+    status: existing  # nainstalováno v rámci P-OB (v0.6)
     inputs:
-      SW1: [SW-D1, SW-KU-L3]  # attached + paralelka s kuchyní přes stáv. drát
-      SW2: [SW-D2, SW-J2]     # detached; paralelka s jídelnou přes stáv. schodišťák
+      SW1: [SW-D1, SW-KU-L3]    # attached + paralelka s kuchyní přes stáv. drát
+      SW2: [SW-D2, SW-J-LUSTR]  # detached; paralelka s levou buňkou nového dvojvypínače v jídelně přes stáv. schodišťák
     outputs:
       O1: L-07 (Lišta 3)
       O2: unused  # L-04 je HUE — fáze trvalá
-    controlled_by: [SW-D1, SW-D2, SW-J2, SW-KU-L3]
+    controlled_by: [SW-D1, SW-D2, SW-J-LUSTR, SW-KU-L3]
     notes: >
-      K2 detached: výstup O2 nezapojen (L-04 je HUE). Stisk SW-D2 (obývák) i SW-J2
-      (jídelna) pošle stejný event sh_06_input_2 — HA toggluje Hue L-04.
-      Stávající schodišťákový drát Obývák↔Jídelna vede signál do SH-06 SW2.
+      K2 detached: výstup O2 nezapojen (L-04 je HUE). Stisk SW-D2 (obývák) i SW-J-LUSTR
+      (levá buňka nového dvojvypínače v jídelně) pošle stejný event sh_06_input_2 —
+      HA toggluje Hue L-04. Stávající schodišťákový drát Obývák↔Jídelna vede signál do SH-06 SW2.
       K1 má paralelku přes stáv. drát z kuchyňského tlačítka Lišta 3 (SW-KU-L3).
+      (Před v0.7 úpravou jídelny: SW-J2 jednovypínač.)
 
   - id: SH-07
     model: Shelly i4
     location: Za vypínači SW-A + SW-B v obýváku
     function: Čte IN2 pro L-09 Předsíň strop (3 tlačítka paralelka), IN3 pro L-10 Obývák strop
     mode: detached
+    status: existing  # nainstalováno v rámci P-OB (v0.6)
     inputs:
       IN1: rezerva  # (SW-A je paralelka přes schodišťák do SH-01 v P-HP, ne na i4)
       IN2: [SW-B1, SW-F1, SW-G1]  # paralelka: B1 lokálně + F1/G1 přes stáv. schodišťák Obývák↔Dolní předsíň
@@ -205,8 +211,11 @@ devices:
     function: Ovládá LED 24V v jídelně (L-13)
     mode: attached
     status: existing
-    controlled_by: [SW-J1]
-    notes: Stávající, beze změny.
+    controlled_by: [SW-J-LED]  # pravá buňka nového dvojvypínače SW-J, přes relé 220→24V (před úpravou: SW-J1)
+    notes: >
+      Stávající RGBW PM, samotné Shelly se nemění. Po úpravě jídelny ovládáno z pravé buňky
+      nového dvojvypínače SW-J (220V) přes předsazené relé 220→24V (analogie LED digestoře
+      v kuchyni). Krabice s tlačítkem je napojena na zásuvkový okruh, takže má 220V přívod.
 
   - id: SH-E3
     model: (neznámý, pravděpodobně Shelly RGBW PM)
@@ -263,30 +272,33 @@ devices:
 # ============ SOUHRN ============
 
 summary:
-  new:
-    shelly_1_mini: 3  # SH-01 (P-HP, schodiště), SH-02 (u trafa, LED pásek), SH-03 (P-CP, lustr H. předsíň)
-    plus_2pm: 6       # SH-05, SH-06 (obývák); SH-14, SH-15 (pracovna); SH-16 (koupelna horní); SH-17 (WC)
-    i4: 1             # SH-07 obývák
-    total_new_installed: 10
-  loznice_done:      # už instalováno dřív, mimo tuto objednávku
-    i4: 2            # SH-11, SH-12
-    rgbw_pm: 1       # SH-13
-  existing:
+  installed:        # už nainstalováno (status: existing) — mimo objednávku
+    shelly_1_mini: 2   # SH-01 (P-HP), SH-03 (P-CP) — horní předsíň
+    plus_2pm: 2        # SH-05, SH-06 — P-OB obývák
+    i4: 1              # SH-07 — P-OB obývák
+    loznice:           # už dříve instalováno (separate scope)
+      i4: 2            # SH-11, SH-12
+      rgbw_pm: 1       # SH-13
+  remaining_to_install:  # zbývá namontovat — toto se kupuje
+    shelly_1_mini: 1   # SH-02 (u trafa, LED pásek dolní předsíň)
+    plus_2pm: 4        # SH-14, SH-15 (pracovna); SH-16 (koupelna horní); SH-17 (WC)
+    i4: 0
+    total: 5
+  existing_legacy:   # předprojektové stávající, beze změny
     rgbw_pm: 2     # SH-E1 obývák, SH-E2 jídelna
     other: 1       # SH-E3 kuchyň (model neznámý)
-  inventory_free:    # volné kusy pro tuto objednávku
-    shelly_1_mini: 2
-    plus_2pm: 5
-    i4: 2
+  inventory_free:    # volné kusy pro zbývající instalaci (po spotřebě nainstalovanými)
+    shelly_1_mini: 0   # 2 vlastněné, oba v P-HP/P-CP
+    plus_2pm: 3        # 5 vlastněných, 2 v P-OB → 3 volné
+    i4: 1              # 2 vlastněné, 1 v P-OB → 1 volný (rezerva)
     rgbw_pm: 0
   to_purchase:
-    shelly_1_mini: 1  # vlastníme 2, potřeba 3 → chybí 1 (~300 Kč)
-    plus_2pm: 1       # 5 volných, potřeba 6 → chybí 1 (~1000 Kč)
-    i4: 0             # vlastníme 2, potřeba 1 (SH-07) → 1 ks rezerva
+    shelly_1_mini: 1   # 0 volných, potřeba 1 (SH-02) → chybí 1 (~300 Kč)
+    plus_2pm: 1        # 3 volné, potřeba 4 (SH-14/15/16/17) → chybí 1 (~1000 Kč)
+    i4: 0              # 1 volný, potřeba 0 → rezerva
     estimated_cost_czk: 1700  # 300 + 1000 + rezerva 400 (KU68 + WAGO + drobné)
   notes: >
-    Ložnice (SH-11..13) už je hotová a v provozu — mimo tuto objednávku.
-    Topologická poznámka v0.5: L-01 (schodiště) a L-03 (lustr H. předsíň) jsou na různých
-    okruzích, každý má L+N v jiné krabici → 2× Mini (SH-01 v P-HP, SH-03 v P-CP).
-    Předchozí pokus sloučit do 1× 2PM v krabici u schodů (v0.4) byl zrušen.
+    v0.6: P-OB Shellys (SH-05, SH-06, SH-07) a horní předsíň Shellys (SH-01, SH-03)
+    už nainstalovány — označeno status: existing, vyřazeno ze zbývajícího kusovníku.
+    Ložnice (SH-11..13) už je dříve hotová a v provozu — mimo tuto objednávku.
     Po této objednávce 0 rezervy Plus 2PM — zvážit nákup +1 ks navíc (+1000 Kč) kvůli poruchám.

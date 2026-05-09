@@ -27,6 +27,7 @@ plates:
           - { label: "Schodiště", circuit: L-01 }
       - type: double_switch
         switch_ref: SW-B
+        note: "DVOUCESTNÝ pružinový dvojvypínač (3 svorky / přepínačový mechanismus)"
         cells:
           - { label: "Předsíň strop", circuit: L-09, note: "sdíleno s ovládáním v dolní předsíni" }
           - { label: "Obývák strop", circuit: L-10 }
@@ -42,6 +43,7 @@ plates:
           - { label: "Lišta 2", circuit: L-06 }
       - type: double_switch
         switch_ref: SW-D
+        note: "DVOUCESTNÝ pružinový dvojvypínač (3 svorky / přepínačový mechanismus)"
         cells:
           - { label: "Lišta 3", circuit: L-07 }
           - { label: "Lustr jídelna", circuit: L-04, note: "v nákresu označeno 'Lustr K', ale ovládá L-04 jídelna" }
@@ -66,10 +68,11 @@ plates:
     room: Dolní předsíň
     location: U dveří
     orientation: horizontal
-    note: "Paralelka k P-DP-F přes stávající schodišťákové dráty"
+    note: "Paralelka k P-DP-F přes stávající schodišťákové dráty. Dvojvypínač typu DVOUCESTNÝ (přepínačový mechanismus)."
     components:
       - type: double_switch
         switch_ref: SW-G
+        note: "DVOUCESTNÝ pružinový dvojvypínač (3 svorky / přepínačový mechanismus)"
         cells:
           - { label: "Předsíň strop", circuit: L-09 }
           - { label: "LED pásek", circuit: L-02 }
@@ -107,19 +110,42 @@ plates:
   # ============ JÍDELNA ============
 
   - id: P-JI
+    state: before_only
     room: Jídelna
     location: ""
     orientation: horizontal
-    note: "2 jednovypínače v jednom rámečku (ne dvojvypínač)."
+    note: "Stávající stav: 2 jednovypínače v jednom rámečku, pořadí zleva: Lustr (SW-J2 HUE paralelka přes schodišťák do SH-06 SW2 v obýváku), LED (SW-J1 → stávající SH-E2 24V)."
     components:
-      - type: single_switch
-        switch_ref: SW-J1
-        cells:
-          - { label: "LED", circuit: L-13, note: "LED jídelna (24V, stávající)" }
       - type: single_switch
         switch_ref: SW-J2
         cells:
           - { label: "Lustr", circuit: L-04 }
+      - type: single_switch
+        switch_ref: SW-J1
+        cells:
+          - { label: "LED", circuit: L-13, note: "LED jídelna (24V, stávající)" }
+
+  # ============ JÍDELNA — STAV PO ÚPRAVĚ ============
+  # Do krabičky je přivedený zásuvkový okruh (220V s N+PE). Sjednocení 2 jednovypínačů
+  # do 1 dvojvypínače uvolní místo pro zásuvku vlevo. Trik s relé 220→24V (jako u kuchyně
+  # LED digestoř): levá buňka dvojvypínače (220V) → relé → 24V vstup stávajícího SH-E2
+  # ovládá L-13 LED 24V. Pravá buňka (220V) zůstává paralelkou pro Hue Lustr (L-04).
+
+  - id: P-JI-AFTER
+    state: after_only
+    room: Jídelna
+    location: ""
+    orientation: horizontal
+    note: "Stav po úpravě: zásuvka (220V) + dvojvypínač (LED přes relé 220→24V do SH-E2 + Lustr HUE paralelka)."
+    components:
+      - type: socket
+        cells:
+          - { label: "Z", voltage: "220V" }
+      - type: double_switch
+        switch_ref: SW-J
+        cells:
+          - { label: "Lustr", circuit: L-04, voltage: "220V" }
+          - { label: "LED", circuit: L-13, voltage: "220V", note: "předsazené relé 220→24V před SH-E2" }
 
   # ============ KUCHYŇ (smíšený rámeček, 24V) ============
 

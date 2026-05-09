@@ -50,14 +50,15 @@ circuits:
     voltage: 230V (trvale)
     dimmable: true (via Hue)
     switched_by: null  # Hue, fáze trvalá
-    controlled_from: [SW-J2, SW-D2]
+    controlled_from: [SW-J-LUSTR, SW-D2]  # SW-J-LUSTR je levá buňka nového dvojvypínače SW-J (po sjednocení SW-J1+J2)
     control_mode: 2 tlačítka paralelně → SH-06 SW2 (detached) → event → HA → Hue
     ha_entity: light.jidelna_lustr
     notes: >
       HUE lustr — fáze trvale pod proudem, žádná Shelly fázi nespíná.
-      SW-D2 (obývák rámeček) a SW-J2 (jídelna) paralelně přes stávající schodišťákový drát
-      do SH-06 SW2 (Plus 2PM v obýváku, detached kanál K2). Jeden event pro obě tlačítka.
-      Žádná Shelly v jídelně není potřeba.
+      SW-D2 (obývák rámeček) a SW-J-LUSTR (levá buňka nového jídelnového dvojvypínače)
+      paralelně přes stávající schodišťákový drát do SH-06 SW2 (Plus 2PM v obýváku,
+      detached kanál K2). Jeden event pro obě tlačítka. Žádná Shelly v jídelně není potřeba.
+      (Před úpravou: SW-J2 jednovypínač; po úpravě: levá buňka SW-J dvojvypínače.)
 
   - id: L-05
     name: Lišta 1
@@ -138,8 +139,12 @@ circuits:
     type: RGBW-PM
     voltage: 24V
     switched_by: SH-E2
-    controlled_from: [SW-J1]
+    controlled_from: [SW-J-LED]  # pravá buňka nového dvojvypínače SW-J, přes relé 220→24V do SH-E2
     status: existing
+    notes: >
+      Stávající SH-E2 RGBW PM beze změny. Po úpravě jídelny ovládáno z pravé buňky
+      nového dvojvypínače SW-J (220V) přes předsazené relé 220→24V (analogie kuchyně,
+      LED digestoř). Před úpravou: SW-J1 jednovypínač.
 
   - id: L-14
     name: LED kuchyň A

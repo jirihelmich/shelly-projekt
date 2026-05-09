@@ -240,6 +240,59 @@ Krabice za SW-A (obývák), za SW-H2 (u schodů) zůstávají BEZ Shelly — jen
 - "Shelly tam, kde má L+N" — dále zpřesněno: **každý okruh = vlastní Shelly v té krabici, kde má L+N**. Neslučujeme okruhy do jednoho 2PM, pokud by to znamenalo cross-circuit přemostění napájení.
 - Pokus o sloučení L-01+L-03 do 1× Plus 2PM (v0.4) byl zrušen po zjištění, že okruhy jsou různé.
 
+## DRAFT v0.6 — 2026-05-08
+
+### Instalace P-OB obýváku a horní předsíně dokončena
+
+5 Shellys nainstalováno a v provozu (status: existing, ztlumené v diagramech, mimo objednávku):
+- **SH-01** Mini v P-HP (krabice u schodů) — L-01 schodiště
+- **SH-03** Mini v P-CP (u pokoje) — L-03 lustr horní předsíň
+- **SH-05** Plus 2PM v P-OB za SW-C — Lišta 1 (L-05) + Lišta 2 (L-06)
+- **SH-06** Plus 2PM v P-OB za SW-D — Lišta 3 (L-07) + HUE event Lustr jídelna (L-04 K2 detached)
+- **SH-07** i4 v P-OB za SW-A+B — Předsíň strop (L-09) + Obývák strop (L-10)
+
+### Speciální požadavek na 3 dvoucestné dvojvypínače
+
+ABB Tango pružinkové dvojvypínače typu **DVOUCESTNÝ** (přepínačový mechanismus, 3 svorky) na 3 pozicích:
+- SW-B (druhý dvojvypínač v P-OB)
+- SW-D (poslední dvojvypínač v P-OB)
+- SW-G (dvojvypínač u dveří v dolní předsíni)
+
+### Zbývá nainstalovat (rozsah aktuální objednávky)
+
+5 Shellys: SH-02 (LED pásek dolní předsíně), SH-14/15 (pracovna), SH-16 (koupelna horní), SH-17 (WC).
+
+| Ks | Shelly typ | Volné | Chybí |
+|---:|---|---:|---:|
+| 1 | Mini (SH-02) | 0 | **1** (~300 Kč) |
+| 4 | Plus 2PM (SH-14/15/16/17) | 3 | **1** (~1 000 Kč) |
+
+**Celkem k nákupu: ~1 700 Kč** (300 + 1 000 + rezerva 400 Kč KU68/WAGO).
+
+## DRAFT v0.7 — 2026-05-08
+
+### Plánovaná úprava jídelny (analogie kuchyně)
+
+Do krabičky v jídelně je přivedený **zásuvkový okruh** (220V s N+PE). Toho se využije:
+
+- **Sjednocení 2 jednovypínačů** (SW-J1 LED + SW-J2 Lustr) **do 1 dvojvypínače** (SW-J)
+- **Přidání zásuvky vlevo**
+- **Trik s relé 220→24V** (analogie LED digestoře v kuchyni): pravá buňka dvojvypínače (220V) → relé → 24V puls do vstupu stávajícího SH-E2 (RGBW PM, beze změny)
+- Levá buňka (Lustr HUE) zůstává paralelka přes stáv. schodišťák do SH-06 SW2 v obýváku
+
+### Pořadí vypínačů (po reálném ohledání)
+
+Stávající pořadí v rámečku jídelny: **Lustr vlevo, LED vpravo** (oproti dřívějšímu předpokladu opačně). Ve `plates.yaml` (před i po úpravě) opraveno.
+
+### Kusovník navíc (mimo Shelly)
+
+| Ks | Položka | Účel |
+|---:|---|---|
+| 1 | Relé 220→24V (impulsní) | Před SH-E2 v jídelně pro L-13 LED 24V |
+| 1 | Dvojvypínač pružinový + zásuvka 220V | SW-J + nová zásuvka v rámečku jídelny |
+
+Žádný nový Shelly není potřeba — SH-E2 RGBW PM zůstává.
+
 ## Další plánované iterace
 
 - [ ] Ověřit otevřené otázky z `open-questions.md`

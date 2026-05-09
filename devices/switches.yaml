@@ -16,8 +16,8 @@ switches:
 
   - id: SW-B
     room: Obývák
-    position: Vstup, druhý dvojvypínač
-    hardware: Dvojvypínač #2
+    position: Vstup, druhý dvojvypínač (druhý modul v P-OB)
+    hardware: Dvojvypínač pružinový — typ DVOUCESTNÝ (3 svorky / přepínačový mechanismus)
     buttons:
       - button: B1
         circuit: L-09  # předsíň strop HUE (sdíleno s SW-F2, SW-G2 paralelka na stejný vstup)
@@ -45,8 +45,8 @@ switches:
 
   - id: SW-D
     room: Obývák
-    position: Vstup, čtvrtý dvojvypínač
-    hardware: Dvojvypínač #4
+    position: Vstup, čtvrtý dvojvypínač (poslední modul v P-OB)
+    hardware: Dvojvypínač pružinový — typ DVOUCESTNÝ (3 svorky / přepínačový mechanismus)
     buttons:
       - button: D1
         circuit: L-07  # Lišta 3
@@ -93,7 +93,7 @@ switches:
   - id: SW-G
     room: Dolní předsíň
     position: U dveří
-    hardware: Dvojvypínač
+    hardware: Dvojvypínač pružinový — typ DVOUCESTNÝ (3 svorky / přepínačový mechanismus)
     shelly_in_box: NONE  # žádná Shelly v této krabici
     buttons:
       - button: G1
@@ -144,8 +144,9 @@ switches:
 
   - id: SW-J1
     room: Jídelna
-    position: V 1 rámečku se SW-J2
+    position: V 1 rámečku se SW-J2 (BEFORE — stávající stav)
     hardware: Jednovypínač
+    deprecated_by: SW-J  # plánováno sjednotit do SW-J dvojvypínače
     buttons:
       - button: J1
         circuit: L-13  # LED jídelna (stávající)
@@ -154,13 +155,34 @@ switches:
 
   - id: SW-J2
     room: Jídelna
-    position: V 1 rámečku se SW-J1
+    position: V 1 rámečku se SW-J1 (BEFORE — stávající stav)
     hardware: Jednovypínač
+    deprecated_by: SW-J  # plánováno sjednotit do SW-J dvojvypínače
     buttons:
       - button: J2
         circuit: L-04  # lustr jídelna (HUE)
         wired_to: SH-06 SW2  # paralelka k SW-D2 přes stáv. schodišťákový drát do SH-06 (v obýváku)
         mode: parallel
+
+  - id: SW-J
+    room: Jídelna
+    position: AFTER — nový dvojvypínač sjednocující SW-J1+SW-J2 (vedle nové zásuvky vlevo)
+    hardware: Dvojvypínač pružinový (220V — krabice napojená na zásuvkový okruh)
+    buttons:
+      - button: J-LUSTR
+        circuit: L-04  # lustr jídelna (HUE) — levá buňka
+        wired_to: SH-06 SW2  # paralelka k SW-D2 přes stáv. schodišťákový drát do SH-06 (v obýváku)
+        mode: parallel
+      - button: J-LED
+        circuit: L-13  # LED jídelna (24V, stávající SH-E2) — pravá buňka
+        wired_to: SH-E2 SW (přes relé 220→24V)
+        mode: attached  # tlačítko 220V → relé převede na 24V signál pro SH-E2
+        notes: Předsazené relé 220→24V (analogie k LED digestoři v kuchyni). Stávající SH-E2 RGBW PM beze změny.
+    notes: >
+      Pořadí v rámečku zleva doprava: zásuvka, Lustr (HUE paralelka), LED (přes relé do SH-E2).
+      Krabice je napojena na zásuvkový okruh (220V s N+PE), což umožňuje napájet 220V tlačítka
+      a relé. Pravé tlačítko (LED) → relé 220→24V → vstup stávajícího SH-E2 24V (analogie kuchyně).
+      Levé tlačítko (Lustr) je paralelka pro Hue přes stáv. schodišťák.
 
   # ============ KUCHYŇ (stávající rámeček, doplněno kvůli sdíleným okruhům) ============
 

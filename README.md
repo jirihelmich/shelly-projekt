@@ -24,7 +24,9 @@
 
 ![Ložnice](plates/prehled-loznice.svg)
 
-Zahrnuje plánované úpravy: kuchyňský rámeček rozšířen o druhou zásuvku, 2 jednovypínače (Lišta 3 + LED digestoř) sloučené do dvojvypínače (obě buňky 220V — LED digestoř má předsazené relé 220→24V před SH-E3).
+Zahrnuje plánované úpravy:
+- **Kuchyň**: rámeček rozšířen o druhou zásuvku, 2 jednovypínače (Lišta 3 + LED digestoř) sloučené do dvojvypínače (obě buňky 220V — LED digestoř má předsazené relé 220→24V před SH-E3).
+- **Jídelna**: do krabičky vede zásuvkový okruh (220V s N+PE), takže původní 2 jednovypínače sloučené do dvojvypínače + zásuvka vlevo. LED 24V (L-13) má předsazené relé 220→24V před stávajícím SH-E2 (analogie kuchyně).
 
 ### Čáry v přehledu
 
@@ -41,10 +43,10 @@ Pro referenci při instalaci:
 
 ## Co se instaluje
 
-- **10 nových Shelly zařízení** v tomto scope (3× Shelly 1 Mini, 6× Plus 2PM, 1× i4)
+- **Z 10 plánovaných Shelly už 5 nainstalováno** (P-OB obývák: SH-05/06/07; horní předsíň: SH-01, SH-03). **Zbývá 5** k namontování (SH-02 u trafa LED pásku, SH-14/15 pracovna, SH-16 koupelna horní, SH-17 WC).
 - **Ložnice už je hotová** — mimo tuto objednávku (nedotýká se inventáře volných kusů)
 - **12+ krabic** s vypínači nebo Shelly (z toho 5 krabic bez Shelly — jen WAGO propojení; další 4 místnosti beze změny)
-- **K nákupu:** ~1 700 Kč (1× Mini + 1× Plus 2PM + rezerva; i4 pokryjeme z vlastních)
+- **K nákupu pro zbývající instalaci:** ~1 700 Kč (1× Mini pro SH-02 + 1× Plus 2PM + rezerva; ostatní volné z vlastního inventáře)
 - **20 světelných okruhů** celkem (15 nových/upravených + 5 stávajících beze změny; ložnice L-20..L-24 vedena zvlášť, již instalováno)
 
 ### Stávající zařízení (beze změny)
@@ -114,7 +116,7 @@ Krabice bez Shelly (jen tlačítka + WAGO + signální vodič):
 - Obývák, krabice za SW-A — paralelka přes stáv. schodišťák Obývák↔P-HP do SH-01 SW1
 - Horní předsíň, krabice za SW-H2 (vedle SW-H1) — paralelka přes stáv. schodišťák P-HP↔P-CP do SH-03 SW1 (jiný okruh než L-01)
 - Dolní předsíň, SW-F2 a SW-G — paralelky do SH-07 IN2 a SH-02 SW1
-- Jídelna, SW-J2 — paralelka do SH-06 SW2
+- Jídelna, SW-J (po úpravě dvojvypínač + zásuvka) — levá buňka paralelka do SH-06 SW2 (Hue Lustr); pravá buňka přes relé 220→24V do SH-E2 (LED 24V)
 
 Krabice bez Shelly (jen tlačítka + WAGO propoje):
 - Dolní předsíň u pracovny (SW-F1 + SW-F2) — SH-02 Mini je ve stropě u trafa/driveru pásku; SW-F2 paralelka přes schodišťák do SH-07 IN2 v obýváku
@@ -140,21 +142,36 @@ Shelly u svítidel (stropní krabice):
 | 5 | Shelly Plus 2PM |
 | 1 | Shelly RGBW PM |
 
-### Potřeba pro tento projekt (ložnice už hotová, mimo objednávku)
+### Už nainstalováno (mimo objednávku)
+
+| Ks | Shelly | Kde |
+|---:|---|---|
+| 2 | Shelly 1 Mini (SH-01, SH-03) | Horní předsíň: SH-01 v P-HP (krabice u schodů, L-01), SH-03 v P-CP (u pokoje, L-03) |
+| 2 | Shelly Plus 2PM (SH-05, SH-06) | Obývák P-OB: SH-05 za SW-C (Lišty 1+2), SH-06 za SW-D (Lišta 3 + Hue jídelna event) |
+| 1 | Shelly i4 (SH-07) | Obývák P-OB za SW-A+B (předsíň strop / obývák strop) |
+| 2 | Shelly i4 (SH-11, SH-12) | Ložnice (samostatný diagram) |
+| 1 | Shelly RGBW PM (SH-13) | Ložnice (samostatný diagram) |
+
+### Zbývá nainstalovat (toto je rozsah objednávky)
 
 | Ks | Shelly typ | Kde | Máme volné | Chybí |
 |---:|---|---|---:|---:|
-| 3 | Shelly 1 Mini (SH-01, SH-02, SH-03) | H. předsíň u schodů (P-HP), dolní předsíň (u trafa), H. předsíň u pokoje (P-CP) | 2 | **1** (~300 Kč) |
-| 6 | Shelly Plus 2PM (SH-05, SH-06, SH-14, SH-15, SH-16, SH-17) | obývák (2) + pracovna (2) + koupelna horní (1) + WC (1) | 5 | **1** (~1 000 Kč) |
-| 1 | Shelly i4 (SH-07) | obývák | 2 | 0 (1 ks zbyde jako rezerva) |
+| 1 | Shelly 1 Mini (SH-02) | Dolní předsíň, u LED driveru/trafa pásku | 0 | **1** (~300 Kč) |
+| 4 | Shelly Plus 2PM (SH-14, SH-15, SH-16, SH-17) | Pracovna (2) + koupelna horní (1) + WC (1) | 3 | **1** (~1 000 Kč) |
 | — | KU68 kroužky + WAGO svorky + drobné | — | — | rezerva ~400 Kč |
 | | | | **K nákupu** | **~1 700 Kč** |
-
-**Ložnice už je hotová** (SH-11 + SH-12 i4 + SH-13 RGBW PM již instalováno) — **mimo tuto objednávku**, volný inventář i4 zůstává nedotčen. Viz samostatný diagram `plates/prehled-loznice.svg`.
 
 **Po této objednávce:** 0 ks rezervy Plus 2PM + 1 ks rezerva i4 + 0 ks rezerva Mini. Zvážit dokoupit +1 ks Plus 2PM (~1 000 Kč) pro případ poruchy / budoucí rozšíření.
 
 Vypínače ABB Tango (pružinkové tlačítkové moduly + rámečky) řeší zákazník samostatně.
+
+### Speciální požadavky na vypínače
+
+| Ks | Typ | Kde |
+|---:|---|---|
+| 3 | **Dvojvypínač pružinový — DVOUCESTNÝ** (přepínačový mechanismus, 3 svorky) | SW-B (druhý dvojvypínač v P-OB) + SW-D (poslední dvojvypínač v P-OB) v obýváku + SW-G (dvojvypínač u dveří v dolní předsíni) |
+| 1 | **Dvojvypínač pružinový** (běžný 220V) + **zásuvka 220V** | Jídelna (SW-J — sjednocení SW-J1 + SW-J2 + nová zásuvka vlevo) |
+| 1 | **Relé 220→24V** (impulsní převodník signálu) | Jídelna před SH-E2 (LED 24V), analogie LED digestoře v kuchyni |
 
 ---
 
